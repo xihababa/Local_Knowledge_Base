@@ -1,0 +1,700 @@
+{
+  "entries": [
+    {
+      "id": "entry_1792573443459_65a27995",
+      "title": "数仓八股",
+      "content": "什么数仓才算一个好的数仓？\n外部要求：易用（查询性能好） \n   数据质量高（符合完整性、准确性、一致性、时效性） \n   方便开发（横向扩展）和运维\n   具有较高成本效益\n内部评价标准：跨层引用率、表引用数、引用链路长度、表命名规范率、表迭代次数、数据泄露率、数据准时率、数据正确率等指标来判断\n数仓是怎么分层的？\nODS层\n保留业务系统原始数据，保持和数据源的一致性，不做任何类型转换和数据加工处理\nDWD层\n明细宽表层，用于存放完整详细历史数据。面向业务过程建模，紧紧围绕着业务过程来设计，通过获取描述业务过程的度量来表达业务过程，包含了引用的维度和与业务过程有关的度量。其设计目标是为后续的Data Warehouse Model提供灵活性和扩展性的基础，同时可以在DW层无法支持需求时直接为应用层提供数据。DWD层由于与业务系统耦合程度较高，其稳定性会受到业务系统的影响。\nDWS层\n存放详细历史数据的公共汇总数据层，面向分析主题建模。DWS是核心数据层，是为应用层提供足够的灵活性和扩展性的基础。\nADS层\n提供直接面向业务或应用的数据，主要对个性化指标数据进行架构处理，如无公用性或复杂性（如指数型、比值型、排名型等指标数据）的指标数据加工。同时为方便实现数据应用、数据消费的诉求，进行面向应用逻辑的数据组装（如打宽表集市、横表转纵表、趋势指标串等）。\n数仓为什么要分层 ？\n● 清晰数据结构：每一个数据分层都有它的作用域和职责，在使用表的时候能更方便地定位和理解\n● 减少重复开发：规范数据分层，开发一些通用的中间层数据，能够减少极大的重复计算\n● 统一数据口径：通过数据分层，提供统一的数据出口，统一对外输出的数据口径\n● 复杂问题简单化：将一个复杂的任务分解成多个步骤来完成，每一层解决特定的问题\n\n怎么评价分层的好坏？\n（参考《阿里巴巴-大数据之路》第九章9.3.3 - 基本原则）：\n● 从完善度上来讲，主要衡量DWD层和汇总层两块的完善度，DWD层完善度，主要是希望DWD等尽可能被汇总层引用，ODS层被除了DWD层外的尽可能少的引用，最好是没有\n● 从复用度上来讲，我们希望80%需求由20%的表来支持。直接点讲，就是大部分（80%以上）的需求，都用DWS的表来支持\n● 从规范度上来讲，主要从表名、字段名来看，一个规范的表名应该包括层级、主题域、分区规则，抽取类型等信息。字段规范应该是和词根一致，同字段同名等\n  ○ 高内聚低耦合\n    ■ 数据业务特性：将业务相近或相关、粒度相同的数据设计为一个逻辑或物理模型\n    ■ 数据访问特性：将高概率同时访问的数据放在一起，将低概率同时访问的数据分开存储\n  ○ 核心模型与扩展模型分离\n    ■ 核心模型包括的字段支持常用核心业务，扩展模型包括的字段支持个性化或少量应用需要\n  ○ 公共处理逻辑下沉及单一\n    ■ 越是底层公用的逻辑越应该在数据调度依赖的底层进行封装与实现，不要让公用的逻辑暴露给应用层实现\n    ■ 不要让公共逻辑多处同时存在\n  ○ 成本与性能平衡\n    ■ 适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制\n  ○ 数据可回滚\n    ■ 处理逻辑不变，在不同时间多次运行数据结果确定不变\n  ○ 一致性\n    ■ 具有相同含义的字段在不同表中的命名必须相同，必须使用规范定义中的名称\n  ○ 命名清晰，易理解\n    ■ 表命名需清晰、一致，表名需易于消费者理解和使用\n事实表设计分几种，每一种都是如何在业务中使用？\n事实表分为事务事实表、周期快照事实表、累积快照事实表\n● 事务（原子）事实表：保存各业务过程的原子操作事件，即最细粒度的记录。可用于分析各个业务过程相关的各项统计指标，可以提供最大限度的灵活性，可以支持无法预期的各种细节层次的统计需求。\n● 周期快照事实表：以具有规律性的、可预见的时间间隔来记录事实，主要用于分析一些存量型（商品库存、账户余额）或状态型（行驶速度、空气温度）指标。（半可加、不可加）。\n● 累积快照事实表：基于一个业务流程中的多个关键业务过程联合处理而构建的事实表，主要用于分析业务过程之间的时间间隔等需求。\n单事务事实表和多事务事实表区别？\n单事务事实表（Single-Transaction Fact Table）：\n区别：单事务事实表通常记录单个业务事件或交易的详细数据。每个记录对应一个具体的业务活动，如一笔销售或一次服务请求。\n作用：这种事实表用于详细分析单个事件，例如，评估单个交易的性能、分析客户购买行为或评估特定产品的表现。\n多事务事实表（Multi-Transaction Fact Table）：\n区别：多事务事实表存储一段时间内多个业务事件的聚合数据。例如，它可能包含一个时间段内的所有销售记录的总和。\n作用：这种事实表用于分析一段时间或范围内的总体趋势和模式，如月度销售总额、季度增长率或年度业绩。\n具体区别：\n粒度：单事务事实表的粒度更细，记录每个单独的业务事件；多事务事实表的粒度较粗，记录一段时间内的业务事件总和。\n数据量：单事务事实表可能包含大量的行，因为它们记录了每个单独的事件；多事务事实表的行数较少，因为它们是聚合数据。\n更新频率：单事务事实表可能需要更频繁的更新，因为每次业务事件发生时都需要记录；多事务事实表可能按周期更新，如按月或按季。\n查询复杂性：单事务事实表的查询可能更复杂，因为它们需要处理更多的细节；多事务事实表的查询可能更简单，因为它们处理的是聚合数据。\n作用：\n单事务事实表允许进行深入的微观分析，帮助理解单个事件的影响和细节。\n多事务事实表提供了宏观层面的业务视图，有助于识别长期趋势、进行战略规划和评估整体业绩。\n在实际应用中，组织可能会根据分析需求同时使用这两种类型的事实表。例如，一个零售商可能同时拥有记录每笔交易的单事务事实表和记录每日或每月销售总额的多事务事实表，以支持从微观到宏观的不同分析需求。\n讲讲你项目中的数据建模？\n讲下你觉得做的最好的项目   从做了什么 和 难点在哪儿怎么解决 两部分说明？\n如何为新业务建模？\n● 选择需要进行分析决策的业务过程\n● 定义粒度\n● 识别维度\n● 确认事实\n如何保障数据质量（完整性、准确性、一致性、时效性）有哪些方法？\n怎么衡量数仓的数据质量，有哪些指标？\n简述维度设计中有整合和拆分，有哪些方法，并详细说明 ？\n在维度设计中，整合和拆分是两种常见的技术，用于优化维度模型的结构和性能。以下是一些常用的方法：\n\n1.整合维度（Conformed Dimensions）：\n也称为一致维度或共享维度。整合维度是在整个数据仓库中使用单一、一致的维度表，以确保数据的一致性。\n方法：\n确保所有事实表使用相同的维度表，避免数据冗余和不一致。\n使用维度值的编码或键值来实现不同业务过程之间的维度整合。\n2.拆分维度（Splitting Dimensions）：\n将一个维度表拆分成两个或多个相关但独立的维度表，以减少数据冗余和提高查询性能。\n方法：\n根据业务需求将维度属性拆分到不同的表中。\n例如，将时间维度拆分为日期、月份、季度等单独的维度表。\n3.缓慢变化维（Slowly Changing Dimension, SCD）：\n处理维度数据随时间变化的情况，保留历史信息以支持数据的一致性和可追溯性。\n方法：\nType 1（覆盖型）：直接覆盖旧数据。\nType 2（追踪型）：添加新记录来追踪变化。\nType 3（渐进型）：在现有记录中更新数据，并保留历史数据。\n4.角色维度（Role-Playing Dimensions）：\n一个维度表在不同的上下文中扮演不同的角色，通常通过增加角色字段来区分。\n方法：\n在维度表中添加角色标识符，如“客户”和“供应商”，即使它们共享相同的数据。\n5.退化维度（Degenerate Dimensions）：\n当维度表只包含键值而不包含任何描述性信息时，可以将其退化为事实表的一部分。\n方法：\n将维度的键值直接包含在事实表中，而不是作为单独的维度表。\n6.桥接维度（Bridge Dimensions）：\n当两个维度之间存在多对多关系时，创建一个桥接维度来连接它们。\n方法：\n创建一个新的维度表，包含两个维度的外键，以及可能的额外信息。\n7.层次维度（Ragged Hierarchy）：\n处理维度中的不规则层次结构，如组织结构中的不同级别。\n方法：\n使用路径枚举或递归查询来处理层次结构中的不规则性。\n8.组合维度（Composite Dimensions）：\n将多个维度合并为一个维度，以简化模型和查询。\n方法：\n例如，将时间维度和地点维度合并为一个时间-地点维度。\n9.使用维度类型（Using Dimension Types）：\n根据维度的特性（如时间、文本、数值等）选择最合适的维度类型。\n方法：\n例如，使用时间维度类型来处理日期和时间数据。\n10.维度去规范化（Denormalizing Dimensions）：\n为了提高查询性能，有时将多个维度表合并为一个去规范化的维度表。\n方法：\n合并维度表，减少查询时的连接操作。\n维度设计中的整合和拆分方法需要根据具体的业务需求、数据特性和查询模式来选择。设计过程中需要平衡数据的一致性、可维护性和查询性能。\n\n\n\n\n单事务事实表、多事务事实表区别与作用？\n指标下沉时为何要拆分？\n工作中做没做过数据治理？\n原子指标、复合指标、衍生指标的区别？\n如何保证指标不会重复开发？\n某个链路产出比较晚怎么解决？\n答：任务优化 /上下游链路优化\n哪些字段适合放到DW的宽表里？\n数仓主题域划分 为什么这么划分？\n怎么理解onedata体系？\n为什么需要数据建模？\n数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。\n数据仓库建模的目标是通过建模的方法更好的组织、存储数据，以便在性能、成本、效率和数据质量之间找到最佳平衡点。\n当有了适合业务和基础数据存储环境的模型（良好的数据模型），那么大数据就能获得以下好处：\n性能：快速的查询我们所需要的数据，减少数据的I/O吞吐。\n成本：极大的减少不必要的数据冗余，实现计算结果复用，降低数据的存储和计算成本。\n效率：极大的改善用户使用数据的体验，提高使用数据的效率。\n质量：改善数据统计口径的不一致性，减少数据计算错误的可能性。\n\n\n\n数据漂移问题怎么解决？",
+      "summary": "外部要求：易用（查询性能好） 数据质量高（符合完整性、准确性、一致性、时效性） 方便开发（横向扩展）和运维 具有较高成本效益 内部评价标准：跨层引用率、表引用数、引用链路长度、表命名规范率、表迭代次数、数据泄露率、数据准时率、数据正确率等指标来判断 数仓是怎么分层的",
+      "sourceType": "mixed",
+      "sourceUrl": "",
+      "tags": [
+        "数仓基础"
+      ],
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "entry_1792570067569_80743a9c",
+      "title": "自然月累计金额",
+      "content": "orders表(字段:oid,uid,itemid,itemnum, paytime, payamt)\n用一句SQL取出每个用户最近一个月 每天的购买金额以及当天的月累计金额\n注:当天的月累计金额指月初至统计\n日期的自然月累计金额,(限时10分钟）\n\n\nSELECT uid,\n       paydate,\n       daily_amount,\n       SUM(daily_amount) OVER (\n           PARTITION BY uid, trunc(paydate, 'MM')      \n           ORDER BY paydate\n       ) AS monthly_cumulative_amount\nFROM (\n    SELECT uid,\n           to_date(paytime) AS paydate,                 \n           SUM(payamt)      AS daily_amount\n    FROM orders\n    WHERE paytime >= trunc(date_sub(current_date, 30), 'MM')  -- 窗口最早日所在月的1号（精确下界）\n      AND paytime <  date_add(current_date, 1)                -- 截止到今天，利于分区裁剪\n    GROUP BY uid, to_date(paytime)\n) t\nWHERE paydate >= date_sub(current_date, 30);           -- 最后只留最近一个月",
+      "summary": "orders表(字段:oid,uid,itemid,itemnum, paytime, payamt) 用一句SQL取出每个用户最近一个月 每天的购买金额以及当天的月累计金额 注:当天的月累计金额指月初至统计 日期的自然月累计金额,(限时10分钟） SELECT uid, pa...",
+      "sourceType": "mixed",
+      "sourceUrl": "",
+      "tags": [
+        "Sql练习"
+      ],
+      "createdAt": "2026-10-21T08:07:47Z",
+      "updatedAt": "2026-10-21T09:48:36Z"
+    },
+    {
+      "id": "entry_1792567772849_7f747183",
+      "title": "Spark 基础问题",
+      "content": "1. 数据倾斜会在哪一个环节出现？为什么? 举一个自己业务会出现倾斜的场景\n  数据倾斜会在shuffle阶段出现，因为涉及到了数据打散，如果某个值的数据异常多，则会导致这个值全部分布在一个partition中，造成数据倾斜。在sql中join和group by会产生shuffle操作，group by一般会有预处理步骤，不用太关注；join操作是发生数据倾斜的最主要场景。\n\n2. shuffle过程会消耗那些资源？哪些会成为瓶颈？为什么\n  内存、cpu、网络io、磁盘io。shuffle中涉及到了数据的shuffle write、shuffle read，数据的序列化，网络传输。在我们可控制的内存、cpu资源来看，最主要的瓶颈是shuffle read阶段会因为数据量的过大而导致内存溢出，因此需要合理的调整每个partition的数据量并均匀的分散数据。\n\n3. join操作一定发生shuffle吗？\n  不一定。如果其中一张表的数据量非常小，可以采取broadcast join来避免shuffle操作，大大缩短任务时间。在RDD api中可以自由控制每个shuffle的并行度，在两个RDD已由相同分区函数分区并partition数相同的情况下，join不会发生shuffle操作。\n\n4. 以下哪个sql会发生shuffle?(多选)\n  1.  select col1,col2 from table where col1 = 'hello'      错误。过滤不会产生shuffle\n  2.  select table1.a from table1 join table2 on table1.a = table2.a     正确。join是shuffle最主要的场景\n  3.  select col1,count(1) as ct from table group by col1    正确。聚合也会产生shuffle\n  4.  select col1, col2, row_number() over(partition by col1,sort by col2 desc) as rn from table   正确。窗口函数中有分区操作，也产生来shuffle\n\n5. 根据你对shuffle 过程的理解，以下哪种方式可能会优化shuffle性能 ？ (多选)\n  1. 增加Executor个数    正确。增加资源不仅对shuffle性能好，对任何计算操作都有很大帮助\n  2. 增加并行度       正确。增加task数量，相当于减少每个task处理的数据量。在task处理的数据量巨大的情况下是很有帮助的\n  3. 合并输入小文件      正确。初始task由输入文件的个数决定，如果小文件过多，会导致每个task处理数据量小且task数过多。适当的合并输入小文件可以提升性能\n  4. 先join，再过滤       错误。应该先过滤，在join。这样会减少shuffle中产生的数据量，提升shuffle效率\n\n6. 并行度越大越好吗？为什么？\n  并不是。在每个task处理的数据量过多时，可以适当增加并行度来减少每个task处理的数据量，以此增加速度。但当task处理的数据量非常小时，可以适当的减小并行度来减少task个数，因为driver在生成、分配、监视task时需要消耗时间，executor在切换处理task时也需要消耗时间。这些额外的消耗积少成多，增加了任务总时长。",
+      "summary": "举一个自己业务会出现倾斜的场景 数据倾斜会在shuffle阶段出现，因为涉及到了数据打散，如果某个值的数据异常多，则会导致这个值全部分布在一个partition中，造成数据倾斜",
+      "sourceType": "text",
+      "sourceUrl": "",
+      "tags": [
+        "Spark"
+      ],
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T08:05:04Z"
+    },
+    {
+      "id": "entry_1792567035279_fc29dc2b",
+      "title": "RDD介绍",
+      "content": "1. RDD（Resilient Distributed Datasets）\nRDD是指弹性分布式数据集，在代码中是一个抽象类，它代表一个不可变、可分区、里面的元素可并行计算的数据集合。\nRDD的核心概念是分区（Partition）和计算函数。在真正计算时，RDD的不同分区是分散到不同的计算节点进行计算的，每个节点计算RDD的一个分区或多个分区，从而形成数据的分布式计算。\n\nRDD的数据来源只有两种：\n- 从数据源或者集合中进行加载（如HDFS、Hbase）\n- 由其他RDD进行转换（由各种算子实现，如map、filter、groupBy等。主要分为transformation和action算子）\n2. Driver、Executor\n运行Spark的应用程序，最重要的角色是Driver和Executor。\nDriver：主控进程，负责产生DAG和提交Job，解析sql的逻辑和物理执行计划，同时负责回收任务的执行结果，不涉及具体的计算。如果使用广播变量，广播变量会先拉取到Driver端，之后再分发到Executor端执行broadcastjoin。\nExecutor：Task具体执行的节点，负责具体的数据计算和缓存RDD等，执行具体的task任务。Spark的分布式计算就体现在Executor是分布式的。\n3. DAG（Directed Acyclic Graph）\n\nJob：在一个任务中，以Action算子划分Job，如collect、saveAsTextFile、show\nStage：一个Job中，又以Shuffle为边界（宽窄依赖）划分出的不同阶段，如join、groupByKey、reduceByKey\nTask：每个Stage由一组并发的Task组成（即TaskSet），task个数由输入文件的切片个数来决定的。通过算子修改了某一个rdd的分区数量，task数量也会同步修改。一个Stage的总Task的个数由Stage中最后的一个RDD的Partition数量决定。\n4. Spark作业执行\n为便于理解，Spark作业的执行流程可简化为：读取文件并转换为RDD，然后按照解析出的物理执行计划进行RDD Partition的转换、计算。\n\n当Spark读取文件作为输入时，会根据具体数据格式对应的InputFormat进行解析，一般是将若干个Block合并成一个输入分片，称为InputSplit，注意InputSplit不能跨越文件。\nSpark将为InputSplit和后续的RDD Partition生成具体的Task。InputSplit/Partition的数量决定了Task的数量，是一一对应的。\n随后这些具体的Task每个都会被分配到集群上的某个节点的某个Executor去执行。\n- 每个节点可以起一个或多个Executor。\n- 每个Executor由若干core组成，每个Executor的每个core一次只能执行一个Task。\n- 每个Task执行的结果就是生成了目标RDD的一个Partition。\n注：这里的core是虚拟的core，而不是机器的物理CPU核，可以理解为就是Executor的一个工作线程。Task被执行的实际并发度 = Executor数目 * 每个Executor核数 * 虚拟运行核数。",
+      "summary": "RDD（Resilient Distributed Datasets） RDD是指弹性分布式数据集，在代码中是一个抽象类，它代表一个不可变、可分区、里面的元素可并行计算的数据集合",
+      "sourceType": "text",
+      "sourceUrl": "",
+      "tags": [
+        "Spark"
+      ],
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:05:14Z"
+    }
+  ],
+  "qas": [
+    {
+      "id": "qa_1792578089228_357a077e",
+      "question": "两个大表之间关联，其中一张表有3个key（已知这3个key）对应另一张表，分别一万条，十万条，百万条关联，其他的数据平均是1千条的关联，如何处理这种倾斜",
+      "answer": "已经知道了哪些key倾斜，通过打散的形式将百万、十万、一万的拆分处理-- ========= 第一部分：热点 key，加盐打散后关联 ========= \nSELECT a.uid, a.oid, a.payamt, b.u_name, b.u_city \nFROM ( \n -- A 表热点行：每行随机分配一个盐值 0~99 \n SELECT oid, uid, payamt, \n CAST(RAND() * 100 AS INT) AS salt -- 打散成100个桶 \n FROM orders \n WHERE uid IN ('K1','K2','K3') -- 只处理已知热点key \n) a \nJOIN ( \n -- B 表热点行：每行复制100份，盐值 0~99 各一份 \n SELECT u.uid, u.u_name, u.u_city, s.salt \n FROM user_info u \n LATERAL VIEW POSEXPLODE(SPLIT(SPACE(99), ' ')) t AS salt, dummy\n )) t AS s \n WHERE u.uid IN ('K1','K2','K3') \n) b \nON a.uid = b.uid \nAND a.salt = b.salt -- ★ 用 key+盐 一起关联，摊到100个reducer \nUNION ALL \n-- ========= 第二部分：非热点（冷）数据，正常关联 ========= \nSELECT a.uid, a.oid, a.payamt, b.u_name, b.u_city \nFROM orders a \nJOIN user_info b \nON a.uid = b.uid \nWHERE a.uid NOT IN ('K1','K2','K3'); -- 冷数据不倾斜，普通join即可\n基于上面那个问题，就想临时将它跑过去，不想做特殊处理，怎么办\n答案：面试官说将内存调大",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Sql练习"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:21:29Z",
+      "updatedAt": "2026-10-21T10:21:52Z"
+    },
+    {
+      "id": "qa_1792578035920_c2099708",
+      "question": "数据倾斜解决办法",
+      "answer": "Group By 倾斜\t：\nhive.map.aggr=true（map 端预聚合）；\nhive.groupby.skewindata=true（两阶段聚合，把倾斜 key 加随机前缀打散再合并）\n\nJoin 空值倾斜：\n空值 加随机数打散（case when id is null then concat('n',rand) else id end），或空值直接过滤/单独处理\nJoin 热点 key\t热点 key 拆出来单独 mapjoin / 膨胀小表，其余正常 join，最后 union all；hive.optimize.skewjoin=true\n\n大表 join 小表：\n走 MapJoin（hive.auto.convert.join=true），无 reducer 自然不倾斜\n\nCount Distinct：\t\n改写为两阶段：先 distinct 子查询去重再 count，或 group by 后 count；可加随机数分桶去重\n大表 join 大表：\n调大内存、增加 reducer、SkewJoin、分桶表（bucket join）\n动态分区倾斜：\nhive.optimize.sort.dynamic.partition、控制 hive.exec.max.dynamic.partitions、分小批写入\nMap 端小文件/大文件：\n小文件合并（CombineHiveInputFormat）、避免不可切分压缩、合理设置 split 大小\n全局 ORDER BY：\n用 DISTRIBUTE BY ... SORT BY ... 替代，只在必要时 order by",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:20:35Z",
+      "updatedAt": "2026-10-21T10:20:35Z"
+    },
+    {
+      "id": "qa_1792577910161_cd041f29",
+      "question": "怎么判断是否倾斜",
+      "answer": "● 任务进度长时间卡在 reduce 99%，绝大多数 task 已完成，个别 task 卡住或反复重试；\n● YARN/日志里看各 reducer 处理记录数（Reduce input records）严重不均，某个 reducer 读了几十亿行、其他只读几百万；\n● 单个 reducer OOM / 超时报错，整体数据量其实不大。\n定位口诀：先看是不是倾斜（reducer 数据不均），再看是哪类（group by / join / count distinct / 动态分区），再看倾斜 key 长啥样（null / 热点 / 类型问题），最后对症下药——能 mapjoin 就 mapjoin，能打散（随机前缀/两阶段聚合）就打散，空值单独处理。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:18:30Z",
+      "updatedAt": "2026-10-21T10:18:30Z"
+    },
+    {
+      "id": "qa_1792577524995_e09eb630",
+      "question": "spark 三种join（物理性能层面）",
+      "answer": "BroadcastHashJoin（广播哈希连接，BHJ）\n核心思想：数据不动，把小表复制到每台机器。\n当 join 的一边很小（默认小于 spark.sql.autoBroadcastJoinThreshold = 10MB），Spark 干脆把这张小表全量收集后广播到每一个 executor，每个 task 在本地内存里把小表建成一张哈希表（key → 行），然后顺序扫描大表的每一行，拿它的 key 去本地哈希表里查。\n关键点：\n大表完全不 shuffle。大表动辄几十亿行，不洗牌是它最大的优势；\n没有网络传输大表数据、没有 reduce 阶段的排序，通常是最快的 join；\n匹配用的是哈希查找，O(1)，非常快；\n代价是：小表要在每个 executor 内存里放得下，且要先全量收集到 driver 再广播，所以只适合真正的小表（维度表最典型，比如商品维表、城市字典表 join 交易大表）。\n风险：如果统计信息失真、把一张大表误判成小表强行广播，会导致 driver 端 collect 时 OOM 或 executor 内存爆掉（OutOfMemoryError: Cannot build the broadcast table）。可以用 broadcast hint 手动指定：broadcast(small_table)。\n一句话：小表广播到每台机器建哈希表，大表本地扫描本地查，零 shuffle，最快，但小表必须放得进内存。\n\nShuffledHashJoin（洗牌哈希连接，SHJ）\n核心思想：两边都按 key shuffle 到同一批分区，每分区内建哈希表匹配。\n当两张表都比较大、不适合广播，但** shuffle 之后单个分区的数据量仍能放进内存**时用它。流程分两步：\n第一步，shuffle：两张表都用相同的分区器（hash(key) % 分区数）把数据重新分发。这样一来，相同 key 的行一定被分到同一个 reducer 分区——两张表里 key=100 的数据都落在分区 3。\n第二步，在每个分区内建哈希表：选择其中一边（通常较小的一边）在内存里建哈希表，再遍历另一边，用 key 去哈希表里查。\n关键点：\n有 shuffle（这是它和 BHJ 的本质区别，两张大表都得洗牌）；\n但不需要排序（这是它和 SMJ 的本质区别）——shuffle 完直接建哈希表，省去排序的 CPU 和排序过程中的磁盘 spill；\n匹配仍是 O(1) 哈希查找，所以当分区数据能装内存时，它比 SortMergeJoin 少一道排序开销，理论上更快；\n致命约束：建哈希表那一侧的每个分区都必须完整放进内存。大表数据倾斜或单分区很大时就建不下，容易 OOM，所以 Spark 默认其实很少主动选它（需要满足 spark.sql.join.preferSortMergeJoin=false 等条件），工程上用得比 SMJ 少。\n一句话：两张大表先按 key 同规则 shuffle，分区内直接建哈希表查，有 shuffle 但不排序，比 SMJ 省排序、但要求单分区数据能进内存，条件苛刻。\n\nSortMergeJoin（排序归并连接，SMJ）\n核心思想：两边都按 key shuffle，再各自排序，然后像\"拉链\"一样归并匹配。\n这是 Spark 处理两张大表 join 的默认策略，因为它对内存最友好、最稳。流程分三步：\n第一步，shuffle：和 SHJ 一样，两表按相同 hash 分区器洗牌，相同 key 进同一分区。\n第二步，分区内排序：每张表在每个分区内都按 join key 排好序。\n第三步，归并（merge）：两边各有一个游标，从头开始一起向后走。比较两边当前 key：\n相等，就把该 key 对应的所有行做匹配输出，然后两边游标都推进；\n左边 key 小，左边游标前进；右边 key 小，右边游标前进；\n因为两边都有序，游标只需单向往后扫，各扫一遍就能完成连接，不需要回头。\n关键点：\n有 shuffle，也有排序，前期成本最高；\n但它最大的优点是不依赖内存能装下整个分区：排序和归并过程中数据可以溢写磁盘（spill），处理超大、倾斜的数据也能跑完，鲁棒性最强；\n归并本身是 O(n) 顺序扫描，不建大哈希表，内存占用平稳；\n正因为\"再大都能跑\"，它成为大表 join 的默认、最通用选择；\n缺点就是排序贵、shuffle 贵，所以 AQE 在运行时若发现其实有一侧很小，会动态把它降级成 BroadcastHashJoin 来省掉这一切。\n一句话：两表 shuffle 后各自排序，再有序地双游标归并拉链，有 shuffle 有排序，但能 spill 到磁盘、不怕数据大、最稳，是大表 join 的默认选择。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:12:04Z",
+      "updatedAt": "2026-10-21T10:12:04Z"
+    },
+    {
+      "id": "qa_1792576768870_51549bea",
+      "question": "如何构建一个数仓",
+      "answer": "调研\n划分主题域\n构建总线矩阵\n设计分层架构\n模型落地\n质量监控 质量保障 数据治理",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T09:59:28Z",
+      "updatedAt": "2026-10-21T09:59:28Z"
+    },
+    {
+      "id": "qa_1792576661979_5e9796d1",
+      "question": "项目中遇到过数据倾斜、任务跑死、产出延迟的实际案例",
+      "answer": "有一张dwd的表 随着业务需要 从原先5000w到五亿 执行时间从四十分钟到十几小时\n平时正常 突然不正常\n排查队列资源问题 修改为优先级更高的队列\n任务仍无法执行完成，因此不是队列资源不足问题\n调参数 该任务之前未配置spark优化参数，怀疑是资源内存不足够引起因此尝试了如下参数\nset spark.executor.memory=20g;\t为 Spark 应用程序的执行器（Executor）设置内存上限为 20GB。解决内存不足可能导致频繁交换(Swap)或任务失败(OOM错误)\nset spark.sql.files.maxPartitionBytes=1g;\t设置 Spark SQL 读取文件时每个分区所能处理的最大数据量为 1GB。 将文件数据分割成不同分区，每个分区对应一个任务进行处理，配置1GB w为了避免产生过多分区和任务\nset spark.sql.adaptive.maxNumPostShufflePartitions=500;\t设置 Spark SQL Shuffle 后最多允许的分区数量为 500。避免因数据分布不均导致 Shuffle 后产生过多小分区，减少任务调度开销\nset spark.driver.memory=30g;\t设置Spark应用的Driver堆内存上限为30GB，适用复杂的查询计划\nset spark.sql.parquet.adaptiveFileSplit=true;\t启用 Spark SQL 对 Parquet 文件的自适应文件拆分功能。\n避免因 Parquet 文件行组过大导致单个分区数据量过大，从而引发内存压力、使数据分区更符合集群的并行处理能力，提升整体读取和计算效率\nset spark.shuffle.hdfs.enabled=true;\t启用 Spark 将 Shuffle 中间数据写入 HDFS 。避免单个节点因存储大量 Shuffle 数据而耗尽本地磁盘空间\nset spark.executor.cores=2;\t为每个 Spark Executor（执行器）分配 2 个 CPU 核心。大量数据运算提供更多核心以提高并行效率\n观测任务运行仍未有好转迹象 🥱说明性能瓶颈可能不在资源配置层面\n处理方式：\n1. 先筛选出执行时间异常的stage\n2. 分析metrics\n● Duration（执行时长）: 如果时间越长，说明task花费的时间就越多，需要从其他的metric指标分析具体耗时分布异常在哪 ，task执行了48min一定存在问题 ❗️\n● Shuffle Write Size/Records: shuffle过程写入到本地磁盘的数据量。写入的数据量级，一般建议是在256M以内，最大写入为5.3G，说明数据有倾斜，需要查看具体逻辑分析❗️",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T09:57:41Z",
+      "updatedAt": "2026-10-21T10:15:55Z"
+    },
+    {
+      "id": "qa_1792576402777_c242ce43",
+      "question": "工作中做没做过数据治理？",
+      "answer": "分为 存储治理 和计算治理\n存储治理 ：数据压缩\n           生命/冷备周期治理\n     空表治理\n计算治理：\n单点任务：\ncu消耗高：暴力扫描 小文件任务 动态分区写入多的任务\n运行慢：数据倾斜 map数较少 数据逻辑优化\n其他：输出为空任务治理 连续失败任务治理\n成块任务：重复/相似计算",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T09:53:22Z",
+      "updatedAt": "2026-10-21T09:53:46Z"
+    },
+    {
+      "id": "qa_1792575278651_b54b9e7b",
+      "question": "数仓是什么？",
+      "answer": "面向主题的、集成的、反应历史变化的数据集合 用来支持分析与决策",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T09:34:38Z",
+      "updatedAt": "2026-10-21T09:35:02Z"
+    },
+    {
+      "id": "qa_1792573443464_788cc200",
+      "question": "事实表设计分几种，每一种都是如何在业务中使用？",
+      "answer": "事实表分为事务事实表、周期快照事实表、累积快照事实表\n● 事务（原子）事实表：保存各业务过程的原子操作事件，即最细粒度的记录。可用于分析各个业务过程相关的各项统计指标，可以提供最大限度的灵活性，可以支持无法预期的各种细节层次的统计需求。\n● 周期快照事实表：以具有规律性的、可预见的时间间隔来记录事实，主要用于分析一些存量型（商品库存、账户余额）或状态型（行驶速度、空气温度）指标。（半可加、不可加）。\n● 累积快照事实表：基于一个业务流程中的多个关键业务过程联合处理而构建的事实表，主要用于分析业务过程之间的时间间隔等需求。",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:29:30Z"
+    },
+    {
+      "id": "qa_1792573443464_0d8a032d",
+      "question": "单事务事实表和多事务事实表区别？",
+      "answer": "单事务事实表（Single-Transaction Fact Table）：\n区别：单事务事实表通常记录单个业务事件或交易的详细数据。每个记录对应一个具体的业务活动，如一笔销售或一次服务请求。\n作用：这种事实表用于详细分析单个事件，例如，评估单个交易的性能、分析客户购买行为或评估特定产品的表现。\n多事务事实表（Multi-Transaction Fact Table）：\n区别：多事务事实表存储一段时间内多个业务事件的聚合数据。例如，它可能包含一个时间段内的所有销售记录的总和。\n作用：这种事实表用于分析一段时间或范围内的总体趋势和模式，如月度销售总额、季度增长率或年度业绩。\n具体区别：\n粒度：单事务事实表的粒度更细，记录每个单独的业务事件；多事务事实表的粒度较粗，记录一段时间内的业务事件总和。\n数据量：单事务事实表可能包含大量的行，因为它们记录了每个单独的事件；多事务事实表的行数较少，因为它们是聚合数据。\n更新频率：单事务事实表可能需要更频繁的更新，因为每次业务事件发生时都需要记录；多事务事实表可能按周期更新，如按月或按季。\n查询复杂性：单事务事实表的查询可能更复杂，因为它们需要处理更多的细节；多事务事实表的查询可能更简单，因为它们处理的是聚合数据。\n总结：\n单事务事实表允许进行深入的微观分析，帮助理解单个事件的影响和细节。\n多事务事实表提供了宏观层面的业务视图，有助于识别长期趋势、进行战略规划和评估整体业绩。\n在实际应用中，组织可能会根据分析需求同时使用这两种类型的事实表。例如，一个零售商可能同时拥有记录每笔交易的单事务事实表和记录每日或每月销售总额的多事务事实表，以支持从微观到宏观的不同分析需求。",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:07:44Z"
+    },
+    {
+      "id": "qa_1792573443466_7350e967",
+      "question": "讲讲你项目中的数据建模？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443468_4c84bbf7",
+      "question": "讲下你觉得做的最好的项目 从做了什么 和 难点在哪儿怎么解决 两部分说明？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443469_cf852f52",
+      "question": "如何为新业务建模？（维度建模）",
+      "answer": "一句话描述就是将数据抽象为事实和维度\n步骤\n1. 确定业务过程和事实表类型\n2. 定义粒度\n3. 识别维度\n4. 确认事实",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T10:22:33Z"
+    },
+    {
+      "id": "qa_1792573443471_32e089d6",
+      "question": "如何保障数据质量（完整性、准确性、一致性、时效性）有哪些方法？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443473_68e50ece",
+      "question": "怎么衡量数仓的数据质量，有哪些指标？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443475_30a319e9",
+      "question": "简述维度设计中有整合和拆分，有哪些方法，并详细说明？",
+      "answer": "在维度设计中，整合和拆分是两种常见的技术，用于优化维度模型的结构和性能。以下是一些常用的方法：\n\n1.整合维度（Conformed Dimensions）：\n也称为一致维度或共享维度。整合维度是在整个数据仓库中使用单一、一致的维度表，以确保数据的一致性。\n方法：\n确保所有事实表使用相同的维度表，避免数据冗余和不一致。\n使用维度值的编码或键值来实现不同业务过程之间的维度整合。\n2.拆分维度（Splitting Dimensions）：\n将一个维度表拆分成两个或多个相关但独立的维度表，以减少数据冗余和提高查询性能。\n方法：\n根据业务需求将维度属性拆分到不同的表中。\n例如，将时间维度拆分为日期、月份、季度等单独的维度表。\n3.缓慢变化维（Slowly Changing Dimension, SCD）：\n处理维度数据随时间变化的情况，保留历史信息以支持数据的一致性和可追溯性。\n方法：\nType 1（覆盖型）：直接覆盖旧数据。\nType 2（追踪型）：添加新记录来追踪变化。\nType 3（渐进型）：在现有记录中更新数据，并保留历史数据。\n4.角色维度（Role-Playing Dimensions）：\n一个维度表在不同的上下文中扮演不同的角色，通常通过增加角色字段来区分。\n方法：\n在维度表中添加角色标识符，如“客户”和“供应商”，即使它们共享相同的数据。\n5.退化维度（Degenerate Dimensions）：\n当维度表只包含键值而不包含任何描述性信息时，可以将其退化为事实表的一部分。\n方法：\n将维度的键值直接包含在事实表中，而不是作为单独的维度表。\n6.桥接维度（Bridge Dimensions）：\n当两个维度之间存在多对多关系时，创建一个桥接维度来连接它们。\n方法：\n创建一个新的维度表，包含两个维度的外键，以及可能的额外信息。\n7.层次维度（Ragged Hierarchy）：\n处理维度中的不规则层次结构，如组织结构中的不同级别。\n方法：\n使用路径枚举或递归查询来处理层次结构中的不规则性。\n8.组合维度（Composite Dimensions）：\n将多个维度合并为一个维度，以简化模型和查询。\n方法：\n例如，将时间维度和地点维度合并为一个时间-地点维度。\n9.使用维度类型（Using Dimension Types）：\n根据维度的特性（如时间、文本、数值等）选择最合适的维度类型。\n方法：\n例如，使用时间维度类型来处理日期和时间数据。\n10.维度去规范化（Denormalizing Dimensions）：\n为了提高查询性能，有时将多个维度表合并为一个去规范化的维度表。\n方法：\n合并维度表，减少查询时的连接操作。\n维度设计中的整合和拆分方法需要根据具体的业务需求、数据特性和查询模式来选择。设计过程中需要平衡数据的一致性、可维护性和查询性能。",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443476_678e4c6b",
+      "question": "单事务事实表、多事务事实表区别与作用？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443478_dae2dfc6",
+      "question": "指标下沉时为何要拆分？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443481_7f9959d5",
+      "question": "原子指标、复合指标、衍生指标的区别？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443484_f721b61d",
+      "question": "如何保证指标不会重复开发？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443485_159251f3",
+      "question": "某个链路产出比较晚怎么解决？",
+      "answer": "答：任务优化 /上下游链路优化",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443487_ae67daec",
+      "question": "哪些字段适合放到DW的宽表里？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443489_e9051bb6",
+      "question": "数仓主题域划分 为什么这么划分？",
+      "answer": "",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443491_d084fb97",
+      "question": "怎么理解onedata体系？",
+      "answer": "onemodel 统一数据构建和管理  规范定义建模 资产而非成本\noneservice 统一数据服务 复用而非复制数据\noneid 统一数据萃取",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:58:59Z"
+    },
+    {
+      "id": "qa_1792573443494_ca369fa1",
+      "question": "为什么需要数据建模？",
+      "answer": "数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。\n数据仓库建模的目标是通过建模的方法更好的组织、存储数据，以便在性能、成本、效率和数据质量之间找到最佳平衡点。\n当有了适合业务和基础数据存储环境的模型（良好的数据模型），那么大数据就能获得以下好处：\n性能：快速的查询我们所需要的数据，减少数据的I/O吞吐。\n成本：极大的减少不必要的数据冗余，实现计算结果复用，降低数据的存储和计算成本。\n效率：极大的改善用户使用数据的体验，提高使用数据的效率。\n质量：改善数据统计口径的不一致性，减少数据计算错误的可能性。",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:04:03Z"
+    },
+    {
+      "id": "qa_1792573443497_c35ab416",
+      "question": "数据漂移问题怎么解决？",
+      "answer": "一、什么是数据漂移\nODS 从业务库做增量同步时，通常拿一个时间字段（最常用 gmt_modified 修改时间）来切分每天该抽哪些数据、放进哪个分区。但业务库是 7×24 持续写入的，\"同步时点\"和\"业务实际发生时点\"对不齐，于是数据在分区之间错位，这就叫数据漂移。具体有两种典型：\n\n① 漏数（深夜数据延迟落库）\n订单在 T 日 23:59:59 下单成功（业务上属于 T 日）；\n但同步任务 T+1 凌晨 0 点就跑了，这条记录因事务提交/主从延迟还没落库 → T 分区抽不到它，等它落库时 gmt_modified 已经是 T+1，最后进了 T+1 分区。\n结果：T 日少一条，T+1 日多一条不属于它的。\n② 串行（历史数据当天被更新）\n一条 T 日创建的数据，在 T+1 日被修改（比如订单状态变更、退款）；\ngmt_modified 变成 T+1，增量抽取按修改时间把它抽进了 T+1 分区；\n但从业务发生口径，它本应属于 T 日 → 同一条记录在分区归属上\"漂移\"。\n根因一句话：用了\"会不断变化的处理时间 gmt_modified\"来切分区，而且抽取窗口边界和数据真实落库时刻不一致。\n二、书里的解决思路（核心：扩大窗口 + 业务时间归位 + 幂等回刷）\n阿里的标准做法不是\"只抽当天、抽完了事\"，而是下面这套组合拳：\n1. 用两个时间字段共同圈定，扩大抽取范围\n不要只用 gmt_modited = T日，而是把 gmt_create（创建时间/业务时间）和 gmt_modified（修改时间）取并集，宁可多抽、不可漏抽：\n\nWHERE gmt_create  >= '${T日} 00:00:00'\n   OR gmt_modified >= '${T日} 00:00:00'\n\n用 gmt_modified 兜住\"今天被改过的历史数据\"；\n用 gmt_create 兜住\"今天业务发生、但修改时间异常/跨天的新数据\"；\n两边都覆盖，保证延迟落库和跨天更新的数据都被捞进来。\n2. 抽取窗口\"前延后伸\"，再用业务时间归位\n抽取时把边界往外扩（例如连 T-1 日一起抽，或任务延迟到凌晨业务库变更稳定后再跑），专门接住深夜跨点的数据；\n抽进来之后，不按 gmt_modified 决定归属，而按 gmt_create（业务发生时间）把记录归到正确的分区。\n这一步是关键思想：\"抽取\"可以多拿、拿宽一点；\"归属\"必须听业务时间的。\n3. 幂等覆盖回刷受影响分区（INSERT OVERWRITE）\n多抽进来的数据不能简单 append（会重复），要把受影响分区重算后整体覆盖：\n\nINSERT OVERWRITE TABLE ods_order PARTITION(ds='${T日}')\nSELECT 主键去重后的最新记录 ...\nFROM 扩大窗口抽进来的并集数据\nWHERE 按gmt_create归属于T日;\n\n通常 T 日和 T-1 日两个分区都回刷一遍（因为跨天数据可能落在两者之一）；\n用主键 + 时间戳做去重，取同一主键的最新一条，保证重跑结果一致（幂等）。\n4. 对无法可靠用时间戳的表，走日志（CDC/binlog）\n有些记录更新不一定刷新时间字段，纯靠时间戳会漏；\n书里强调更稳的是基于 binlog 日志采集（DataX / 日志同步），按变更日志顺序回放，从机制上保证不丢变更，再配合归位与去重。\n5. 分表类型区别对待\n维度表（变化慢）：直接做每日全量快照或拉链表（缓慢变化维），天然规避增量漂移；\n事实表（量大）：增量抽取 + 上面的双时间字段扩大窗口 + 分区回刷；\n核心事实还可做 T+1 重跑/数据对账兜底（核对分区行数、金额、主键唯一性）。\n三、一张图记住链路\n业务库持续写入（深夜延迟落库、跨天更新）\n        │  增量同步\n        ▼\n抽取窗口扩大：gmt_create ∪ gmt_modified，前延(T-1)后伸\n        ▼\n按 gmt_create（业务时间）归位到正确分区\n        ▼\n主键去重取最新 → INSERT OVERWRITE 幂等回刷 T、T-1 分区\n        ▼\n行数/金额/主键对账校验\n\n四、一句话总结（可直接当面试答案）\n数据漂移是因为用会变动的 gmt_modified 切分区、且抽取时点与落库时点错位，导致数据跨天分区、漏数或串行。阿里的解法是：抽取时用 gmt_create 和 gmt_modified 并集扩大窗口（前延后伸）保证不丢 → 按业务时间 gmt_create 归位 → 主键去重后 INSERT OVERWRITE 幂等回刷当天及前一天分区 → 关键表用 binlog/CDC 和全量快照（维度表拉链）兜底，再辅以对账校验。\n核心心法就八个字：\"多抽不丢、归位靠业务时间、回刷保幂等\"。",
+      "entryId": "entry_1792573443459_65a27995",
+      "sourceTitle": "数仓八股",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T09:04:03Z",
+      "updatedAt": "2026-10-21T09:16:09Z"
+    },
+    {
+      "id": "qa_1792571840147_48e93614",
+      "question": "怎么评价分层的好坏",
+      "answer": "（参考《阿里巴巴-大数据之路》第九章9.3.3 - 基本原则）：\n● 从完善度上来讲，主要衡量DWD层和汇总层两块的完善度，DWD层完善度，主要是希望DWD等尽可能被汇总层引用，ODS层被除了DWD层外的尽可能少的引用，最好是没有\n● 从复用度上来讲，我们希望80%需求由20%的表来支持。直接点讲，就是大部分（80%以上）的需求，都用DWS的表来支持\n● 从规范度上来讲，主要从表名、字段名来看，一个规范的表名应该包括层级、主题域、分区规则，抽取类型等信息。字段规范应该是和词根一致，同字段同名等\n  ○ 高内聚低耦合\n    ■ 数据业务特性：将业务相近或相关、粒度相同的数据设计为一个逻辑或物理模型\n    ■ 数据访问特性：将高概率同时访问的数据放在一起，将低概率同时访问的数据分开存储\n  ○ 核心模型与扩展模型分离\n    ■ 核心模型包括的字段支持常用核心业务，扩展模型包括的字段支持个性化或少量应用需要\n  ○ 公共处理逻辑下沉及单一\n    ■ 越是底层公用的逻辑越应该在数据调度依赖的底层进行封装与实现，不要让公用的逻辑暴露给应用层实现\n    ■ 不要让公共逻辑多处同时存在\n  ○ 成本与性能平衡\n    ■ 适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制\n  ○ 数据可回滚\n    ■ 处理逻辑不变，在不同时间多次运行数据结果确定不变\n  ○ 一致性\n    ■ 具有相同含义的字段在不同表中的命名必须相同，必须使用规范定义中的名称\n  ○ 命名清晰，易理解\n    ■ 表命名需清晰、一致，表名需易于消费者理解和使用",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T08:37:20Z",
+      "updatedAt": "2026-10-21T08:37:20Z"
+    },
+    {
+      "id": "qa_1792571823232_7c302d43",
+      "question": "数仓为什么要分层",
+      "answer": "● 清晰数据结构：每一个数据分层都有它的作用域和职责，在使用表的时候能更方便地定位和理解\n● 减少重复开发：规范数据分层，开发一些通用的中间层数据，能够减少极大的重复计算\n● 统一数据口径：通过数据分层，提供统一的数据出口，统一对外输出的数据口径\n● 复杂问题简单化：将一个复杂的任务分解成多个步骤来完成，每一层解决特定的问题",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T08:37:03Z",
+      "updatedAt": "2026-10-21T08:37:03Z"
+    },
+    {
+      "id": "qa_1792571706050_c970d6de",
+      "question": "数仓是怎么分层的",
+      "answer": "ODS层\n保留业务系统原始数据，保持和数据源的一致性，不做任何类型转换和数据加工处理\nDWD层\n明细宽表层，用于存放完整详细历史数据。面向业务过程建模，紧紧围绕着业务过程来设计，通过获取描述业务过程的度量来表达业务过程，包含了引用的维度和与业务过程有关的度量。其设计目标是为后续的Data Warehouse Model提供灵活性和扩展性的基础，同时可以在DW层无法支持需求时直接为应用层提供数据。DWD层由于与业务系统耦合程度较高，其稳定性会受到业务系统的影响。\nDWS层\n存放详细历史数据的公共汇总数据层，面向分析主题建模。DWS是核心数据层，是为应用层提供足够的灵活性和扩展性的基础。\nADS层\n提供直接面向业务或应用的数据，主要对个性化指标数据进行架构处理，如无公用性或复杂性（如指数型、比值型、排名型等指标数据）的指标数据加工。同时为方便实现数据应用、数据消费的诉求，进行面向应用逻辑的数据组装（如打宽表集市、横表转纵表、趋势指标串等）。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T08:35:06Z",
+      "updatedAt": "2026-10-21T08:35:06Z"
+    },
+    {
+      "id": "qa_1792571691992_29d28ea2",
+      "question": "什么数仓才算一个好的数仓",
+      "answer": "好坏从下面几个角度评价：\n1、**数据质量**\n数据仓库数据的准确性、完整性、一致性和时效性等方面的质量,以确保数据可靠性\n2、**性能**\n数据仓库在数据加载、查询、分析等方面的性能,包括加载速度、查询响应时间和并发处理能力\n3、**可用性**\n系统的可靠性、容错性和故障恢复能力\n4、**可扩展性**\n水平扩展和垂直扩展能力,以适应数据规模和用户需求的增长\n5、**数据建模和架构评估**\n6、**数据治理**\n\n参考指标：\n  完善度：跨层引用率 汇总数据查询率\n  复用度：模型引用系数 \n  规范度：字段描述覆盖率 模型分层信息覆盖率 命名不规范表占比",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T08:34:51Z",
+      "updatedAt": "2026-10-21T09:41:08Z"
+    },
+    {
+      "id": "qa_1792570067579_be4c8ad2",
+      "question": "自然月累计金额 \norders表(字段:oid,uid,itemid,itemnum, paytime, payamt) 用一句SQL取出每个用户最近一个月 每天的购买金额以及当天的月累计金额",
+      "answer": "SELECT uid,\n       paydate,\n       daily_amount,\n       SUM(daily_amount) OVER (\n           PARTITION BY uid, trunc(paydate, 'MM')      \n           ORDER BY paydate\n       ) AS monthly_cumulative_amount\nFROM (\n    SELECT uid,\n           to_date(paytime) AS paydate,                 \n           SUM(payamt)      AS daily_amount\n    FROM orders\n    WHERE paytime >= trunc(date_sub(current_date, 30), 'MM')  -- 窗口最早日所在月的1号（精确下界）\n      AND paytime <  date_add(current_date, 1)                -- 截止到今天，利于分区裁剪\n    GROUP BY uid, to_date(paytime)\n) t\nWHERE paydate >= date_sub(current_date, 30);           -- 最后只留最近一个月",
+      "entryId": "entry_1792570067569_80743a9c",
+      "sourceTitle": "自然月累计金额",
+      "tags": [
+        "Sql练习"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T08:07:47Z",
+      "updatedAt": "2026-10-21T08:18:35Z"
+    },
+    {
+      "id": "qa_1792567984445_c145201b",
+      "question": "根据你对shuffle 过程的理解，以下哪种方式可能会优化shuffle性能 ？ (多选)\n  1. 增加Executor个数    \n  2. 增加并行度       \n  3. 合并输入小文件      \n  4. 先join，再过滤",
+      "answer": "1  正确。增加资源不仅对shuffle性能好，对任何计算操作都有很大帮助\n2  正确。增加task数量，相当于减少每个task处理的数据量。在task处理的数据量巨大的情况下是很有帮助的\n3  正确。初始task由输入文件的个数决定，如果小文件过多，会导致每个task处理数据量小且task数过多。适当的合并输入小文件可以提升性能\n4  错误。应该先过滤，在join。这样会减少shuffle中产生的数据量，提升shuffle效率",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T07:33:04Z",
+      "updatedAt": "2026-10-21T08:01:17Z"
+    },
+    {
+      "id": "qa_1792567864559_2ca91806",
+      "question": "以下哪个sql会发生shuffle?(多选)\n1.  select col1,col2 from table where col1 = 'hello'     \n2.  select table1.a from table1 join table2 on table1.a = table2.a     \n3.  select col1,count(1) as ct from table group by col1    \n4.  select col1, col2, row_number() over(partition by col1,sort by col2 desc) as rn from table",
+      "answer": "1  错误。过滤不会产生shuffle\n2  正确。join是shuffle最主要的场景\n3  正确。聚合也会产生shuffle\n4  正确。窗口函数中有分区操作，也产生来shuffle",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T07:31:04Z",
+      "updatedAt": "2026-10-21T08:02:32Z"
+    },
+    {
+      "id": "qa_1792567772852_07d84a84",
+      "question": "数据倾斜会在哪一个环节出现？为什么?",
+      "answer": "数据倾斜会在shuffle阶段出现，因为涉及到了数据打散，如果某个值的数据异常多，则会导致这个值全部分布在一个partition中，造成数据倾斜。 \n\n\n**group by** 某key分布不均匀 比如热点城市  uid=0（未登录用户）\n**join**\n (1) 空值/异常值倾斜\n关联字段大量为 NULL 或 ''，Hive 中 NULL 在 common/shuffle join 时会被分到同一个 reducer（Hive 2+ 对 null key 有优化，但仍要注意），那个 reducer 爆炸。\n(2) 热点 key 倾斜\n大表 join 大表/小表，某个 key（爆款商品、大代理商、平台自营）对应海量记录，集中到一个 reducer。\n(3) 大表 join 大表（双方都大）\n无法用 MapJoin，走 ReduceJoin，倾斜 key 直接拖垮。\n(4) 不同数据类型关联导致的隐式转换\n如 string 类型的 id join bigint 的 id，发生隐式类型转换，使关联字段变成非分区/非索引计算，且可能把大量值归并（典型\"看着不倾斜，实际倾斜\"），还会让分区裁剪失效。\n**Count Distinct 倾斜**\nCOUNT(DISTINCT uid) 时，去重字段的所有值默认只能走少量/单个 reducer 做最终去重（distinct 不能像普通聚合那样提前 combiner 摊平），数据量大时单 reducer 扛不住。\n这是非常经典的倾斜场景。\n**小文件 / 输入数据分布不均（Map 端倾斜）**\n不是 reducer 倾斜，而是 map 端：单个超大未分片文件（不可切分的压缩 GZIP、超大文件）、或某些 map 处理的数据块特别大，导致个别 map task 特别慢。\n**动态分区写入倾斜**\nINSERT OVERWRITE ... PARTITION(dt) 开启动态分区时，如果分区值集中（如大量数据都写入某一个分区/某几个分区），对应的 reducer（按分区字段分发）数据量巨大，造成倾斜，甚至单分区文件过大。\n**窗口函数 / 排序（ORDER BY / 全局排序）倾斜**\nORDER BY（不带分区）强制全局排序，只有 1 个 reducer，数据一大必然慢；\n窗口函数 PARTITION BY key 时，某个 partition key 数据特别多，对应分组处理也会拖尾。",
+      "entryId": "entry_1792567772849_7f747183",
+      "sourceTitle": "SPARK 相关",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T10:17:53Z"
+    },
+    {
+      "id": "qa_1792567772853_b8be216c",
+      "question": "shuffle过程会消耗那些资源？哪些会成为瓶颈？为什么 是什么？",
+      "answer": "shuffle中涉及到了数据的shuffle write、shuffle read，数据的序列化，网络传输。 在我们可控制的内存、cpu资源来看，最主要的瓶颈是shuffle read阶段会因为数据量的过大而导致内存溢出，因此需要合理的调整每个partition的数据量并均匀的分散数据。",
+      "entryId": "entry_1792567772849_7f747183",
+      "sourceTitle": "SPARK 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T08:01:38Z"
+    },
+    {
+      "id": "qa_1792567772853_a27f8475",
+      "question": "join操作一定发生shuffle吗？ 是什么？",
+      "answer": "如果其中一张表的数据量非常小，可以采取broadcast join来避免shuffle操作，大大缩短任务时间。 \n在RDD api中可以自由控制每个shuffle的并行度，在两个RDD已由相同分区函数分区并partition数相同的情况下，join不会发生shuffle操作。",
+      "entryId": "entry_1792567772849_7f747183",
+      "sourceTitle": "SPARK 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T08:01:45Z"
+    },
+    {
+      "id": "qa_1792567772854_7e09d285",
+      "question": "并行度越大越好吗？为什么？ 是什么？",
+      "answer": "在每个task处理的数据量过多时，可以适当增加并行度来减少每个task处理的数据量，以此增加速度。 但当task处理的数据量非常小时，可以适当的减小并行度来减少task个数，因为driver在生成、分配、监视task时需要消耗时间，executor在切换处理task时也需要消耗时间。",
+      "entryId": "entry_1792567772849_7f747183",
+      "sourceTitle": "SPARK 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T08:01:50Z"
+    },
+    {
+      "id": "qa_1792567035284_960bf089",
+      "question": "什么是 RDD？",
+      "answer": "RDD是指弹性分布式数据集，在代码中是一个抽象类，它代表一个不可变、可分区、里面的元素可并行计算的数据集合。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:48Z"
+    },
+    {
+      "id": "qa_1792567035285_0a2c8161",
+      "question": "RDD 的核心概念是什么？",
+      "answer": "RDD的核心概念是分区（Partition）和计算函数。 在真正计算时，RDD的不同分区是分散到不同的计算节点进行计算的，每个节点计算RDD的一个分区或多个分区，从而形成数据的分布式计算。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:56Z"
+    },
+    {
+      "id": "qa_1792567035285_8af5e9d6",
+      "question": "RDD 的数据来源有哪些？",
+      "answer": "- 从数据源或者集合中进行加载（如HDFS、Hbase）\n- 由其他RDD进行转换（由各种算子实现，如map、filter、groupBy等。主要分为transformation和action算子）",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:04:01Z"
+    },
+    {
+      "id": "qa_1792567035285_65982d45",
+      "question": "Driver 和 Executor 分别负责什么？",
+      "answer": "Driver：主控进程，负责产生DAG和提交Job，解析sql的逻辑和物理执行计划，同时负责回收任务的执行结果，不涉及具体的计算。如果使用广播变量，广播变量会先拉取到Driver端，之后再分发到Executor端执行broadcastjoin。 Executor：Task具体执行的节点，负责具体的数据计算和缓存RDD等，执行具体的task任务。Spark的分布式计算就体现在Executor是分布式的。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:18Z"
+    },
+    {
+      "id": "qa_1792567035285_5f97f4a3",
+      "question": "Spark DAG 中 Job、Stage、Task 分别是什么？",
+      "answer": "Job：在一个任务中，以Action算子划分Job，如collect、saveAsTextFile、show Stage：一个Job中，又以Shuffle为边界（宽窄依赖）划分出的不同阶段，如join、groupByKey、reduceByKey Task：每个Stage由一组并发的Task组成（即TaskSet），task个数由输入文件的切片个数来决定的。通过算子修改了某一个rdd的分区数量，task数量也会同步修改。一个Stage的总Task的个数由Stage中最后的一个RDD的Partition数量决定。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:04:06Z"
+    },
+    {
+      "id": "qa_1792567035285_f7abb8e3",
+      "question": "Spark 作业的执行流程是什么？",
+      "answer": "为便于理解，Spark作业的执行流程可简化为：读取文件并转换为RDD，然后按照解析出的物理执行计划进行RDD Partition的转换、计算。 当Spark读取文件作为输入时，会根据具体数据格式对应的InputFormat进行解析，一般是将若干个Block合并成一个输入分片，称为InputSplit，注意InputSplit不能跨越文件。 随后这些具体的Task每个都会被分配到集群上的某个节点的某个Executor去执行。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:24Z"
+    },
+    {
+      "id": "qa_1792567035285_48a3dd8c",
+      "question": "InputSplit、Partition 和 Task 的关系是什么？",
+      "answer": "当Spark读取文件作为输入时，会根据具体数据格式对应的InputFormat进行解析，一般是将若干个Block合并成一个输入分片，称为InputSplit，注意InputSplit不能跨越文件。 Spark将为InputSplit和后续的RDD Partition生成具体的Task。 InputSplit/Partition的数量决定了Task的数量，是一一对应的。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:35Z"
+    },
+    {
+      "id": "qa_1792567035285_2a6455e2",
+      "question": "Spark Task 的实际并发度如何计算？",
+      "answer": "每个Executor由若干core组成，每个Executor的每个core一次只能执行一个Task。 \nTask被执行的实际并发度 = Executor数目 * 每个Executor核数 * 虚拟运行核数。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:36:08Z"
+    }
+  ],
+  "settings": {
+    "categories": [
+      "概念解释",
+      "SQL 技巧",
+      "建模方法",
+      "指标口径",
+      "数据质量问题",
+      "调度/任务问题",
+      "报错与解决方案",
+      "工具使用经验"
+    ]
+  }
+}

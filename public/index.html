@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>数仓知识库</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" defer></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <div class="brand">
+          <div class="brand-mark">KB</div>
+          <div class="brand-text">
+            <h1>数仓知识库</h1>
+            <p>本地个人版</p>
+          </div>
+        </div>
+        <button class="collapse-button" id="sidebarToggle" type="button" aria-label="收起侧边栏" title="收起侧边栏">‹</button>
+      </div>
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-item active" data-view="dashboard" data-short="总" title="总览">总览</button>
+        <button class="nav-item" data-view="import" data-short="导" title="导入">导入</button>
+        <button class="nav-item" data-view="ask" data-short="问" title="问答">问答</button>
+        <button class="nav-item" data-view="knowledge" data-short="库" title="知识库">知识库</button>
+        <button class="nav-item" data-view="qa" data-short="题" title="题库">题库</button>
+      </nav>
+      <div class="side-note">
+        <span>回答策略</span>
+        <strong>先查知识库，未命中再联网</strong>
+      </div>
+    </aside>
+
+    <main class="app">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Local Knowledge Base</p>
+          <h2 id="viewTitle">总览</h2>
+        </div>
+        <div class="searchbar">
+          <input id="globalSearch" type="search" placeholder="搜索知识、QA、标签">
+        </div>
+      </section>
+
+      <section class="view active" id="dashboardView">
+        <div class="metrics">
+          <article class="metric">
+            <span>知识条目</span>
+            <strong id="entryCount">0</strong>
+          </article>
+          <article class="metric">
+            <span>题库数量</span>
+            <strong id="qaCount">0</strong>
+          </article>
+          <article class="metric">
+            <span>标签数量</span>
+            <strong id="tagCount">0</strong>
+          </article>
+        </div>
+
+        <div class="two-column">
+          <section class="panel">
+            <div class="panel-head">
+              <h3>最近知识</h3>
+              <button class="text-button" data-jump="knowledge">查看全部</button>
+            </div>
+            <div id="recentEntries" class="list empty-host"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-head">
+              <h3>随机 QA</h3>
+              <button class="primary small" id="dashboardRandomBtn">换一批</button>
+            </div>
+            <div id="dashboardRandom" class="list empty-host"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="importView">
+        <section class="panel">
+          <div class="panel-head">
+            <h3>导入知识</h3>
+            <div class="segmented" role="tablist">
+              <button class="segment active" data-import-type="mixed">图文</button>
+              <button class="segment" data-import-type="link">链接</button>
+            </div>
+          </div>
+
+          <form id="importForm" class="form">
+            <div class="grid two">
+              <label>
+                标题
+                <input id="importTitle" name="title" placeholder="可留空，系统会自动生成">
+              </label>
+              <label id="urlField" class="hidden">
+                链接
+                <input id="importUrl" name="sourceUrl" placeholder="https://...">
+              </label>
+            </div>
+            <label>
+              图文内容
+              <textarea id="importContent" name="content" rows="12" placeholder="粘贴文字，或直接 Ctrl+V 粘贴截图；图片会 OCR 后弹出确认框"></textarea>
+              <span class="help-text">图片不保存原图；粘贴截图后会先识别并整理成文字，你可以确认修改后再写入内容框。</span>
+            </label>
+            <label>
+              标签（必填）
+              <input id="importTags" name="tags" list="existingTagOptions" required placeholder="输入或选择已有标签，多个标签用逗号分隔">
+              <datalist id="existingTagOptions"></datalist>
+            </label>
+            <div class="actions">
+              <button class="primary" type="submit">导入并自动生成 QA</button>
+              <button class="secondary" type="button" id="standardizeBtn">转化成标准格式</button>
+              <span id="importStatus" class="status"></span>
+            </div>
+          </form>
+        </section>
+      </section>
+
+      <section class="view" id="askView">
+        <section class="panel ask-panel">
+          <div class="panel-head">
+            <h3>知识库问答</h3>
+            <span class="pill">知识库优先</span>
+          </div>
+          <form id="askForm" class="ask-form">
+            <textarea id="askInput" rows="4" placeholder="输入你的问题，比如：拉链表适合解决什么问题？"></textarea>
+            <button class="primary" type="submit">提问</button>
+          </form>
+          <div id="answerBox" class="answer empty-host"></div>
+        </section>
+      </section>
+
+      <section class="view" id="knowledgeView">
+        <section class="panel">
+          <div class="panel-head">
+            <h3>知识库</h3>
+            <select id="knowledgeTagFilter">
+              <option value="">全部标签</option>
+            </select>
+          </div>
+          <div id="entryList" class="list empty-host"></div>
+        </section>
+      </section>
+
+      <section class="view" id="qaView">
+        <section class="panel">
+          <div class="panel-head">
+            <h3>题库</h3>
+            <div class="toolbar">
+              <input id="qaSearch" class="qa-search" type="search" placeholder="搜索题目或答案">
+              <select id="qaTagFilter">
+                <option value="">全部标签</option>
+              </select>
+              <div class="segmented qa-mode-toggle" id="qaModeToggle" aria-label="题库模式">
+                <button class="segment active" type="button" data-qa-mode="exam">考试模式</button>
+                <button class="segment" type="button" data-qa-mode="review">复习模式</button>
+              </div>
+              <button class="secondary small" id="randomQaBtn">随机抽取</button>
+              <button class="primary small" id="newQaBtn">人工添加</button>
+            </div>
+          </div>
+          <div id="randomQaBox" class="random-box hidden"></div>
+          <div id="qaList" class="list empty-host"></div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="editorDialog">
+      <form method="dialog" class="dialog-card">
+        <div class="panel-head">
+          <h3 id="dialogTitle">编辑</h3>
+          <button class="icon-button" value="cancel" aria-label="关闭">×</button>
+        </div>
+        <div id="dialogBody"></div>
+        <div class="actions end">
+          <button class="secondary" value="cancel">取消</button>
+          <button class="primary" id="dialogSaveBtn" value="default">保存</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

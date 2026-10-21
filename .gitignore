@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+.screenshots/
+.DS_Store
