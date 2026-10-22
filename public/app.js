@@ -33,6 +33,98 @@ function sortQasByCreatedAt(qas) {
     .map(item => item.qa);
 }
 
+function normalizeSearchText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[，。！？、；：,.!?;:()[\]{}'"`~@#$%^&*_+=|\\/<>\-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function compactSearchText(value) {
+  return normalizeSearchText(value).replace(/\s+/g, "");
+}
+
+function searchTokens(value) {
+  const normalized = normalizeSearchText(value);
+  const latin = normalized.match(/[a-z0-9_]{2,}/g) || [];
+  const chinese = (normalized.match(/[\u4e00-\u9fa5]/g) || []).join("");
+  const grams = [];
+  for (let index = 0; index < chinese.length - 1; index += 1) {
+    grams.push(chinese.slice(index, index + 2));
+  }
+  return Array.from(new Set([...latin, ...grams].filter(token => token.length >= 2)));
+}
+
+function expandSearchQuery(query) {
+  const aliases = [
+    ["流程", "过程 步骤 执行流程 运行流程"],
+    ["过程", "流程 步骤"],
+    ["运行", "执行"],
+    ["执行", "运行"],
+    ["场景", "适用 使用场景 用途"],
+    ["适合", "适用 使用场景"],
+    ["区别", "不同 差异 对比"],
+    ["解决", "处理 方案"],
+    ["优化", "调优 性能"],
+    ["架构", "组成 结构"],
+    ["容错", "恢复 血统 lineage checkpoint"],
+    ["血统", "lineage 容错"],
+    ["宽依赖", "shuffle 阶段 stage"],
+    ["窄依赖", "无shuffle"],
+    ["倾斜", "热点key 长尾 skew"],
+    ["广播", "broadcast 小表 mapjoin"],
+    ["缓存", "cache persist 持久化"],
+    ["分区", "partition 并行度"],
+  ];
+  const expanded = [query];
+  const compact = compactSearchText(query);
+  aliases.forEach(([keyword, words]) => {
+    if (compact.includes(compactSearchText(keyword))) {
+      expanded.push(words);
+    }
+  });
+  return expanded.join(" ");
+}
+
+function qaSearchScore(qa, query) {
+  if (!query) return 1;
+  const expandedQuery = expandSearchQuery(query);
+  const queryCompact = compactSearchText(query);
+  const question = qa.question || "";
+  const answer = qa.answer || "";
+  const tags = (qa.tags || []).join(" ");
+  const questionCompact = compactSearchText(question);
+  const tagCompact = compactSearchText(tags);
+  if (!queryCompact) return 1;
+  if (questionCompact.includes(queryCompact)) return 200;
+  if (tagCompact.includes(queryCompact)) return 120;
+
+  const queryTokens = searchTokens(expandedQuery);
+  if (!queryTokens.length) return 0;
+  const questionTokens = new Set(searchTokens(question));
+  const answerTokens = new Set(searchTokens(answer));
+  const tagTokens = new Set(searchTokens(tags));
+  let score = 0;
+  let strongMatched = 0;
+  let answerMatched = 0;
+  queryTokens.forEach(token => {
+    if (questionTokens.has(token)) {
+      score += 12;
+      strongMatched += 1;
+    } else if (tagTokens.has(token)) {
+      score += 6;
+      strongMatched += 1;
+    } else if (answerTokens.has(token)) {
+      score += 1;
+      answerMatched += 1;
+    }
+  });
+  if (!strongMatched) return 0;
+  const strongCoverage = strongMatched / queryTokens.length;
+  return score + strongCoverage * 35 + Math.min(answerMatched, 3);
+}
+
 function applySidebarState(collapsed) {
   document.body.classList.toggle("sidebar-collapsed", collapsed);
   const button = $("#sidebarToggle");
@@ -514,13 +606,16 @@ function renderKnowledge() {
 
 function visibleQas() {
   return state.qas
+    .map((qa, index) => ({ qa, index, score: qaSearchScore(qa, state.qaQuery) }))
     .filter(matchesQuery)
-    .filter(qa => {
-      if (!state.qaQuery) return true;
-      const text = `${qa.question || ""} ${qa.answer || ""} ${(qa.tags || []).join(" ")}`.toLowerCase();
-      return text.includes(state.qaQuery.toLowerCase());
+    .filter(item => !state.qaQuery || item.score >= 32)
+    .filter(item => !state.qaTag || (item.qa.tags || []).includes(state.qaTag))
+    .sort((left, right) => {
+      if (!state.qaQuery) return left.index - right.index;
+      const scoreDiff = right.score - left.score;
+      return scoreDiff || left.index - right.index;
     })
-    .filter(qa => !state.qaTag || (qa.tags || []).includes(state.qaTag));
+    .map(item => item.qa);
 }
 
 function navigateQa(direction) {
