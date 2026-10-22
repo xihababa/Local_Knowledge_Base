@@ -96,6 +96,31 @@ def similarity(left, right):
     return float(overlap) / float(max(len(left_tokens), len(right_tokens)))
 
 
+def canonical_question_key(question):
+    compact = re.sub(r"\s+", "", normalize_text(question))
+    if not compact:
+        return ""
+    normalized = compact.replace("的", "").replace("是怎么样", "").replace("是什么", "")
+    if "rdd" in normalized and any(marker in normalized for marker in ["什么是rdd", "rdd是什么", "rdd理解", "rdd概念"]):
+        return "rdd概念"
+    if "spark" in normalized and any(
+        marker in normalized
+        for marker in ["任务执行流程", "作业执行流程", "作业运行流程", "spark运行流程"]
+    ):
+        return "spark作业执行流程"
+    if "shuffle" in normalized and "算子" in normalized and any(marker in normalized for marker in ["引起", "哪些", "会有"]):
+        return "sparkshuffle触发算子"
+    return compact
+
+
+def is_duplicate_question(existing_question, next_question):
+    if similarity(existing_question, next_question) >= 0.72:
+        return True
+    existing_key = canonical_question_key(existing_question)
+    next_key = canonical_question_key(next_question)
+    return bool(existing_key and next_key and existing_key == next_key)
+
+
 def score_text(query, text):
     query_tokens = tokenize(query)
     text_tokens = set(tokenize(text))
@@ -576,7 +601,7 @@ def generate_qas_for_entry(entry, existing_qas):
         duplicate = False
         normalized_question = normalize_question_text(candidate["question"])
         for existing_question in all_questions + [qa.get("question", "") for qa in result]:
-            if similarity(existing_question, normalized_question) >= 0.72:
+            if is_duplicate_question(existing_question, normalized_question):
                 duplicate = True
                 break
         if duplicate:
@@ -766,7 +791,7 @@ class Handler(BaseHTTPRequestHandler):
                 entry = build_entry(entry_payload)
                 qas = generate_qas_for_entry(entry, db.get("qas", []))
                 db.setdefault("entries", []).insert(0, entry)
-                db.setdefault("qas", [])[0:0] = qas
+                db.setdefault("qas", []).extend(qas)
                 write_db(db)
                 return self.send_json(201, {"entry": entry, "qas": qas, "message": "已导入，并自动生成 %s 条 QA" % len(qas)})
 
@@ -799,7 +824,7 @@ class Handler(BaseHTTPRequestHandler):
                 answer = str(payload.get("answer") or "").strip()
                 if not question or not answer:
                     return self.send_json(400, {"error": "问题和答案不能为空"})
-                duplicate = next((qa for qa in db.get("qas", []) if similarity(qa.get("question"), question) >= 0.72), None)
+                duplicate = next((qa for qa in db.get("qas", []) if is_duplicate_question(qa.get("question"), question)), None)
                 if duplicate:
                     return self.send_json(409, {"error": "已存在相似问题", "duplicate": duplicate})
                 qa = {
@@ -814,7 +839,7 @@ class Handler(BaseHTTPRequestHandler):
                     "createdAt": now_iso(),
                     "updatedAt": now_iso(),
                 }
-                db.setdefault("qas", []).insert(0, qa)
+                db.setdefault("qas", []).append(qa)
                 write_db(db)
                 return self.send_json(201, {"qa": qa})
 

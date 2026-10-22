@@ -3,3 +3,4 @@ __pycache__/
 .screenshots/
 .DS_Store
 debug.log
+data/db.backup_*.json

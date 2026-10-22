@@ -17,6 +17,22 @@ const state = {
 const $ = selector => document.querySelector(selector);
 const $$ = selector => Array.from(document.querySelectorAll(selector));
 
+function qaCreatedTime(qa) {
+  const time = Date.parse(qa?.createdAt || "");
+  return Number.isNaN(time) ? 0 : time;
+}
+
+function sortQasByCreatedAt(qas) {
+  return [...(qas || [])]
+    .map((qa, index) => ({ qa, index }))
+    .sort((left, right) => {
+      const timeDiff = qaCreatedTime(left.qa) - qaCreatedTime(right.qa);
+      if (timeDiff !== 0) return timeDiff;
+      return left.index - right.index;
+    })
+    .map(item => item.qa);
+}
+
 function applySidebarState(collapsed) {
   document.body.classList.toggle("sidebar-collapsed", collapsed);
   const button = $("#sidebarToggle");
@@ -183,7 +199,7 @@ async function api(path, options = {}) {
 async function loadState() {
   const data = await api("/api/state");
   state.entries = data.entries || [];
-  state.qas = data.qas || [];
+  state.qas = sortQasByCreatedAt(data.qas);
   state.categories = data.categories || [];
   if (state.qaDetailId && !state.qas.some(qa => qa.id === state.qaDetailId)) {
     state.qaDetailId = "";
@@ -445,13 +461,23 @@ function qaGroupCard(group) {
   `;
 }
 
-function qaDetailCard(qa, index) {
+function qaDetailCard(qa, index, total = 0) {
   const showAnswer = state.qaMode === "review" || state.qaAnswerVisible;
   const answerHtml = showAnswer
     ? `<div class="qa-answer">${formatQaAnswer(qa.answer)}</div>`
     : `<button class="primary" data-show-answer="${qa.id}">显示答案</button>`;
   const indexHtml = Number.isInteger(index) && index >= 0
     ? `<span class="qa-question-index qa-detail-index">${index + 1}</span>`
+    : "";
+  const canNavigate = Number.isInteger(index) && index >= 0 && total > 0;
+  const navHtml = canNavigate
+    ? `
+      <div class="qa-detail-nav">
+        <button class="secondary small" data-qa-nav="prev" ${index <= 0 ? "disabled" : ""}>上一题</button>
+        <span>${index + 1} / ${total}</span>
+        <button class="secondary small" data-qa-nav="next" ${index >= total - 1 ? "disabled" : ""}>下一题</button>
+      </div>
+    `
     : "";
   return `
     <article class="qa-detail">
@@ -462,6 +488,7 @@ function qaDetailCard(qa, index) {
           <button class="secondary small danger" data-delete-qa="${qa.id}">删除</button>
         </div>
       </div>
+      ${navHtml}
       <div>
         <div class="qa-detail-label">问</div>
         <div class="qa-detail-question-wrap">
@@ -485,8 +512,8 @@ function renderKnowledge() {
   $("#entryList").innerHTML = entries.length ? entries.map(entryCard).join("") : empty("没有匹配的知识条目。");
 }
 
-function renderQas() {
-  const qas = state.qas
+function visibleQas() {
+  return state.qas
     .filter(matchesQuery)
     .filter(qa => {
       if (!state.qaQuery) return true;
@@ -494,10 +521,25 @@ function renderQas() {
       return text.includes(state.qaQuery.toLowerCase());
     })
     .filter(qa => !state.qaTag || (qa.tags || []).includes(state.qaTag));
+}
+
+function navigateQa(direction) {
+  const qas = visibleQas();
+  const currentIndex = qas.findIndex(qa => qa.id === state.qaDetailId);
+  if (currentIndex < 0) return;
+  const nextIndex = direction === "prev" ? currentIndex - 1 : currentIndex + 1;
+  if (nextIndex < 0 || nextIndex >= qas.length) return;
+  state.qaDetailId = qas[nextIndex].id;
+  state.qaAnswerVisible = state.qaMode === "review";
+  renderQas();
+}
+
+function renderQas() {
+  const qas = visibleQas();
   const selected = state.qaDetailId ? state.qas.find(qa => qa.id === state.qaDetailId) : null;
   if (selected) {
     const selectedIndex = qas.findIndex(qa => qa.id === selected.id);
-    $("#qaList").innerHTML = qaDetailCard(selected, selectedIndex);
+    $("#qaList").innerHTML = qaDetailCard(selected, selectedIndex, qas.length);
     return;
   }
   $("#qaList").innerHTML = qas.length ? groupQasByTag(qas).map(qaGroupCard).join("") : empty("没有匹配的题目。");
@@ -856,6 +898,7 @@ function bindEvents() {
     const editQaButton = event.target.closest("[data-edit-qa]");
     const deleteQaButton = event.target.closest("[data-delete-qa]");
     const toggleQaGroupButton = event.target.closest("[data-toggle-qa-group]");
+    const qaNavButton = event.target.closest("[data-qa-nav]");
     if (richActionButton || richColorButton) {
       const editor = event.target.closest(".rich-editor");
       const textarea = editor?.querySelector("textarea");
@@ -889,6 +932,10 @@ function bindEvents() {
         state.collapsedQaGroups.add(tag);
       }
       renderQas();
+      return;
+    }
+    if (qaNavButton) {
+      navigateQa(qaNavButton.dataset.qaNav);
       return;
     }
     if (backQaButton) {

@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "id": "entry_1792661459474_c253e778",
+      "title": "spark八股",
+      "content": "Spark提交作业参数？\n简述Spark的架构与作业提交流程？\n如何理解Spark中的血统概念？\n简述Spark的宽容依赖，以及Spark如何划分stage每个stage又根据什么决定task个数?\n请列举Spark的transformation算子，并简述功能？\n请列举Spark的action算子，并简述功能？\n请列举会引起Shuffle过程的Spark算子，并简述功能？\n简述Spark的两种核心Shuffle的工作流程？\nSpark的任务执行流程 ？\nSpark的运行流程？\nSpark的作业运行流程是怎么样的? \nSpark的特点？\nSpark源码中的任务调度 ？\nSpark作业调度 ？\nSpark的架构？\nSpark的使用场景？\nSpark on standalone模型、YARN架构模型(画架构图) ？\nSpark的yarn-cluster涉及的参数有哪些? \nSpark提交job的流程 ？\nSpark的阶段划分？\nSpark处理数据的具体流程说下？\nSparkjoin的分类？\nSpark map join的实现原理？\n介绍下Spark Shuffle及其优缺点？\n什么情况下会产生Spark Shuffle?\n为什么要Spark Shuffle? \nSpark为什么快?\nSpark为什么适合迭代处理?\nSpark数据倾斜问题，如何定位，解决方案？\nSpark的stage如何划分?在源码中是怎么判断属于Shuffle Map Stage或Result Stage的?\nSpark join在什么情况下会变成窄依赖? \nSpark的内存模型?\nSpark分哪几个部分(模块)?分别有什么作用(做什么，自己用过哪些，做过什么)? \nRDD的宽依赖和窄依赖，举例一些算子 ？\nSpark SQL的GroupBy会造成窄依赖吗? \nGroupBy是行动算子吗？\nSpark的宽依赖和窄依赖，为什么要这么划分?\n说下Spark中的Transform和Action，为什么Spark要把操作分为Transform和Action?常用的列举一些，说下算子原理 ？\nSpark的哪些算子会有shuffle过程?\nSpark有了RDD，为什么还要有Dataform和DataSet?\nSpark的RDD、DataFrame、DataSet、DataStream区别? \nSpark的Job、Stage、Task分别介绍下，如何划分?\nApplication、job、Stage、task之间的关系 ？\nStage内部逻辑？\n为什么要根据宽依赖划分Stage?\n为什么要划分Stage ？\nStage的数量等于什么？\n对RDD、DAG和Task的理解 ？\nDAG为什么适合Spark?\n介绍下Spark的DAG以及它的生成过程 ？\nDAGScheduler如何划分?干了什么活? \nSpark容错机制? \nRDD的容错？\nExecutor内存分配?\nSpark的batchsize，怎么解决小文件合并问题? \nSpark参数(性能)调优？\n介绍一下Spark怎么基于内存计算的？\n说下什么是RDD(对RDD的理解)?\nRDD有哪些特点?\n说下知道的RDD算子 ？\nRDD底层原理 ？\nRDD属性？\nRDD的缓存级别?\nSpark广播变量的实现和原理?\nreduceByKey和groupByKey的区别和作用? \nreduceByKey和reduce的区别?\n使用reduceByKey出现数据倾斜怎么办? \nSpark SQL的执行原理? \nSpark SQL的优化?\n说下Spark checkpoint？\nSpark SQL与DataFrame的使用?\nSparksql自定义函数?怎么创建DataFrame? \nHashPartitioner和RangePartitioner的实现 ？\nSpark的水塘抽样？\nDAGScheduler、TaskScheduler、SchedulerBackend实现原理？\n介绍下Sparkclient提交application后，接下来的流程? \nSpark的几种部署方式？\n在Yarn-client情况下，Driver此时在哪？\nSpark的cluster模式有什么好处 ？\nDriver怎么管理executor？\nSpark的map和flatmap的区别?\nSpark的cache和persist的区别?它们是transformaiton算子还是action算子? \nSaprk Streaming从Kafka中读取数据两种方式? \nSpark Streaming的工作原理?\nSpark Streaming的DStream和DStreamGraph的区别? \nSpark输出文件的个数，如何合并小文件?\nSpark的driver是怎么驱动作业流程的? \nSpark SQL的劣势?\n介绍下Spark Streaming和Structed Streaming ？\nSpark为什么比Hadoop速度快? \nDAG划分Spark源码实现?\nSpark Streaming的双流join的过程，怎么做的? \nSpark的Block管理？\nSpark怎么保证数据不丢失 ？\nSpark SQL如何使用UDF? \nSpark温度二次排序 ？\nSpark实现wordcount？\nSpark Streaming怎么实现数据持久化保存?\nSpark SQL读取文件，内存不够使用，如何处理? \nSpark的lazy体现在哪里? \nSpark中的并行度等于什么 ？\nSpark运行时并行度的设署 ？\nSpark SQL的数据倾斜 ？\nSpark的exactly-once？\nSpark的RDD和partition的联系 ？\npark 3.0特性？\nSpark计算的灵活性体现在哪里？",
+      "summary": "简述Spark的宽容依赖，以及Spark如何划分stage每个stage又根据什么决定task个数",
+      "sourceType": "text",
+      "sourceUrl": "",
+      "tags": [
+        "Spark"
+      ],
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:30:59Z"
+    },
+    {
       "id": "entry_1792573443459_65a27995",
       "title": "数仓八股",
       "content": "什么数仓才算一个好的数仓？\n外部要求：易用（查询性能好） \n   数据质量高（符合完整性、准确性、一致性、时效性） \n   方便开发（横向扩展）和运维\n   具有较高成本效益\n内部评价标准：跨层引用率、表引用数、引用链路长度、表命名规范率、表迭代次数、数据泄露率、数据准时率、数据正确率等指标来判断\n数仓是怎么分层的？\nODS层\n保留业务系统原始数据，保持和数据源的一致性，不做任何类型转换和数据加工处理\nDWD层\n明细宽表层，用于存放完整详细历史数据。面向业务过程建模，紧紧围绕着业务过程来设计，通过获取描述业务过程的度量来表达业务过程，包含了引用的维度和与业务过程有关的度量。其设计目标是为后续的Data Warehouse Model提供灵活性和扩展性的基础，同时可以在DW层无法支持需求时直接为应用层提供数据。DWD层由于与业务系统耦合程度较高，其稳定性会受到业务系统的影响。\nDWS层\n存放详细历史数据的公共汇总数据层，面向分析主题建模。DWS是核心数据层，是为应用层提供足够的灵活性和扩展性的基础。\nADS层\n提供直接面向业务或应用的数据，主要对个性化指标数据进行架构处理，如无公用性或复杂性（如指数型、比值型、排名型等指标数据）的指标数据加工。同时为方便实现数据应用、数据消费的诉求，进行面向应用逻辑的数据组装（如打宽表集市、横表转纵表、趋势指标串等）。\n数仓为什么要分层 ？\n● 清晰数据结构：每一个数据分层都有它的作用域和职责，在使用表的时候能更方便地定位和理解\n● 减少重复开发：规范数据分层，开发一些通用的中间层数据，能够减少极大的重复计算\n● 统一数据口径：通过数据分层，提供统一的数据出口，统一对外输出的数据口径\n● 复杂问题简单化：将一个复杂的任务分解成多个步骤来完成，每一层解决特定的问题\n\n怎么评价分层的好坏？\n（参考《阿里巴巴-大数据之路》第九章9.3.3 - 基本原则）：\n● 从完善度上来讲，主要衡量DWD层和汇总层两块的完善度，DWD层完善度，主要是希望DWD等尽可能被汇总层引用，ODS层被除了DWD层外的尽可能少的引用，最好是没有\n● 从复用度上来讲，我们希望80%需求由20%的表来支持。直接点讲，就是大部分（80%以上）的需求，都用DWS的表来支持\n● 从规范度上来讲，主要从表名、字段名来看，一个规范的表名应该包括层级、主题域、分区规则，抽取类型等信息。字段规范应该是和词根一致，同字段同名等\n  ○ 高内聚低耦合\n    ■ 数据业务特性：将业务相近或相关、粒度相同的数据设计为一个逻辑或物理模型\n    ■ 数据访问特性：将高概率同时访问的数据放在一起，将低概率同时访问的数据分开存储\n  ○ 核心模型与扩展模型分离\n    ■ 核心模型包括的字段支持常用核心业务，扩展模型包括的字段支持个性化或少量应用需要\n  ○ 公共处理逻辑下沉及单一\n    ■ 越是底层公用的逻辑越应该在数据调度依赖的底层进行封装与实现，不要让公用的逻辑暴露给应用层实现\n    ■ 不要让公共逻辑多处同时存在\n  ○ 成本与性能平衡\n    ■ 适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制\n  ○ 数据可回滚\n    ■ 处理逻辑不变，在不同时间多次运行数据结果确定不变\n  ○ 一致性\n    ■ 具有相同含义的字段在不同表中的命名必须相同，必须使用规范定义中的名称\n  ○ 命名清晰，易理解\n    ■ 表命名需清晰、一致，表名需易于消费者理解和使用\n事实表设计分几种，每一种都是如何在业务中使用？\n事实表分为事务事实表、周期快照事实表、累积快照事实表\n● 事务（原子）事实表：保存各业务过程的原子操作事件，即最细粒度的记录。可用于分析各个业务过程相关的各项统计指标，可以提供最大限度的灵活性，可以支持无法预期的各种细节层次的统计需求。\n● 周期快照事实表：以具有规律性的、可预见的时间间隔来记录事实，主要用于分析一些存量型（商品库存、账户余额）或状态型（行驶速度、空气温度）指标。（半可加、不可加）。\n● 累积快照事实表：基于一个业务流程中的多个关键业务过程联合处理而构建的事实表，主要用于分析业务过程之间的时间间隔等需求。\n单事务事实表和多事务事实表区别？\n单事务事实表（Single-Transaction Fact Table）：\n区别：单事务事实表通常记录单个业务事件或交易的详细数据。每个记录对应一个具体的业务活动，如一笔销售或一次服务请求。\n作用：这种事实表用于详细分析单个事件，例如，评估单个交易的性能、分析客户购买行为或评估特定产品的表现。\n多事务事实表（Multi-Transaction Fact Table）：\n区别：多事务事实表存储一段时间内多个业务事件的聚合数据。例如，它可能包含一个时间段内的所有销售记录的总和。\n作用：这种事实表用于分析一段时间或范围内的总体趋势和模式，如月度销售总额、季度增长率或年度业绩。\n具体区别：\n粒度：单事务事实表的粒度更细，记录每个单独的业务事件；多事务事实表的粒度较粗，记录一段时间内的业务事件总和。\n数据量：单事务事实表可能包含大量的行，因为它们记录了每个单独的事件；多事务事实表的行数较少，因为它们是聚合数据。\n更新频率：单事务事实表可能需要更频繁的更新，因为每次业务事件发生时都需要记录；多事务事实表可能按周期更新，如按月或按季。\n查询复杂性：单事务事实表的查询可能更复杂，因为它们需要处理更多的细节；多事务事实表的查询可能更简单，因为它们处理的是聚合数据。\n作用：\n单事务事实表允许进行深入的微观分析，帮助理解单个事件的影响和细节。\n多事务事实表提供了宏观层面的业务视图，有助于识别长期趋势、进行战略规划和评估整体业绩。\n在实际应用中，组织可能会根据分析需求同时使用这两种类型的事实表。例如，一个零售商可能同时拥有记录每笔交易的单事务事实表和记录每日或每月销售总额的多事务事实表，以支持从微观到宏观的不同分析需求。\n讲讲你项目中的数据建模？\n讲下你觉得做的最好的项目   从做了什么 和 难点在哪儿怎么解决 两部分说明？\n如何为新业务建模？\n● 选择需要进行分析决策的业务过程\n● 定义粒度\n● 识别维度\n● 确认事实\n如何保障数据质量（完整性、准确性、一致性、时效性）有哪些方法？\n怎么衡量数仓的数据质量，有哪些指标？\n简述维度设计中有整合和拆分，有哪些方法，并详细说明 ？\n在维度设计中，整合和拆分是两种常见的技术，用于优化维度模型的结构和性能。以下是一些常用的方法：\n\n1.整合维度（Conformed Dimensions）：\n也称为一致维度或共享维度。整合维度是在整个数据仓库中使用单一、一致的维度表，以确保数据的一致性。\n方法：\n确保所有事实表使用相同的维度表，避免数据冗余和不一致。\n使用维度值的编码或键值来实现不同业务过程之间的维度整合。\n2.拆分维度（Splitting Dimensions）：\n将一个维度表拆分成两个或多个相关但独立的维度表，以减少数据冗余和提高查询性能。\n方法：\n根据业务需求将维度属性拆分到不同的表中。\n例如，将时间维度拆分为日期、月份、季度等单独的维度表。\n3.缓慢变化维（Slowly Changing Dimension, SCD）：\n处理维度数据随时间变化的情况，保留历史信息以支持数据的一致性和可追溯性。\n方法：\nType 1（覆盖型）：直接覆盖旧数据。\nType 2（追踪型）：添加新记录来追踪变化。\nType 3（渐进型）：在现有记录中更新数据，并保留历史数据。\n4.角色维度（Role-Playing Dimensions）：\n一个维度表在不同的上下文中扮演不同的角色，通常通过增加角色字段来区分。\n方法：\n在维度表中添加角色标识符，如“客户”和“供应商”，即使它们共享相同的数据。\n5.退化维度（Degenerate Dimensions）：\n当维度表只包含键值而不包含任何描述性信息时，可以将其退化为事实表的一部分。\n方法：\n将维度的键值直接包含在事实表中，而不是作为单独的维度表。\n6.桥接维度（Bridge Dimensions）：\n当两个维度之间存在多对多关系时，创建一个桥接维度来连接它们。\n方法：\n创建一个新的维度表，包含两个维度的外键，以及可能的额外信息。\n7.层次维度（Ragged Hierarchy）：\n处理维度中的不规则层次结构，如组织结构中的不同级别。\n方法：\n使用路径枚举或递归查询来处理层次结构中的不规则性。\n8.组合维度（Composite Dimensions）：\n将多个维度合并为一个维度，以简化模型和查询。\n方法：\n例如，将时间维度和地点维度合并为一个时间-地点维度。\n9.使用维度类型（Using Dimension Types）：\n根据维度的特性（如时间、文本、数值等）选择最合适的维度类型。\n方法：\n例如，使用时间维度类型来处理日期和时间数据。\n10.维度去规范化（Denormalizing Dimensions）：\n为了提高查询性能，有时将多个维度表合并为一个去规范化的维度表。\n方法：\n合并维度表，减少查询时的连接操作。\n维度设计中的整合和拆分方法需要根据具体的业务需求、数据特性和查询模式来选择。设计过程中需要平衡数据的一致性、可维护性和查询性能。\n\n\n\n\n单事务事实表、多事务事实表区别与作用？\n指标下沉时为何要拆分？\n工作中做没做过数据治理？\n原子指标、复合指标、衍生指标的区别？\n如何保证指标不会重复开发？\n某个链路产出比较晚怎么解决？\n答：任务优化 /上下游链路优化\n哪些字段适合放到DW的宽表里？\n数仓主题域划分 为什么这么划分？\n怎么理解onedata体系？\n为什么需要数据建模？\n数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。\n数据仓库建模的目标是通过建模的方法更好的组织、存储数据，以便在性能、成本、效率和数据质量之间找到最佳平衡点。\n当有了适合业务和基础数据存储环境的模型（良好的数据模型），那么大数据就能获得以下好处：\n性能：快速的查询我们所需要的数据，减少数据的I/O吞吐。\n成本：极大的减少不必要的数据冗余，实现计算结果复用，降低数据的存储和计算成本。\n效率：极大的改善用户使用数据的体验，提高使用数据的效率。\n质量：改善数据统计口径的不一致性，减少数据计算错误的可能性。\n\n\n\n数据漂移问题怎么解决？",
@@ -55,79 +68,219 @@
   ],
   "qas": [
     {
-      "id": "qa_1792579958293_19d8385d",
-      "question": "上传文件的时候，如果其中一个 DataNode 突然挂掉了怎么办？",
-      "answer": "客户端上传文件时与 DataNode 建立 pipeline 管道，管道的正方向是客户端向 DataNode 发送的数据包，管道反方向是DataNode 向客户端发送 ack 确认，也就是正确接收到数据包之后发送一个已确认接收到的应答。\n当 DataNode 突然挂掉了，客户端接收不到这个 DataNode 发送的 ack 确认，客户端会通知 NameNode，NameNode 检查该块的副本与规定的不符，NameNode 会通知 DataNode 去复制副本，并将挂掉的 DataNode 作下线处理，不再让它参与文件上传与下载。",
+      "id": "qa_1792567035284_960bf089",
+      "question": "什么是 RDD？",
+      "answer": "RDD是指弹性分布式数据集，在代码中是一个抽象类，它代表一个不可变、可分区、里面的元素可并行计算的数据集合。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:48Z"
+    },
+    {
+      "id": "qa_1792567035285_0a2c8161",
+      "question": "RDD 的核心概念是什么？",
+      "answer": "RDD的核心概念是分区（Partition）和计算函数。 在真正计算时，RDD的不同分区是分散到不同的计算节点进行计算的，每个节点计算RDD的一个分区或多个分区，从而形成数据的分布式计算。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:56Z"
+    },
+    {
+      "id": "qa_1792567035285_8af5e9d6",
+      "question": "RDD 的数据来源有哪些？",
+      "answer": "- 从数据源或者集合中进行加载（如HDFS、Hbase）\n- 由其他RDD进行转换（由各种算子实现，如map、filter、groupBy等。主要分为transformation和action算子）",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:04:01Z"
+    },
+    {
+      "id": "qa_1792567035285_65982d45",
+      "question": "Driver 和 Executor 分别负责什么？",
+      "answer": "Driver：主控进程，负责产生DAG和提交Job，解析sql的逻辑和物理执行计划，同时负责回收任务的执行结果，不涉及具体的计算。如果使用广播变量，广播变量会先拉取到Driver端，之后再分发到Executor端执行broadcastjoin。 Executor：Task具体执行的节点，负责具体的数据计算和缓存RDD等，执行具体的task任务。Spark的分布式计算就体现在Executor是分布式的。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:18Z"
+    },
+    {
+      "id": "qa_1792567035285_5f97f4a3",
+      "question": "Spark DAG 中 Job、Stage、Task 分别是什么？",
+      "answer": "Job：在一个任务中，以Action算子划分Job，如collect、saveAsTextFile、show \nStage：一个Job中，又以Shuffle为边界（宽窄依赖）划分出的不同阶段，如join、groupByKey、reduceByKey \nTask：每个Stage由一组并发的Task组成（即TaskSet），task个数由输入文件的切片个数来决定的。通过算子修改了某一个rdd的分区数量，task数量也会同步修改。\n一个Stage的总Task的个数由Stage中最后的一个RDD的Partition数量决定。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-22T09:15:15Z"
+    },
+    {
+      "id": "qa_1792567035285_f7abb8e3",
+      "question": "Spark 作业的执行流程是什么？",
+      "answer": "为便于理解，Spark作业的执行流程可简化为：读取文件并转换为RDD，然后按照解析出的物理执行计划进行RDD Partition的转换、计算。 当Spark读取文件作为输入时，会根据具体数据格式对应的InputFormat进行解析，一般是将若干个Block合并成一个输入分片，称为InputSplit，注意InputSplit不能跨越文件。 随后这些具体的Task每个都会被分配到集群上的某个节点的某个Executor去执行。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:24Z"
+    },
+    {
+      "id": "qa_1792567035285_48a3dd8c",
+      "question": "InputSplit、Partition 和 Task 的关系是什么？",
+      "answer": "当Spark读取文件作为输入时，会根据具体数据格式对应的InputFormat进行解析，一般是将若干个Block合并成一个输入分片，称为InputSplit，注意InputSplit不能跨越文件。 Spark将为InputSplit和后续的RDD Partition生成具体的Task。 InputSplit/Partition的数量决定了Task的数量，是一一对应的。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:03:35Z"
+    },
+    {
+      "id": "qa_1792567035285_2a6455e2",
+      "question": "Spark Task 的实际并发度如何计算？",
+      "answer": "每个Executor由若干core组成，每个Executor的每个core一次只能执行一个Task。 \nTask被执行的实际并发度 = Executor数目 * 每个Executor核数 * 虚拟运行核数。",
+      "entryId": "entry_1792567035279_fc29dc2b",
+      "sourceTitle": "spark 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:17:15Z",
+      "updatedAt": "2026-10-21T08:36:08Z"
+    },
+    {
+      "id": "qa_1792567772852_07d84a84",
+      "question": "数据倾斜会在哪一个环节出现？为什么?",
+      "answer": "数据倾斜会在shuffle阶段出现，因为涉及到了数据打散，如果某个值的数据异常多，则会导致这个值全部分布在一个partition中，造成数据倾斜。 \n\n\n**group by** 某key分布不均匀 比如热点城市  uid=0（未登录用户）\n**join**\n (1) 空值/异常值倾斜\n关联字段大量为 NULL 或 ''，Hive 中 NULL 在 common/shuffle join 时会被分到同一个 reducer（Hive 2+ 对 null key 有优化，但仍要注意），那个 reducer 爆炸。\n(2) 热点 key 倾斜\n大表 join 大表/小表，某个 key（爆款商品、大代理商、平台自营）对应海量记录，集中到一个 reducer。\n(3) 大表 join 大表（双方都大）\n无法用 MapJoin，走 ReduceJoin，倾斜 key 直接拖垮。\n(4) 不同数据类型关联导致的隐式转换\n如 string 类型的 id join bigint 的 id，发生隐式类型转换，使关联字段变成非分区/非索引计算，且可能把大量值归并（典型\"看着不倾斜，实际倾斜\"），还会让分区裁剪失效。\n**Count Distinct 倾斜**\nCOUNT(DISTINCT uid) 时，去重字段的所有值默认只能走少量/单个 reducer 做最终去重（distinct 不能像普通聚合那样提前 combiner 摊平），数据量大时单 reducer 扛不住。\n这是非常经典的倾斜场景。\n**小文件 / 输入数据分布不均（Map 端倾斜）**\n不是 reducer 倾斜，而是 map 端：单个超大未分片文件（不可切分的压缩 GZIP、超大文件）、或某些 map 处理的数据块特别大，导致个别 map task 特别慢。\n**动态分区写入倾斜**\nINSERT OVERWRITE ... PARTITION(dt) 开启动态分区时，如果分区值集中（如大量数据都写入某一个分区/某几个分区），对应的 reducer（按分区字段分发）数据量巨大，造成倾斜，甚至单分区文件过大。\n**窗口函数 / 排序（ORDER BY / 全局排序）倾斜**\nORDER BY（不带分区）强制全局排序，只有 1 个 reducer，数据一大必然慢；\n窗口函数 PARTITION BY key 时，某个 partition key 数据特别多，对应分组处理也会拖尾。",
+      "entryId": "entry_1792567772849_7f747183",
+      "sourceTitle": "SPARK 相关",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T10:17:53Z"
+    },
+    {
+      "id": "qa_1792567772853_b8be216c",
+      "question": "shuffle过程会消耗那些资源？哪些会成为瓶颈？为什么 是什么？",
+      "answer": "shuffle中涉及到了数据的shuffle write、shuffle read，数据的序列化，网络传输。 在我们可控制的内存、cpu资源来看，最主要的瓶颈是shuffle read阶段会因为数据量的过大而导致内存溢出，因此需要合理的调整每个partition的数据量并均匀的分散数据。",
+      "entryId": "entry_1792567772849_7f747183",
+      "sourceTitle": "SPARK 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T08:01:38Z"
+    },
+    {
+      "id": "qa_1792567772853_a27f8475",
+      "question": "join操作一定发生shuffle吗？ 是什么？",
+      "answer": "如果其中一张表的数据量非常小，可以采取broadcast join来避免shuffle操作，大大缩短任务时间。 \n在RDD api中可以自由控制每个shuffle的并行度，在两个RDD已由相同分区函数分区并partition数相同的情况下，join不会发生shuffle操作。",
+      "entryId": "entry_1792567772849_7f747183",
+      "sourceTitle": "SPARK 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T08:01:45Z"
+    },
+    {
+      "id": "qa_1792567772854_7e09d285",
+      "question": "并行度越大越好吗？为什么？ 是什么？",
+      "answer": "在每个task处理的数据量过多时，可以适当增加并行度来减少每个task处理的数据量，以此增加速度。 但当task处理的数据量非常小时，可以适当的减小并行度来减少task个数，因为driver在生成、分配、监视task时需要消耗时间，executor在切换处理task时也需要消耗时间。",
+      "entryId": "entry_1792567772849_7f747183",
+      "sourceTitle": "SPARK 相关",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T07:29:32Z",
+      "updatedAt": "2026-10-21T08:01:50Z"
+    },
+    {
+      "id": "qa_1792567864559_2ca91806",
+      "question": "以下哪个sql会发生shuffle?(多选)\n1.  select col1,col2 from table where col1 = 'hello'     \n2.  select table1.a from table1 join table2 on table1.a = table2.a     \n3.  select col1,count(1) as ct from table group by col1    \n4.  select col1, col2, row_number() over(partition by col1,sort by col2 desc) as rn from table",
+      "answer": "1  错误。过滤不会产生shuffle\n2  正确。join是shuffle最主要的场景\n3  正确。聚合也会产生shuffle\n4  正确。窗口函数中有分区操作，也产生来shuffle",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
-        "Hive"
+        "数仓基础"
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T10:52:38Z",
-      "updatedAt": "2026-10-21T10:52:38Z"
+      "createdAt": "2026-10-21T07:31:04Z",
+      "updatedAt": "2026-10-21T08:02:32Z"
     },
     {
-      "id": "qa_1792579944065_b409d488",
-      "question": "yarn pending状态",
-      "answer": "在 Yarn中，当一个应用程序的任务(Task)由于资源未满足而无法立即执行时，该任务将处于\"pending\"状态。这通常发生在以下几种情况下:\n资源不足:当前集群的可用资源不足以满足任务的需求。\n资源分配策略:集群配置的资源分配策略可能导致任务无法立即获得资源。\n配置错误:不正确的集群或应用程序配置可能导致任务无法顺利调度。\n\nending 状态的影响\nPending 状态可能会导致应用程序的延迟，影响整体的计算效率。在大数据处理场景中，长时间的 pending 状态可能会使整个工作流陷入停滞，从而拖慢数据处理速度。",
+      "id": "qa_1792567984445_c145201b",
+      "question": "根据你对shuffle 过程的理解，以下哪种方式可能会优化shuffle性能 ？ (多选)\n  1. 增加Executor个数    \n  2. 增加并行度       \n  3. 合并输入小文件      \n  4. 先join，再过滤",
+      "answer": "1  正确。增加资源不仅对shuffle性能好，对任何计算操作都有很大帮助\n2  正确。增加task数量，相当于减少每个task处理的数据量。在task处理的数据量巨大的情况下是很有帮助的\n3  正确。初始task由输入文件的个数决定，如果小文件过多，会导致每个task处理数据量小且task数过多。适当的合并输入小文件可以提升性能\n4  错误。应该先过滤，在join。这样会减少shuffle中产生的数据量，提升shuffle效率",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
-        "Hive"
+        "Spark"
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T10:52:24Z",
-      "updatedAt": "2026-10-21T10:52:24Z"
+      "createdAt": "2026-10-21T07:33:04Z",
+      "updatedAt": "2026-10-21T08:01:17Z"
     },
     {
-      "id": "qa_1792579912592_36fb4bb1",
-      "question": "HDFS的三大机制",
-      "answer": "心跳机制：DataNode会定期向NameNode发送心跳信号，以保持连接。如果NameNode在一定时间内没有收到心跳信号，它会认为对应的DataNode节点已经失效，并启动相应的恢复机制。\n\n数据块副本机制：HDFS通过数据块副本机制来保证数据的可靠性和可用性。当某个数据块发生故障时，系统会自动从其他副本中恢复该数据块。此外，通过增加副本数量，可以提高系统的容错能力和数据的可用性。\n\n数据块均衡机制：为了实现HDFS集群中的负载均衡，HDFS会定期对数据块进行均衡调度。系统会根据数据块的存储和访问情况，自动调整数据块的位置，以保证集群中的负载均衡。",
-      "entryId": "",
-      "sourceTitle": "人工添加",
-      "tags": [
-        "Hive"
-      ],
-      "confirmed": true,
-      "autoGenerated": false,
-      "createdAt": "2026-10-21T10:51:52Z",
-      "updatedAt": "2026-10-21T10:51:52Z"
-    },
-    {
-      "id": "qa_1792579896433_40cbcdc1",
-      "question": "hadoop四大特性",
-      "answer": "高可靠性：hadoop底层维护多个副本，即使某个出现错误，也不会导致数据丢失\n高扩展性：可以动态扩展节点\n高效性：并行工作\n高容错性：失败任务重新分配",
-      "entryId": "",
-      "sourceTitle": "人工添加",
-      "tags": [
-        "Hive"
-      ],
-      "confirmed": true,
-      "autoGenerated": false,
-      "createdAt": "2026-10-21T10:51:36Z",
-      "updatedAt": "2026-10-21T10:51:36Z"
-    },
-    {
-      "id": "qa_1792578089228_357a077e",
-      "question": "两个大表之间关联，其中一张表有3个key（已知这3个key）对应另一张表，分别一万条，十万条，百万条关联，其他的数据平均是1千条的关联，如何处理这种倾斜",
-      "answer": "已经知道了哪些key倾斜，通过打散的形式将百万、十万、一万的拆分处理-- ========= 第一部分：热点 key，加盐打散后关联 ========= \nSELECT a.uid, a.oid, a.payamt, b.u_name, b.u_city \nFROM ( \n -- A 表热点行：每行随机分配一个盐值 0~99 \n SELECT oid, uid, payamt, \n CAST(RAND() * 100 AS INT) AS salt -- 打散成100个桶 \n FROM orders \n WHERE uid IN ('K1','K2','K3') -- 只处理已知热点key \n) a \nJOIN ( \n -- B 表热点行：每行复制100份，盐值 0~99 各一份 \n SELECT u.uid, u.u_name, u.u_city, s.salt \n FROM user_info u \n LATERAL VIEW POSEXPLODE(SPLIT(SPACE(99), ' ')) t AS salt, dummy\n )) t AS s \n WHERE u.uid IN ('K1','K2','K3') \n) b \nON a.uid = b.uid \nAND a.salt = b.salt -- ★ 用 key+盐 一起关联，摊到100个reducer \nUNION ALL \n-- ========= 第二部分：非热点（冷）数据，正常关联 ========= \nSELECT a.uid, a.oid, a.payamt, b.u_name, b.u_city \nFROM orders a \nJOIN user_info b \nON a.uid = b.uid \nWHERE a.uid NOT IN ('K1','K2','K3'); -- 冷数据不倾斜，普通join即可\n基于上面那个问题，就想临时将它跑过去，不想做特殊处理，怎么办\n答案：面试官说将内存调大",
-      "entryId": "",
-      "sourceTitle": "人工添加",
+      "id": "qa_1792570067579_be4c8ad2",
+      "question": "自然月累计金额 \norders表(字段:oid,uid,itemid,itemnum, paytime, payamt) 用一句SQL取出每个用户最近一个月 每天的购买金额以及当天的月累计金额",
+      "answer": "SELECT uid,\n       paydate,\n       daily_amount,\n       SUM(daily_amount) OVER (\n           PARTITION BY uid, trunc(paydate, 'MM')      \n           ORDER BY paydate\n       ) AS monthly_cumulative_amount\nFROM (\n    SELECT uid,\n           to_date(paytime) AS paydate,                 \n           SUM(payamt)      AS daily_amount\n    FROM orders\n    WHERE paytime >= trunc(date_sub(current_date, 30), 'MM')  -- 窗口最早日所在月的1号（精确下界）\n      AND paytime <  date_add(current_date, 1)                -- 截止到今天，利于分区裁剪\n    GROUP BY uid, to_date(paytime)\n) t\nWHERE paydate >= date_sub(current_date, 30);           -- 最后只留最近一个月",
+      "entryId": "entry_1792570067569_80743a9c",
+      "sourceTitle": "自然月累计金额",
       "tags": [
         "Sql练习"
       ],
       "confirmed": true,
-      "autoGenerated": false,
-      "createdAt": "2026-10-21T10:21:29Z",
-      "updatedAt": "2026-10-21T10:21:52Z"
+      "autoGenerated": true,
+      "createdAt": "2026-10-21T08:07:47Z",
+      "updatedAt": "2026-10-21T08:18:35Z"
     },
     {
-      "id": "qa_1792578035920_c2099708",
-      "question": "数据倾斜解决办法",
-      "answer": "Group By 倾斜\t：\nhive.map.aggr=true（map 端预聚合）；\nhive.groupby.skewindata=true（两阶段聚合，把倾斜 key 加随机前缀打散再合并）\n\nJoin 空值倾斜：\n空值 加随机数打散（case when id is null then concat('n',rand) else id end），或空值直接过滤/单独处理\nJoin 热点 key\t热点 key 拆出来单独 mapjoin / 膨胀小表，其余正常 join，最后 union all；hive.optimize.skewjoin=true\n\n大表 join 小表：\n走 MapJoin（hive.auto.convert.join=true），无 reducer 自然不倾斜\n\nCount Distinct：\t\n改写为两阶段：先 distinct 子查询去重再 count，或 group by 后 count；可加随机数分桶去重\n大表 join 大表：\n调大内存、增加 reducer、SkewJoin、分桶表（bucket join）\n动态分区倾斜：\nhive.optimize.sort.dynamic.partition、控制 hive.exec.max.dynamic.partitions、分小批写入\nMap 端小文件/大文件：\n小文件合并（CombineHiveInputFormat）、避免不可切分压缩、合理设置 split 大小\n全局 ORDER BY：\n用 DISTRIBUTE BY ... SORT BY ... 替代，只在必要时 order by",
+      "id": "qa_1792571691992_29d28ea2",
+      "question": "什么数仓才算一个好的数仓",
+      "answer": "好坏从下面几个角度评价：\n1、**数据质量**\n数据仓库数据的准确性、完整性、一致性和时效性等方面的质量,以确保数据可靠性\n2、**性能**\n数据仓库在数据加载、查询、分析等方面的性能,包括加载速度、查询响应时间和并发处理能力\n3、**可用性**\n系统的可靠性、容错性和故障恢复能力\n4、**可扩展性**\n水平扩展和垂直扩展能力,以适应数据规模和用户需求的增长\n5、**数据建模和架构评估**\n6、**数据治理**\n\n参考指标：\n  完善度：跨层引用率 汇总数据查询率\n  复用度：模型引用系数 \n  规范度：字段描述覆盖率 模型分层信息覆盖率 命名不规范表占比",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -135,13 +288,13 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T10:20:35Z",
-      "updatedAt": "2026-10-21T10:20:35Z"
+      "createdAt": "2026-10-21T08:34:51Z",
+      "updatedAt": "2026-10-21T09:41:08Z"
     },
     {
-      "id": "qa_1792577910161_cd041f29",
-      "question": "怎么判断是否倾斜",
-      "answer": "● 任务进度长时间卡在 reduce 99%，绝大多数 task 已完成，个别 task 卡住或反复重试；\n● YARN/日志里看各 reducer 处理记录数（Reduce input records）严重不均，某个 reducer 读了几十亿行、其他只读几百万；\n● 单个 reducer OOM / 超时报错，整体数据量其实不大。\n定位口诀：先看是不是倾斜（reducer 数据不均），再看是哪类（group by / join / count distinct / 动态分区），再看倾斜 key 长啥样（null / 热点 / 类型问题），最后对症下药——能 mapjoin 就 mapjoin，能打散（随机前缀/两阶段聚合）就打散，空值单独处理。",
+      "id": "qa_1792571706050_c970d6de",
+      "question": "数仓是怎么分层的",
+      "answer": "ODS层\n保留业务系统原始数据，保持和数据源的一致性，不做任何类型转换和数据加工处理\nDWD层\n明细宽表层，用于存放完整详细历史数据。面向业务过程建模，紧紧围绕着业务过程来设计，通过获取描述业务过程的度量来表达业务过程，包含了引用的维度和与业务过程有关的度量。其设计目标是为后续的Data Warehouse Model提供灵活性和扩展性的基础，同时可以在DW层无法支持需求时直接为应用层提供数据。DWD层由于与业务系统耦合程度较高，其稳定性会受到业务系统的影响。\nDWS层\n存放详细历史数据的公共汇总数据层，面向分析主题建模。DWS是核心数据层，是为应用层提供足够的灵活性和扩展性的基础。\nADS层\n提供直接面向业务或应用的数据，主要对个性化指标数据进行架构处理，如无公用性或复杂性（如指数型、比值型、排名型等指标数据）的指标数据加工。同时为方便实现数据应用、数据消费的诉求，进行面向应用逻辑的数据组装（如打宽表集市、横表转纵表、趋势指标串等）。",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -149,27 +302,13 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T10:18:30Z",
-      "updatedAt": "2026-10-21T10:18:30Z"
+      "createdAt": "2026-10-21T08:35:06Z",
+      "updatedAt": "2026-10-21T08:35:06Z"
     },
     {
-      "id": "qa_1792577524995_e09eb630",
-      "question": "spark 三种join（物理性能层面）",
-      "answer": "BroadcastHashJoin（广播哈希连接，BHJ）\n核心思想：数据不动，把小表复制到每台机器。\n当 join 的一边很小（默认小于 spark.sql.autoBroadcastJoinThreshold = 10MB），Spark 干脆把这张小表全量收集后广播到每一个 executor，每个 task 在本地内存里把小表建成一张哈希表（key → 行），然后顺序扫描大表的每一行，拿它的 key 去本地哈希表里查。\n关键点：\n大表完全不 shuffle。大表动辄几十亿行，不洗牌是它最大的优势；\n没有网络传输大表数据、没有 reduce 阶段的排序，通常是最快的 join；\n匹配用的是哈希查找，O(1)，非常快；\n代价是：小表要在每个 executor 内存里放得下，且要先全量收集到 driver 再广播，所以只适合真正的小表（维度表最典型，比如商品维表、城市字典表 join 交易大表）。\n风险：如果统计信息失真、把一张大表误判成小表强行广播，会导致 driver 端 collect 时 OOM 或 executor 内存爆掉（OutOfMemoryError: Cannot build the broadcast table）。可以用 broadcast hint 手动指定：broadcast(small_table)。\n一句话：小表广播到每台机器建哈希表，大表本地扫描本地查，零 shuffle，最快，但小表必须放得进内存。\n\nShuffledHashJoin（洗牌哈希连接，SHJ）\n核心思想：两边都按 key shuffle 到同一批分区，每分区内建哈希表匹配。\n当两张表都比较大、不适合广播，但** shuffle 之后单个分区的数据量仍能放进内存**时用它。流程分两步：\n第一步，shuffle：两张表都用相同的分区器（hash(key) % 分区数）把数据重新分发。这样一来，相同 key 的行一定被分到同一个 reducer 分区——两张表里 key=100 的数据都落在分区 3。\n第二步，在每个分区内建哈希表：选择其中一边（通常较小的一边）在内存里建哈希表，再遍历另一边，用 key 去哈希表里查。\n关键点：\n有 shuffle（这是它和 BHJ 的本质区别，两张大表都得洗牌）；\n但不需要排序（这是它和 SMJ 的本质区别）——shuffle 完直接建哈希表，省去排序的 CPU 和排序过程中的磁盘 spill；\n匹配仍是 O(1) 哈希查找，所以当分区数据能装内存时，它比 SortMergeJoin 少一道排序开销，理论上更快；\n致命约束：建哈希表那一侧的每个分区都必须完整放进内存。大表数据倾斜或单分区很大时就建不下，容易 OOM，所以 Spark 默认其实很少主动选它（需要满足 spark.sql.join.preferSortMergeJoin=false 等条件），工程上用得比 SMJ 少。\n一句话：两张大表先按 key 同规则 shuffle，分区内直接建哈希表查，有 shuffle 但不排序，比 SMJ 省排序、但要求单分区数据能进内存，条件苛刻。\n\nSortMergeJoin（排序归并连接，SMJ）\n核心思想：两边都按 key shuffle，再各自排序，然后像\"拉链\"一样归并匹配。\n这是 Spark 处理两张大表 join 的默认策略，因为它对内存最友好、最稳。流程分三步：\n第一步，shuffle：和 SHJ 一样，两表按相同 hash 分区器洗牌，相同 key 进同一分区。\n第二步，分区内排序：每张表在每个分区内都按 join key 排好序。\n第三步，归并（merge）：两边各有一个游标，从头开始一起向后走。比较两边当前 key：\n相等，就把该 key 对应的所有行做匹配输出，然后两边游标都推进；\n左边 key 小，左边游标前进；右边 key 小，右边游标前进；\n因为两边都有序，游标只需单向往后扫，各扫一遍就能完成连接，不需要回头。\n关键点：\n有 shuffle，也有排序，前期成本最高；\n但它最大的优点是不依赖内存能装下整个分区：排序和归并过程中数据可以溢写磁盘（spill），处理超大、倾斜的数据也能跑完，鲁棒性最强；\n归并本身是 O(n) 顺序扫描，不建大哈希表，内存占用平稳；\n正因为\"再大都能跑\"，它成为大表 join 的默认、最通用选择；\n缺点就是排序贵、shuffle 贵，所以 AQE 在运行时若发现其实有一侧很小，会动态把它降级成 BroadcastHashJoin 来省掉这一切。\n一句话：两表 shuffle 后各自排序，再有序地双游标归并拉链，有 shuffle 有排序，但能 spill 到磁盘、不怕数据大、最稳，是大表 join 的默认选择。",
-      "entryId": "",
-      "sourceTitle": "人工添加",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": false,
-      "createdAt": "2026-10-21T10:12:04Z",
-      "updatedAt": "2026-10-21T10:12:04Z"
-    },
-    {
-      "id": "qa_1792576768870_51549bea",
-      "question": "如何构建一个数仓",
-      "answer": "调研\n划分主题域\n构建总线矩阵\n设计分层架构\n模型落地\n质量监控 质量保障 数据治理",
+      "id": "qa_1792571823232_7c302d43",
+      "question": "数仓为什么要分层",
+      "answer": "● 清晰数据结构：每一个数据分层都有它的作用域和职责，在使用表的时候能更方便地定位和理解\n● 减少重复开发：规范数据分层，开发一些通用的中间层数据，能够减少极大的重复计算\n● 统一数据口径：通过数据分层，提供统一的数据出口，统一对外输出的数据口径\n● 复杂问题简单化：将一个复杂的任务分解成多个步骤来完成，每一层解决特定的问题",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -177,27 +316,13 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T09:59:28Z",
-      "updatedAt": "2026-10-21T09:59:28Z"
+      "createdAt": "2026-10-21T08:37:03Z",
+      "updatedAt": "2026-10-21T08:37:03Z"
     },
     {
-      "id": "qa_1792576661979_5e9796d1",
-      "question": "项目中遇到过数据倾斜、任务跑死、产出延迟的实际案例",
-      "answer": "有一张dwd的表 随着业务需要 从原先5000w到五亿 执行时间从四十分钟到十几小时\n平时正常 突然不正常\n排查队列资源问题 修改为优先级更高的队列\n任务仍无法执行完成，因此不是队列资源不足问题\n调参数 该任务之前未配置spark优化参数，怀疑是资源内存不足够引起因此尝试了如下参数\nset spark.executor.memory=20g;\t为 Spark 应用程序的执行器（Executor）设置内存上限为 20GB。解决内存不足可能导致频繁交换(Swap)或任务失败(OOM错误)\nset spark.sql.files.maxPartitionBytes=1g;\t设置 Spark SQL 读取文件时每个分区所能处理的最大数据量为 1GB。 将文件数据分割成不同分区，每个分区对应一个任务进行处理，配置1GB w为了避免产生过多分区和任务\nset spark.sql.adaptive.maxNumPostShufflePartitions=500;\t设置 Spark SQL Shuffle 后最多允许的分区数量为 500。避免因数据分布不均导致 Shuffle 后产生过多小分区，减少任务调度开销\nset spark.driver.memory=30g;\t设置Spark应用的Driver堆内存上限为30GB，适用复杂的查询计划\nset spark.sql.parquet.adaptiveFileSplit=true;\t启用 Spark SQL 对 Parquet 文件的自适应文件拆分功能。\n避免因 Parquet 文件行组过大导致单个分区数据量过大，从而引发内存压力、使数据分区更符合集群的并行处理能力，提升整体读取和计算效率\nset spark.shuffle.hdfs.enabled=true;\t启用 Spark 将 Shuffle 中间数据写入 HDFS 。避免单个节点因存储大量 Shuffle 数据而耗尽本地磁盘空间\nset spark.executor.cores=2;\t为每个 Spark Executor（执行器）分配 2 个 CPU 核心。大量数据运算提供更多核心以提高并行效率\n观测任务运行仍未有好转迹象 🥱说明性能瓶颈可能不在资源配置层面\n处理方式：\n1. 先筛选出执行时间异常的stage\n2. 分析metrics\n● Duration（执行时长）: 如果时间越长，说明task花费的时间就越多，需要从其他的metric指标分析具体耗时分布异常在哪 ，task执行了48min一定存在问题 ❗️\n● Shuffle Write Size/Records: shuffle过程写入到本地磁盘的数据量。写入的数据量级，一般建议是在256M以内，最大写入为5.3G，说明数据有倾斜，需要查看具体逻辑分析❗️",
-      "entryId": "",
-      "sourceTitle": "人工添加",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": false,
-      "createdAt": "2026-10-21T09:57:41Z",
-      "updatedAt": "2026-10-21T10:15:55Z"
-    },
-    {
-      "id": "qa_1792576402777_c242ce43",
-      "question": "工作中做没做过数据治理？",
-      "answer": "分为 存储治理 和计算治理\n存储治理 ：数据压缩\n           生命/冷备周期治理\n     空表治理\n计算治理：\n单点任务：\ncu消耗高：暴力扫描 小文件任务 动态分区写入多的任务\n运行慢：数据倾斜 map数较少 数据逻辑优化\n其他：输出为空任务治理 连续失败任务治理\n成块任务：重复/相似计算",
+      "id": "qa_1792571840147_48e93614",
+      "question": "怎么评价分层的好坏",
+      "answer": "（参考《阿里巴巴-大数据之路》第九章9.3.3 - 基本原则）：\n● 从完善度上来讲，主要衡量DWD层和汇总层两块的完善度，DWD层完善度，主要是希望DWD等尽可能被汇总层引用，ODS层被除了DWD层外的尽可能少的引用，最好是没有\n● 从复用度上来讲，我们希望80%需求由20%的表来支持。直接点讲，就是大部分（80%以上）的需求，都用DWS的表来支持\n● 从规范度上来讲，主要从表名、字段名来看，一个规范的表名应该包括层级、主题域、分区规则，抽取类型等信息。字段规范应该是和词根一致，同字段同名等\n  ○ 高内聚低耦合\n    ■ 数据业务特性：将业务相近或相关、粒度相同的数据设计为一个逻辑或物理模型\n    ■ 数据访问特性：将高概率同时访问的数据放在一起，将低概率同时访问的数据分开存储\n  ○ 核心模型与扩展模型分离\n    ■ 核心模型包括的字段支持常用核心业务，扩展模型包括的字段支持个性化或少量应用需要\n  ○ 公共处理逻辑下沉及单一\n    ■ 越是底层公用的逻辑越应该在数据调度依赖的底层进行封装与实现，不要让公用的逻辑暴露给应用层实现\n    ■ 不要让公共逻辑多处同时存在\n  ○ 成本与性能平衡\n    ■ 适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制\n  ○ 数据可回滚\n    ■ 处理逻辑不变，在不同时间多次运行数据结果确定不变\n  ○ 一致性\n    ■ 具有相同含义的字段在不同表中的命名必须相同，必须使用规范定义中的名称\n  ○ 命名清晰，易理解\n    ■ 表命名需清晰、一致，表名需易于消费者理解和使用",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -205,22 +330,8 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T09:53:22Z",
-      "updatedAt": "2026-10-21T09:53:46Z"
-    },
-    {
-      "id": "qa_1792575278651_b54b9e7b",
-      "question": "数仓是什么？",
-      "answer": "面向主题的、集成的、反应历史变化的数据集合 用来支持分析与决策",
-      "entryId": "",
-      "sourceTitle": "人工添加",
-      "tags": [
-        "数仓基础"
-      ],
-      "confirmed": true,
-      "autoGenerated": false,
-      "createdAt": "2026-10-21T09:34:38Z",
-      "updatedAt": "2026-10-21T09:35:02Z"
+      "createdAt": "2026-10-21T08:37:20Z",
+      "updatedAt": "2026-10-21T08:37:20Z"
     },
     {
       "id": "qa_1792573443464_788cc200",
@@ -475,9 +586,9 @@
       "updatedAt": "2026-10-21T09:16:09Z"
     },
     {
-      "id": "qa_1792571840147_48e93614",
-      "question": "怎么评价分层的好坏",
-      "answer": "（参考《阿里巴巴-大数据之路》第九章9.3.3 - 基本原则）：\n● 从完善度上来讲，主要衡量DWD层和汇总层两块的完善度，DWD层完善度，主要是希望DWD等尽可能被汇总层引用，ODS层被除了DWD层外的尽可能少的引用，最好是没有\n● 从复用度上来讲，我们希望80%需求由20%的表来支持。直接点讲，就是大部分（80%以上）的需求，都用DWS的表来支持\n● 从规范度上来讲，主要从表名、字段名来看，一个规范的表名应该包括层级、主题域、分区规则，抽取类型等信息。字段规范应该是和词根一致，同字段同名等\n  ○ 高内聚低耦合\n    ■ 数据业务特性：将业务相近或相关、粒度相同的数据设计为一个逻辑或物理模型\n    ■ 数据访问特性：将高概率同时访问的数据放在一起，将低概率同时访问的数据分开存储\n  ○ 核心模型与扩展模型分离\n    ■ 核心模型包括的字段支持常用核心业务，扩展模型包括的字段支持个性化或少量应用需要\n  ○ 公共处理逻辑下沉及单一\n    ■ 越是底层公用的逻辑越应该在数据调度依赖的底层进行封装与实现，不要让公用的逻辑暴露给应用层实现\n    ■ 不要让公共逻辑多处同时存在\n  ○ 成本与性能平衡\n    ■ 适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制\n  ○ 数据可回滚\n    ■ 处理逻辑不变，在不同时间多次运行数据结果确定不变\n  ○ 一致性\n    ■ 具有相同含义的字段在不同表中的命名必须相同，必须使用规范定义中的名称\n  ○ 命名清晰，易理解\n    ■ 表命名需清晰、一致，表名需易于消费者理解和使用",
+      "id": "qa_1792575278651_b54b9e7b",
+      "question": "数仓是什么？",
+      "answer": "面向主题的、集成的、反应历史变化的数据集合 用来支持分析与决策",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -485,13 +596,13 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T08:37:20Z",
-      "updatedAt": "2026-10-21T08:37:20Z"
+      "createdAt": "2026-10-21T09:34:38Z",
+      "updatedAt": "2026-10-21T09:35:02Z"
     },
     {
-      "id": "qa_1792571823232_7c302d43",
-      "question": "数仓为什么要分层",
-      "answer": "● 清晰数据结构：每一个数据分层都有它的作用域和职责，在使用表的时候能更方便地定位和理解\n● 减少重复开发：规范数据分层，开发一些通用的中间层数据，能够减少极大的重复计算\n● 统一数据口径：通过数据分层，提供统一的数据出口，统一对外输出的数据口径\n● 复杂问题简单化：将一个复杂的任务分解成多个步骤来完成，每一层解决特定的问题",
+      "id": "qa_1792576402777_c242ce43",
+      "question": "工作中做没做过数据治理？",
+      "answer": "分为 存储治理 和计算治理\n存储治理 ：数据压缩\n           生命/冷备周期治理\n     空表治理\n计算治理：\n单点任务：\ncu消耗高：暴力扫描 小文件任务 动态分区写入多的任务\n运行慢：数据倾斜 map数较少 数据逻辑优化\n其他：输出为空任务治理 连续失败任务治理\n成块任务：重复/相似计算",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -499,13 +610,27 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T08:37:03Z",
-      "updatedAt": "2026-10-21T08:37:03Z"
+      "createdAt": "2026-10-21T09:53:22Z",
+      "updatedAt": "2026-10-21T09:53:46Z"
     },
     {
-      "id": "qa_1792571706050_c970d6de",
-      "question": "数仓是怎么分层的",
-      "answer": "ODS层\n保留业务系统原始数据，保持和数据源的一致性，不做任何类型转换和数据加工处理\nDWD层\n明细宽表层，用于存放完整详细历史数据。面向业务过程建模，紧紧围绕着业务过程来设计，通过获取描述业务过程的度量来表达业务过程，包含了引用的维度和与业务过程有关的度量。其设计目标是为后续的Data Warehouse Model提供灵活性和扩展性的基础，同时可以在DW层无法支持需求时直接为应用层提供数据。DWD层由于与业务系统耦合程度较高，其稳定性会受到业务系统的影响。\nDWS层\n存放详细历史数据的公共汇总数据层，面向分析主题建模。DWS是核心数据层，是为应用层提供足够的灵活性和扩展性的基础。\nADS层\n提供直接面向业务或应用的数据，主要对个性化指标数据进行架构处理，如无公用性或复杂性（如指数型、比值型、排名型等指标数据）的指标数据加工。同时为方便实现数据应用、数据消费的诉求，进行面向应用逻辑的数据组装（如打宽表集市、横表转纵表、趋势指标串等）。",
+      "id": "qa_1792576661979_5e9796d1",
+      "question": "项目中遇到过数据倾斜、任务跑死、产出延迟的实际案例",
+      "answer": "有一张dwd的表 随着业务需要 从原先5000w到五亿 执行时间从四十分钟到十几小时\n平时正常 突然不正常\n排查队列资源问题 修改为优先级更高的队列\n任务仍无法执行完成，因此不是队列资源不足问题\n调参数 该任务之前未配置spark优化参数，怀疑是资源内存不足够引起因此尝试了如下参数\nset spark.executor.memory=20g;\t为 Spark 应用程序的执行器（Executor）设置内存上限为 20GB。解决内存不足可能导致频繁交换(Swap)或任务失败(OOM错误)\nset spark.sql.files.maxPartitionBytes=1g;\t设置 Spark SQL 读取文件时每个分区所能处理的最大数据量为 1GB。 将文件数据分割成不同分区，每个分区对应一个任务进行处理，配置1GB w为了避免产生过多分区和任务\nset spark.sql.adaptive.maxNumPostShufflePartitions=500;\t设置 Spark SQL Shuffle 后最多允许的分区数量为 500。避免因数据分布不均导致 Shuffle 后产生过多小分区，减少任务调度开销\nset spark.driver.memory=30g;\t设置Spark应用的Driver堆内存上限为30GB，适用复杂的查询计划\nset spark.sql.parquet.adaptiveFileSplit=true;\t启用 Spark SQL 对 Parquet 文件的自适应文件拆分功能。\n避免因 Parquet 文件行组过大导致单个分区数据量过大，从而引发内存压力、使数据分区更符合集群的并行处理能力，提升整体读取和计算效率\nset spark.shuffle.hdfs.enabled=true;\t启用 Spark 将 Shuffle 中间数据写入 HDFS 。避免单个节点因存储大量 Shuffle 数据而耗尽本地磁盘空间\nset spark.executor.cores=2;\t为每个 Spark Executor（执行器）分配 2 个 CPU 核心。大量数据运算提供更多核心以提高并行效率\n观测任务运行仍未有好转迹象 🥱说明性能瓶颈可能不在资源配置层面\n处理方式：\n1. 先筛选出执行时间异常的stage\n2. 分析metrics\n● Duration（执行时长）: 如果时间越长，说明task花费的时间就越多，需要从其他的metric指标分析具体耗时分布异常在哪 ，task执行了48min一定存在问题 ❗️\n● Shuffle Write Size/Records: shuffle过程写入到本地磁盘的数据量。写入的数据量级，一般建议是在256M以内，最大写入为5.3G，说明数据有倾斜，需要查看具体逻辑分析❗️",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T09:57:41Z",
+      "updatedAt": "2026-10-21T10:15:55Z"
+    },
+    {
+      "id": "qa_1792576768870_51549bea",
+      "question": "如何构建一个数仓",
+      "answer": "调研\n划分主题域\n构建总线矩阵\n设计分层架构\n模型落地\n质量监控 质量保障 数据治理",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -513,13 +638,27 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T08:35:06Z",
-      "updatedAt": "2026-10-21T08:35:06Z"
+      "createdAt": "2026-10-21T09:59:28Z",
+      "updatedAt": "2026-10-21T09:59:28Z"
     },
     {
-      "id": "qa_1792571691992_29d28ea2",
-      "question": "什么数仓才算一个好的数仓",
-      "answer": "好坏从下面几个角度评价：\n1、**数据质量**\n数据仓库数据的准确性、完整性、一致性和时效性等方面的质量,以确保数据可靠性\n2、**性能**\n数据仓库在数据加载、查询、分析等方面的性能,包括加载速度、查询响应时间和并发处理能力\n3、**可用性**\n系统的可靠性、容错性和故障恢复能力\n4、**可扩展性**\n水平扩展和垂直扩展能力,以适应数据规模和用户需求的增长\n5、**数据建模和架构评估**\n6、**数据治理**\n\n参考指标：\n  完善度：跨层引用率 汇总数据查询率\n  复用度：模型引用系数 \n  规范度：字段描述覆盖率 模型分层信息覆盖率 命名不规范表占比",
+      "id": "qa_1792577524995_e09eb630",
+      "question": "spark 三种join（物理性能层面）",
+      "answer": "BroadcastHashJoin（广播哈希连接，BHJ）\n核心思想：数据不动，把小表复制到每台机器。\n当 join 的一边很小（默认小于 spark.sql.autoBroadcastJoinThreshold = 10MB），Spark 干脆把这张小表全量收集后广播到每一个 executor，每个 task 在本地内存里把小表建成一张哈希表（key → 行），然后顺序扫描大表的每一行，拿它的 key 去本地哈希表里查。\n关键点：\n大表完全不 shuffle。大表动辄几十亿行，不洗牌是它最大的优势；\n没有网络传输大表数据、没有 reduce 阶段的排序，通常是最快的 join；\n匹配用的是哈希查找，O(1)，非常快；\n代价是：小表要在每个 executor 内存里放得下，且要先全量收集到 driver 再广播，所以只适合真正的小表（维度表最典型，比如商品维表、城市字典表 join 交易大表）。\n风险：如果统计信息失真、把一张大表误判成小表强行广播，会导致 driver 端 collect 时 OOM 或 executor 内存爆掉（OutOfMemoryError: Cannot build the broadcast table）。可以用 broadcast hint 手动指定：broadcast(small_table)。\n一句话：小表广播到每台机器建哈希表，大表本地扫描本地查，零 shuffle，最快，但小表必须放得进内存。\n\nShuffledHashJoin（洗牌哈希连接，SHJ）\n核心思想：两边都按 key shuffle 到同一批分区，每分区内建哈希表匹配。\n当两张表都比较大、不适合广播，但** shuffle 之后单个分区的数据量仍能放进内存**时用它。流程分两步：\n第一步，shuffle：两张表都用相同的分区器（hash(key) % 分区数）把数据重新分发。这样一来，相同 key 的行一定被分到同一个 reducer 分区——两张表里 key=100 的数据都落在分区 3。\n第二步，在每个分区内建哈希表：选择其中一边（通常较小的一边）在内存里建哈希表，再遍历另一边，用 key 去哈希表里查。\n关键点：\n有 shuffle（这是它和 BHJ 的本质区别，两张大表都得洗牌）；\n但不需要排序（这是它和 SMJ 的本质区别）——shuffle 完直接建哈希表，省去排序的 CPU 和排序过程中的磁盘 spill；\n匹配仍是 O(1) 哈希查找，所以当分区数据能装内存时，它比 SortMergeJoin 少一道排序开销，理论上更快；\n致命约束：建哈希表那一侧的每个分区都必须完整放进内存。大表数据倾斜或单分区很大时就建不下，容易 OOM，所以 Spark 默认其实很少主动选它（需要满足 spark.sql.join.preferSortMergeJoin=false 等条件），工程上用得比 SMJ 少。\n一句话：两张大表先按 key 同规则 shuffle，分区内直接建哈希表查，有 shuffle 但不排序，比 SMJ 省排序、但要求单分区数据能进内存，条件苛刻。\n\nSortMergeJoin（排序归并连接，SMJ）\n核心思想：两边都按 key shuffle，再各自排序，然后像\"拉链\"一样归并匹配。\n这是 Spark 处理两张大表 join 的默认策略，因为它对内存最友好、最稳。流程分三步：\n第一步，shuffle：和 SHJ 一样，两表按相同 hash 分区器洗牌，相同 key 进同一分区。\n第二步，分区内排序：每张表在每个分区内都按 join key 排好序。\n第三步，归并（merge）：两边各有一个游标，从头开始一起向后走。比较两边当前 key：\n相等，就把该 key 对应的所有行做匹配输出，然后两边游标都推进；\n左边 key 小，左边游标前进；右边 key 小，右边游标前进；\n因为两边都有序，游标只需单向往后扫，各扫一遍就能完成连接，不需要回头。\n关键点：\n有 shuffle，也有排序，前期成本最高；\n但它最大的优点是不依赖内存能装下整个分区：排序和归并过程中数据可以溢写磁盘（spill），处理超大、倾斜的数据也能跑完，鲁棒性最强；\n归并本身是 O(n) 顺序扫描，不建大哈希表，内存占用平稳；\n正因为\"再大都能跑\"，它成为大表 join 的默认、最通用选择；\n缺点就是排序贵、shuffle 贵，所以 AQE 在运行时若发现其实有一侧很小，会动态把它降级成 BroadcastHashJoin 来省掉这一切。\n一句话：两表 shuffle 后各自排序，再有序地双游标归并拉链，有 shuffle 有排序，但能 spill 到磁盘、不怕数据大、最稳，是大表 join 的默认选择。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:12:04Z",
+      "updatedAt": "2026-10-21T10:12:04Z"
+    },
+    {
+      "id": "qa_1792577910161_cd041f29",
+      "question": "怎么判断是否倾斜",
+      "answer": "● 任务进度长时间卡在 reduce 99%，绝大多数 task 已完成，个别 task 卡住或反复重试；\n● YARN/日志里看各 reducer 处理记录数（Reduce input records）严重不均，某个 reducer 读了几十亿行、其他只读几百万；\n● 单个 reducer OOM / 超时报错，整体数据量其实不大。\n定位口诀：先看是不是倾斜（reducer 数据不均），再看是哪类（group by / join / count distinct / 动态分区），再看倾斜 key 长啥样（null / 热点 / 类型问题），最后对症下药——能 mapjoin 就 mapjoin，能打散（随机前缀/两阶段聚合）就打散，空值单独处理。",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -527,27 +666,1259 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T08:34:51Z",
-      "updatedAt": "2026-10-21T09:41:08Z"
+      "createdAt": "2026-10-21T10:18:30Z",
+      "updatedAt": "2026-10-21T10:18:30Z"
     },
     {
-      "id": "qa_1792570067579_be4c8ad2",
-      "question": "自然月累计金额 \norders表(字段:oid,uid,itemid,itemnum, paytime, payamt) 用一句SQL取出每个用户最近一个月 每天的购买金额以及当天的月累计金额",
-      "answer": "SELECT uid,\n       paydate,\n       daily_amount,\n       SUM(daily_amount) OVER (\n           PARTITION BY uid, trunc(paydate, 'MM')      \n           ORDER BY paydate\n       ) AS monthly_cumulative_amount\nFROM (\n    SELECT uid,\n           to_date(paytime) AS paydate,                 \n           SUM(payamt)      AS daily_amount\n    FROM orders\n    WHERE paytime >= trunc(date_sub(current_date, 30), 'MM')  -- 窗口最早日所在月的1号（精确下界）\n      AND paytime <  date_add(current_date, 1)                -- 截止到今天，利于分区裁剪\n    GROUP BY uid, to_date(paytime)\n) t\nWHERE paydate >= date_sub(current_date, 30);           -- 最后只留最近一个月",
-      "entryId": "entry_1792570067569_80743a9c",
-      "sourceTitle": "自然月累计金额",
+      "id": "qa_1792578035920_c2099708",
+      "question": "数据倾斜解决办法",
+      "answer": "Group By 倾斜\t：\nhive.map.aggr=true（map 端预聚合）；\nhive.groupby.skewindata=true（两阶段聚合，把倾斜 key 加随机前缀打散再合并）\n\nJoin 空值倾斜：\n空值 加随机数打散（case when id is null then concat('n',rand) else id end），或空值直接过滤/单独处理\nJoin 热点 key\t热点 key 拆出来单独 mapjoin / 膨胀小表，其余正常 join，最后 union all；hive.optimize.skewjoin=true\n\n大表 join 小表：\n走 MapJoin（hive.auto.convert.join=true），无 reducer 自然不倾斜\n\nCount Distinct：\t\n改写为两阶段：先 distinct 子查询去重再 count，或 group by 后 count；可加随机数分桶去重\n大表 join 大表：\n调大内存、增加 reducer、SkewJoin、分桶表（bucket join）\n动态分区倾斜：\nhive.optimize.sort.dynamic.partition、控制 hive.exec.max.dynamic.partitions、分小批写入\nMap 端小文件/大文件：\n小文件合并（CombineHiveInputFormat）、避免不可切分压缩、合理设置 split 大小\n全局 ORDER BY：\n用 DISTRIBUTE BY ... SORT BY ... 替代，只在必要时 order by",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "数仓基础"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:20:35Z",
+      "updatedAt": "2026-10-21T10:20:35Z"
+    },
+    {
+      "id": "qa_1792578089228_357a077e",
+      "question": "两个大表之间关联，其中一张表有3个key（已知这3个key）对应另一张表，分别一万条，十万条，百万条关联，其他的数据平均是1千条的关联，如何处理这种倾斜",
+      "answer": "已经知道了哪些key倾斜，通过打散的形式将百万、十万、一万的拆分处理-- ========= 第一部分：热点 key，加盐打散后关联 ========= \nSELECT a.uid, a.oid, a.payamt, b.u_name, b.u_city \nFROM ( \n -- A 表热点行：每行随机分配一个盐值 0~99 \n SELECT oid, uid, payamt, \n CAST(RAND() * 100 AS INT) AS salt -- 打散成100个桶 \n FROM orders \n WHERE uid IN ('K1','K2','K3') -- 只处理已知热点key \n) a \nJOIN ( \n -- B 表热点行：每行复制100份，盐值 0~99 各一份 \n SELECT u.uid, u.u_name, u.u_city, s.salt \n FROM user_info u \n LATERAL VIEW POSEXPLODE(SPLIT(SPACE(99), ' ')) t AS salt, dummy\n )) t AS s \n WHERE u.uid IN ('K1','K2','K3') \n) b \nON a.uid = b.uid \nAND a.salt = b.salt -- ★ 用 key+盐 一起关联，摊到100个reducer \nUNION ALL \n-- ========= 第二部分：非热点（冷）数据，正常关联 ========= \nSELECT a.uid, a.oid, a.payamt, b.u_name, b.u_city \nFROM orders a \nJOIN user_info b \nON a.uid = b.uid \nWHERE a.uid NOT IN ('K1','K2','K3'); -- 冷数据不倾斜，普通join即可\n基于上面那个问题，就想临时将它跑过去，不想做特殊处理，怎么办\n答案：面试官说将内存调大",
+      "entryId": "",
+      "sourceTitle": "人工添加",
       "tags": [
         "Sql练习"
       ],
       "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T08:07:47Z",
-      "updatedAt": "2026-10-21T08:18:35Z"
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:21:29Z",
+      "updatedAt": "2026-10-21T10:21:52Z"
     },
     {
-      "id": "qa_1792567984445_c145201b",
-      "question": "根据你对shuffle 过程的理解，以下哪种方式可能会优化shuffle性能 ？ (多选)\n  1. 增加Executor个数    \n  2. 增加并行度       \n  3. 合并输入小文件      \n  4. 先join，再过滤",
-      "answer": "1  正确。增加资源不仅对shuffle性能好，对任何计算操作都有很大帮助\n2  正确。增加task数量，相当于减少每个task处理的数据量。在task处理的数据量巨大的情况下是很有帮助的\n3  正确。初始task由输入文件的个数决定，如果小文件过多，会导致每个task处理数据量小且task数过多。适当的合并输入小文件可以提升性能\n4  错误。应该先过滤，在join。这样会减少shuffle中产生的数据量，提升shuffle效率",
+      "id": "qa_1792579896433_40cbcdc1",
+      "question": "hadoop四大特性",
+      "answer": "高可靠性：hadoop底层维护多个副本，即使某个出现错误，也不会导致数据丢失\n高扩展性：可以动态扩展节点\n高效性：并行工作\n高容错性：失败任务重新分配",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:51:36Z",
+      "updatedAt": "2026-10-21T10:51:36Z"
+    },
+    {
+      "id": "qa_1792579912592_36fb4bb1",
+      "question": "HDFS的三大机制",
+      "answer": "心跳机制：DataNode会定期向NameNode发送心跳信号，以保持连接。如果NameNode在一定时间内没有收到心跳信号，它会认为对应的DataNode节点已经失效，并启动相应的恢复机制。\n\n数据块副本机制：HDFS通过数据块副本机制来保证数据的可靠性和可用性。当某个数据块发生故障时，系统会自动从其他副本中恢复该数据块。此外，通过增加副本数量，可以提高系统的容错能力和数据的可用性。\n\n数据块均衡机制：为了实现HDFS集群中的负载均衡，HDFS会定期对数据块进行均衡调度。系统会根据数据块的存储和访问情况，自动调整数据块的位置，以保证集群中的负载均衡。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:51:52Z",
+      "updatedAt": "2026-10-21T10:51:52Z"
+    },
+    {
+      "id": "qa_1792579944065_b409d488",
+      "question": "yarn pending状态",
+      "answer": "在 Yarn中，当一个应用程序的任务(Task)由于资源未满足而无法立即执行时，该任务将处于\"pending\"状态。这通常发生在以下几种情况下:\n资源不足:当前集群的可用资源不足以满足任务的需求。\n资源分配策略:集群配置的资源分配策略可能导致任务无法立即获得资源。\n配置错误:不正确的集群或应用程序配置可能导致任务无法顺利调度。\n\nending 状态的影响\nPending 状态可能会导致应用程序的延迟，影响整体的计算效率。在大数据处理场景中，长时间的 pending 状态可能会使整个工作流陷入停滞，从而拖慢数据处理速度。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:52:24Z",
+      "updatedAt": "2026-10-21T10:52:24Z"
+    },
+    {
+      "id": "qa_1792579958293_19d8385d",
+      "question": "上传文件的时候，如果其中一个 DataNode 突然挂掉了怎么办？",
+      "answer": "客户端上传文件时与 DataNode 建立 pipeline 管道，管道的正方向是客户端向 DataNode 发送的数据包，管道反方向是DataNode 向客户端发送 ack 确认，也就是正确接收到数据包之后发送一个已确认接收到的应答。\n当 DataNode 突然挂掉了，客户端接收不到这个 DataNode 发送的 ack 确认，客户端会通知 NameNode，NameNode 检查该块的副本与规定的不符，NameNode 会通知 DataNode 去复制副本，并将挂掉的 DataNode 作下线处理，不再让它参与文件上传与下载。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-21T10:52:38Z",
+      "updatedAt": "2026-10-21T10:52:38Z"
+    },
+    {
+      "id": "qa_1792635596552_abd4df7f",
+      "question": "讲一下HDFS的架构",
+      "answer": "架构主要由四个部分组成，分别为HDFS Client、NameNode、DataNode和Secondary NameNode。下面我们分别介绍这四个组成部分。\n1）Client：就是客户端\n（1）文件切分。文件上传HDFS的时候，Client将文件切分成一个一个的Block，然后进行存储；\n（2）与NameNode交互，获取文件的位置信息；\n（3）与DataNode交互，读取或者写入数据；\n（4）Client提供一些命令来管理HDFS，比如启动或者关闭HDFS；\n（5）Client可以通过一些命令来访问HDFS；\n2）NameNode：就是Master，它是一个主管、管理者\n（1）管理HDFS的命名空间；\nNameNode负责维护整个文件系统的命名空间，这包括了文件系统树及其中所有的文件和目录。这些信息以两个核心文件的形式保存在本地磁盘上：命名空间镜像文件fsimage和编辑日志文件edits。通过这两个文件，NameNode能够跟踪和管理所有文件和目录的元数据，如文件名称、路径、权限、访问时间等关键属性。\n（2）管理数据块（Block）映射信息；\nNameNode记录了每个文件中各个数据块（Block）所在的DataNode信息。虽然它并不永久保存块的位置信息，但会在系统启动时由DataNode重建这些信息。在正常操作期间，NameNode会在内存中保留所有块信息的映射信息，以便快速响应客户端请求\n（3）配置副本策略；\nNameNode负责数据块的复制管理，当DataNode或数据块发生故障时，根据数据块的复制因子，NameNode会在集群中找到健康的DataNode进行数据块的复制和恢复。这一过程确保了HDFS的高可用性和容错性。\n（4）处理客户端读写请求。\nNameNode是客户端与HDFS交互的桥梁。它接收并处理来自客户端的读写请求，如创建、删除、重命名文件等。在处理这些请求时，NameNode会管理数据块的位置信息和状态信息，以及数据块与副本之间的映射关系。\n3）DataNode：就是Slave。NameNode下达命令，DataNode执行实际的操作\n（1）存储实际的数据块；\n（2）执行数据块的读/写操作。\n（3）定期向NameNode发送心跳信息，汇报本身及其所有的block信息，健康状况。\n4）Secondary NameNode：并非NameNode的热备。当NameNode挂掉的时候，它并不能马上替换NameNode并提供服务\n（1）辅助NameNode，分担其工作量；\n（2）定期合并Fsimage和Edits，并推送给NameNode；\n（3）在紧急情况下，可辅助恢复NameNode。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T02:19:56Z",
+      "updatedAt": "2026-10-22T02:20:12Z"
+    },
+    {
+      "id": "qa_1792639807901_2d245a4c",
+      "question": "HDFS文件块大小",
+      "answer": "HDFS中的文件在物理上是分块存储(Block),块的大小可以通过配置参数(dfs.blocksize)来规定,默认大小在Hadoop2.x版本中是128M本中是64M。\n如果寻址时间约为10ms,即查找到目标block的时间为10ms。寻址时间为传输时间的1%时,则为最佳状态。\n因此,传输时间=10ms/0.01=1000ms=1s，而目前磁盘的传输速率普遍为100MB/s。\nblock大小=1s*100MB/s=100MB",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T03:30:07Z",
+      "updatedAt": "2026-10-22T03:30:07Z"
+    },
+    {
+      "id": "qa_1792658641275_5b946403",
+      "question": "为什么hdfs副本数是3不是4",
+      "answer": "HDFS（Hadoop Distributed File System）是一个高度容错性的系统，适合存储大规模数据。在HDFS中，副本数通常设置为3，而不是4，这背后有以下几个关键原因：\n1. 机架感知策略：HDFS采用一种称为机架感知的策略来改进数据的可靠性、可用性和网络带宽的利用率。在这种策略下，一个副本被放置在本地机架节点上，另一个副本被放置在同一机架的另一个节点上，第三个副本则被放置在不同机架的节点上。这种策略减少了机架间的数据传输，提高了写操作的效率。\n2. 减少网络传输带宽：由于数据只存在于两个机架上，因此在读取数据时需要的网络传输带宽会相应减少。这不仅有助于提高读取效率，还能降低网络拥塞的风险。\n3. 容错性与可靠性：机架错误的概率远小于节点错误的概率，因此即使某个机架出现故障，也不会对数据的可靠性和可用性造成太大影响。通过将三个副本分布在不同的机架上，HDFS能够在单个机架或节点故障时仍然保持数据的高可用性和可靠性。\n4. 写入性能优化：在不损害数据可靠性和读取性能的情况下，这种副本分布策略还改善了写的性能。因为写操作主要涉及同一机架内的数据传输，所以能够更快地完成写入操作。\n5. 多数派机制：在分布式系统中，为了确保数据的一致性和可靠性，通常采用多数派机制。即当大多数副本都写入成功时，才认为数据写入成功。在HDFS中，三个副本正好构成一个多数派，可以确保数据写入的可靠性。\n6. 避免过度冗余：虽然增加副本数量可以提高数据的容错性和可用性，但过多的副本也会带来额外的存储成本和网络传输负担。因此，在保证数据可靠性的前提下，选择最小的副本数量是更为合理的方案。\n综上所述，HDFS中副本数通常设置为3而不是4的原因是多方面的，包括机架感知策略、减少网络传输带宽、容错性与可靠性、写入性能优化以及避免过度冗余等。这些因素共同作用，使得HDFS能够在保证数据可靠性的同时提高系统的运行效率。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T08:44:01Z",
+      "updatedAt": "2026-10-22T08:44:01Z"
+    },
+    {
+      "id": "qa_1792658847891_a6b610ba",
+      "question": "hdfs读数据和写数据的流程",
+      "answer": "读取：\n（1）客户端通过DistributedFileSystem向NameNode请求下载文件，NameNode通过查询元数据，找到文件块所在的DataNode地址。\n（2）挑选一台DataNode（就近原则，然后随机）服务器，请求读取数据。\n（3）DataNode开始传输数据给客户端（从磁盘里面读取数据输入流，以Packet为单位来做校验）。\n（4）客户端以Packet为单位接收，先在本地缓存，然后写入目标文件。\n\n写入：\n（1）客户端通过Distributed FileSystem模块向NameNode请求上传文件，NameNode检查目标文件是否已存在，父目录是否存在。\n（2）NameNode返回是否可以上传。\n（3）客户端请求第一个 Block上传到哪几个DataNode服务器上。\n（4）NameNode返回3个DataNode节点，分别为dn1、dn2、dn3。\n（5）客户端通过FSDataOutputStream模块请求dn1上传数据，dn1收到请求会继续调用dn2，然后dn2调用dn3，将这个通信管道建立完成。\n（6）dn1、dn2、dn3逐级应答客户端。\n（7）客户端开始往dn1上传第一个Block（先从磁盘读取数据放到一个本地内存缓存），以Packet为单位，dn1收到一个Packet就会传给dn2，dn2传给dn3；dn1每传一个packet会放入一个应答队列等待应答。\n（8）当一个Block传输完成之后，客户端再次请求NameNode上传第二个Block的服务器。（重复执行3-7步）。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T08:47:27Z",
+      "updatedAt": "2026-10-22T08:47:27Z"
+    },
+    {
+      "id": "qa_1792659321040_a5268a75",
+      "question": "NameNode元数据存储位置",
+      "answer": "NameNode中保存处理数的元数据信息，假设存储只在磁盘中，那么就无法高效率的应对客户的随机读写请求；如果存储只在内存中，一旦断电宕机，整个集群将无法使用。\n\n因此: 引入Fsimage文件，磁盘文件，备份元数据信息。\n\n思考:Fsimage为磁盘文件，当在内存中的元数据更新时，如果同时更新FsImage，就会导致效率过低，但如果不更新，就会发生一致性问题，一旦NameNode节点断电，就会产生数据丢失。\n\n因此: 引入Edits文件（只进行追加操作，效率很高）。每当元数据有更新或者添加元数据时，修改内存中的元数据并追加到Edits中。\n\n如果长时间添加数据到Edits中，会导致该文件数据过大，效率降低，而且一旦断电，恢复元数据需要的时间过长。因此，需要定期进行FsImage和Edits的合并，如果这个操作由NameNode节点完成，又会效率过低。因此，引入一个新的节点SecondaryNamenode，专门用于FsImage和Edits的合并。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T08:55:21Z",
+      "updatedAt": "2026-10-22T08:55:21Z"
+    },
+    {
+      "id": "qa_1792659494488_c10264ba",
+      "question": "讲一下MR里的shuffle",
+      "answer": "分而治之\ntask：英语作业 \nmap：撕成三份 \nreduce：组装起来\n\nMap阶段的并发Map Task完全并发运行，互不相关\nReduce阶段的并发Reduce Task 完全互不相关 但是他们的数据依赖于上一阶段的所有Map task的输出\nMapReduce编程模型只能包含一个Map阶段和一个Reduce阶段 如果用户的业务逻辑非常复杂，那只能多个MapReduce程序 串行运行\n\n**MapTask工作机制**：\n（1）Read阶段：MapTask通过用户编写的RecordReader，从输入InputSplit中解析出一个个key/value。\n（2）Map阶段：该节点主要是将解析出的key/value交给用户编写map()函数处理，并产生一系列新的key/value。\n（3）Collect收集阶段：在用户编写map()函数中，当数据处理完成后，一般会调用OutputCollector.collect()输出结果。在该函数内部，它会将生成的key/value分区（调用Partitioner），并写入一个环形内存缓冲区中。\n（4）Spill阶段：即“溢写”，当环形缓冲区满后，MapReduce会将数据写到本地磁盘上，生成一个临时文件。需要注意的是，将数据写入本地磁盘之前，先要对数据进行一次本地排序，并在必要时对数据进行合并、压缩等操作。\n溢写阶段详情：\n    步骤1：利用快速排序算法对缓存区内的数据进行排序，排序方式是，先按照分区编号Partition进行排序，然后按照key进行排序。这样，经过排序后，数据以分区为单位聚集在一起，且同一分区内所有数据按照key有序。\n    步骤2：按照分区编号由小到大依次将每个分区中的数 据写入任务工作目录下的临时文件output/spillN.out（N表示当前溢写次数）中。如果用户设置了Combiner，则写入文件之前，对每个分区中的数据进行一次聚集操作。步骤3：将分区数据的元信息写到内存索引数据结构SpillRecord中，其中每个分区的元信息包括在临时文件中的偏移量、压缩前数据大小和压缩后数据大小。如果当前内存索引大小超过1MB，则将内存索引写到文件output/spillN.out.index中。\n（5）Merge阶段：当所有数据处理完成后，MapTask对所有临时文件进行一次合并，以确保最终只会生成一个数据文件。\n  当所有数据处理完后，MapTask会将所有临时文件合并成一个大文件，并保存到文件output/file.out中，同时生成相应的索引文件output/file.out.index。\n  在进行文件合并过程中，MapTask以分区为单位进行合并。对于某个分区，它将采用多轮递归合并的方式。每轮合并io.sort.factor（默认10）个文件，并将产生的文件重新加入待合并列表中，对文件排序后，重复以上过程，直到最终得到一个大文件。\n  让每个MapTask最终只生成一个数据文件，可避免同时打开大量文件和同时读取大量小文件产生的随机读取带来的开销。\n\n**ReduceTask工作机制**：\n1）Copy阶段：ReduceTask从各个MapTask上远程拷贝一片数据，并针对某一片数据，如果其大小超过一定阈值，则写到磁盘上，否则直接放到内存中。\n （2）Merge阶段：在远程拷贝数据的同时，ReduceTask启动了两个后台线程对内存和磁盘上的文件进行合并，以防止内存使用过多或磁盘上文件过多。\n （3）Sort阶段：按照MapReduce语义，用户编写reduce()函数输入数据是按key进行聚集的一组数据。为了将key相同的数据聚在一起，Hadoop采用了基于排序的策略。由于各个MapTask已经实现对自己的处理结果进行了局部排序，因此，ReduceTask只需对所有数据进行一次归并排序即可。\n （4）Reduce阶段：reduce()函数将计算结果写到HDFS上。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T08:58:14Z",
+      "updatedAt": "2026-10-22T08:58:32Z"
+    },
+    {
+      "id": "qa_1792659622189_9005df34",
+      "question": "map join",
+      "answer": "MapJoin简单说就是在Map阶段将小表读入内存，顺序扫描大表完成Join，这样可以避免reduce阶段，就不会出现数据倾斜",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T09:00:22Z",
+      "updatedAt": "2026-10-22T09:00:22Z"
+    },
+    {
+      "id": "qa_1792661050184_8ea28515",
+      "question": "FileInputFormat 中切片的大小的参数配置",
+      "answer": "通过分析源码，在 FileInputFormat 中，计算切片大小的逻辑： long splitSize = computeSplitSize(blockSize, minSize, maxSize)，翻译一下就是求这三个值的中 间值\n切片主要由这几个值来运算决定：\nblocksize：默认是 128M，可通过 dfs.blocksize 修改\nminSize：默认是 1，可通过 mapreduce.input.fileinputformat.split.minsize 修改\nmaxsize：默认是 Long.MaxValue，可通过 mapreduce.input.fileinputformat.split.maxsize 修改\n因此，如果 maxsize 调的比 blocksize 小，则切片会小于 blocksize 如果 minsize 调的比 blocksize 大，则切片会大于 blocksize 但是，不论怎么调参数，都不能让多个小文件“划入”一个 split\n\n一、对于大量大文件（大于block块设置的大小）\n增大minSize，即增大mapred.min.split.size的值，原因：splitsize=max(minisize,min(maxsize,blocksize))，blocksize一般不会做修改.\n在没有设置minisize,maxsize时，splitsize取blocksize.\n二、对于大量小文件（小于block块设置的大小）\n这种情况通过增大mapred.min.split.size不可行，\n需要使用FileInputFormat衍生的CombineFileInputFormat将多个input path合并成一个InputSplit送给mapper处理，从而减少mapper的数量",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T09:24:10Z",
+      "updatedAt": "2026-10-22T09:24:22Z"
+    },
+    {
+      "id": "qa_1792661228972_95872e1e",
+      "question": "Reduce个数设置方法",
+      "answer": "计算公式：N=min(参数2，总输入数据量/参数1)\n参数1：每个reduce任务处理的数据量大小，默认值为256M。\n可以通过如下参数进行设置：\nset hive.exec.reducers.bytes.per.reducer=256000000;\n参数2：每个job最大的reduce数，默认1009\nset hive.exec.reducers.max=1009;",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Hive"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T09:27:08Z",
+      "updatedAt": "2026-10-22T09:27:08Z"
+    },
+    {
+      "id": "qa_1792661459485_ee4cd3e9",
+      "question": "Spark提交作业参数？",
+      "answer": "Spark 提交作业时常见参数包括资源、运行模式、入口类和调优参数。\n常用参数：\n1. --master：指定运行环境，如 local、yarn、spark://standalone。\n2. --deploy-mode：client 或 cluster，决定 Driver 运行在哪里。\n3. --class：提交 Java/Scala 程序时指定主类。\n4. --driver-memory、--executor-memory：Driver 和 Executor 内存。\n5. --executor-cores、--num-executors：Executor 核数和数量。\n6. --conf：传入 Spark 配置，如并行度、shuffle 分区数、动态资源等。\n7. --jars、--files、--py-files：提交依赖文件。\n面试中可以补一句：调参核心是让资源数量、分区数、数据量和集群容量匹配，避免资源不足或过度并行。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459490_b42a006a",
+      "question": "简述Spark的架构角色与作业提交流程？",
+      "answer": "**架构角色**：\n● 资源管理\n  ○ Master —— 集群资源管理者（Yarn - ResouceManager）\n  ○ Worker —— 单个服务器的资源管理者（Yarn - NodeManger）\n● 任务执行\n  ○ Driver —— 任务管理者（Yarn - Application）\n  ○ Executor —— 任务执行者（Yarn 容器中运行的具体工作进程）\n正常情况下 Executor 是干活的角色，Local 模式，Driver 既管理又干活\n\n**作业提交流程**：spark-submit 提交应用后，Driver 启动并向资源管理器申请 Executor；Driver 根据 action 触发 Job，DAGScheduler 按 shuffle 边界切分 Stage，TaskScheduler 将 Task 分发到 Executor 执行，最后结果回传或写入外部存储。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:46:47Z"
+    },
+    {
+      "id": "qa_1792661459495_9b839cea",
+      "question": "如何理解Spark中的血统概念？",
+      "answer": "Spark 的血统（Lineage）指 RDD 之间由一系列转换操作形成的依赖链。\n作用：\n1. 描述数据是如何从源头一步步计算出来的。\n2. 支持容错：某个分区丢失时，可以根据 lineage 从上游分区重新计算。\n3. 支持延迟计算：transformation 不立即执行，而是记录依赖关系。\n血统过长会带来恢复成本高的问题，所以实际使用中可以通过 cache、persist、checkpoint 截断血统。checkpoint 会把结果落到可靠存储，更适合超长链路或迭代计算。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459500_a751951e",
+      "question": "简述Spark的宽容依赖，以及Spark如何划分stage每个stage又根据什么决定task个数？",
+      "answer": "Spark 依赖通常分为窄依赖和宽依赖。\n1. 窄依赖：一个父 RDD 分区最多被一个子 RDD 分区依赖，如 map、filter。可以流水线执行，不需要 shuffle。\n2. 宽依赖：一个父 RDD 分区会被多个子 RDD 分区依赖，如 groupByKey、reduceByKey、join。通常会产生 shuffle。\nStage 划分：Spark 从最后一个 RDD 反向回溯依赖，遇到宽依赖就切分出新的 Stage。\nTask 个数：每个 Stage 的 Task 数量通常由该 Stage 最后一个 RDD 的分区数决定，一个分区对应一个 Task。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459505_4a57eaf6",
+      "question": "请列举Spark的transformation算子，并简述功能？",
+      "answer": "常见 transformation 算子包括：\n1. map：一进一出，对每条数据做转换。\n2. flatMap：一进多出，常用于拆分数组、文本分词。\n3. filter：按条件过滤数据。\n4. union：合并两个 RDD。\n5. distinct：去重，会产生 shuffle。\n6. groupByKey：按 key 分组，会产生 shuffle。\n7. reduceByKey：按 key 聚合，会产生 shuffle，但会先在 map 端预聚合。\n8. join：按 key 关联，通常会产生 shuffle。\ntransformation 是惰性执行的，只有遇到 action 才真正触发计算。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459515_caa8b272",
+      "question": "请列举会引起Shuffle过程的Spark算子，并简述功能？",
+      "answer": "会引起 shuffle 的算子通常有按 key 重分布、聚合、排序、关联类操作。\n常见包括：\n1. groupByKey：按 key 拉取同组数据。\n2. reduceByKey / aggregateByKey / combineByKey：按 key 聚合。\n3. distinct：去重需要按数据重新分区。\n4. repartition：主动重分区。\n5. sortBy / sortByKey：全局或分区排序。\n6. join / cogroup：两个 RDD 按 key 关联。\n7. SQL 中的 group by、distinct、order by、join 通常也会产生 shuffle。\n判断标准：如果数据需要跨分区重新组织，一般就会产生 shuffle。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459520_e69112dd",
+      "question": "简述Spark的两种核心Shuffle的工作流程？",
+      "answer": "Spark 早期主要有 Hash Shuffle 和 Sort Shuffle 两类实现。\nHash Shuffle：每个 map task 按 reducer 数量写多个文件，reduce 端再拉取对应文件。优点是逻辑简单，缺点是小文件数量容易爆炸，磁盘和文件句柄压力大。\nSort Shuffle：map 端先按 partition id 和 key 排序，再写成较少的数据文件和索引文件，reduce 端按索引读取。优点是文件数量少，适合大规模任务，是后续主流方式。\n面试可以强调：Spark 现在主要使用 Sort Shuffle，通过排序和合并减少中间文件数量，提升稳定性。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459536_e6226e24",
+      "question": "Spark的特点？",
+      "answer": "Spark 的主要特点：\n1. 速度快：基于内存计算，DAG 调度减少不必要落盘。\n2. 易用：支持 Scala、Java、Python、SQL 等接口。\n3. 通用：支持批处理、SQL、流处理、机器学习、图计算。\n4. 容错：RDD lineage 可以在分区丢失后重新计算。\n5. 生态好：可运行在 Yarn、Standalone、K8s 等资源管理器上。\n6. 适合迭代：中间结果可缓存到内存，机器学习和交互式分析效率高。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459540_eaed57b6",
+      "question": "Spark源码中的任务调度？",
+      "answer": "源码层面的任务调度主要涉及 DAGScheduler、TaskScheduler 和 SchedulerBackend。\n1. DAGScheduler：把 Job 按宽依赖切成 Stage，并为每个 Stage 生成 TaskSet。\n2. TaskScheduler：负责 TaskSet 的提交、Task 分发、失败重试和本地性调度。\n3. SchedulerBackend：和集群资源管理器交互，维护 Executor 状态，把 Task 发送给 Executor。\n执行链路可以概括为：Action 触发 Job，DAGScheduler 切 Stage，TaskScheduler 调度 Task，SchedulerBackend 下发到 Executor 执行。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459544_9b8762d1",
+      "question": "Spark作业调度？",
+      "answer": "Spark 作业调度从 action 开始。\n1. 用户执行 action，触发一个 Job。\n2. DAGScheduler 根据 RDD 依赖关系构建 DAG。\n3. 遇到 shuffle 依赖切分 Stage。\n4. 每个 Stage 被转换成一组 Task，形成 TaskSet。\n5. TaskScheduler 按数据本地性、资源情况、失败重试策略把 Task 分发给 Executor。\n6. Executor 执行后回传状态，所有 Stage 完成后 Job 完成。\n核心点：Job 按 action 产生，Stage 按 shuffle 切分，Task 按分区生成。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459549_e964dcca",
+      "question": "Spark的使用场景？",
+      "answer": "Spark 常见使用场景：\n1. 离线批处理：大规模 ETL、宽表加工、指标计算。\n2. 交互式分析：Spark SQL 做即席查询。\n3. 机器学习：迭代训练、特征处理。\n4. 流处理：Structured Streaming 做准实时计算。\n5. 图计算：GraphX 或图相关计算。\n6. 数据湖分析：结合 Hive、Iceberg、Hudi、Delta 等处理湖仓数据。\n适合 Spark 的场景通常是数据量大、计算链路复杂、需要分布式并行处理。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459555_36faf3b7",
+      "question": "Spark on standalone模型、YARN架构模型(画架构图)？",
+      "answer": "Standalone 模式：Spark 自带 Master 和 Worker。Driver 向 Master 申请资源，Master 调度 Worker 启动 Executor，Executor 执行 Task。\nYarn 模式：Yarn ResourceManager 负责集群资源，NodeManager 管理节点资源。Spark 提交后会启动 ApplicationMaster，再申请 Executor 资源。\n区别：\n1. Standalone 部署简单，适合 Spark 独立集群。\n2. Yarn 更适合公司统一资源池，能和 Hive、MR、Flink 等共享资源。\n3. Yarn 下有 client 和 cluster 两种 deploy-mode，主要区别是 Driver 运行位置不同。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459560_382011bf",
+      "question": "Spark的yarn-cluster涉及的参数有哪些？",
+      "answer": "Yarn cluster 模式常见参数：\n1. --master yarn：指定运行在 Yarn。\n2. --deploy-mode cluster：Driver 运行在 Yarn 容器内。\n3. --num-executors：Executor 数量。\n4. --executor-cores：每个 Executor 核数。\n5. --executor-memory：每个 Executor 内存。\n6. --driver-memory：Driver 内存。\n7. --queue：提交到指定 Yarn 队列。\n8. --conf spark.sql.shuffle.partitions：SQL shuffle 分区数。\n9. --conf spark.dynamicAllocation.enabled：是否启用动态资源。\n调优时要结合队列资源、数据规模、任务并行度和内存压力一起看。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459565_c8aebceb",
+      "question": "Spark提交job的流程？",
+      "answer": "Spark 提交 Job 的流程：\n1. spark-submit 解析参数，启动 Driver。\n2. Driver 创建 SparkContext，并向集群资源管理器申请资源。\n3. Executor 启动后向 Driver 注册。\n4. 用户代码执行到 action，触发 Job。\n5. DAGScheduler 根据 RDD 依赖切分 Stage。\n6. TaskScheduler 把 Task 分发到 Executor。\n7. Executor 执行 Task，读取数据、计算、shuffle 或输出结果。\n8. 所有 Stage 执行完成后，Job 结束。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459570_0bc58e67",
+      "question": "Spark的阶段划分？",
+      "answer": "Spark 阶段划分以 shuffle 依赖为边界。\n1. 窄依赖可以放在同一个 Stage 内流水线执行。\n2. 宽依赖需要 shuffle，上下游必须切成不同 Stage。\n3. 最后一个 Stage 通常是 ResultStage，前面的 shuffle 生产阶段是 ShuffleMapStage。\n举例：textFile -> map -> filter -> reduceByKey -> save。map/filter 属于一个 Stage，reduceByKey 触发 shuffle，后续聚合和 save 属于下游 Stage。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459575_9464f2a2",
+      "question": "Spark处理数据的具体流程说下？",
+      "answer": "Spark 处理数据的流程可以概括为：\n1. 读取数据源，形成初始 RDD/DataFrame 分区。\n2. transformation 记录逻辑计划或 RDD 依赖，不立即执行。\n3. action 触发真正计算。\n4. Driver 生成执行计划，按 shuffle 边界切分 Stage。\n5. 每个 Stage 根据分区生成多个 Task。\n6. Executor 并行执行 Task，必要时读写 shuffle 数据。\n7. 结果返回 Driver 或写入外部系统。\n核心是：分区并行、惰性执行、DAG 调度、shuffle 分阶段。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459582_1a3c591f",
+      "question": "Sparkjoin的分类？",
+      "answer": "Spark join 可以从多个角度分类：\n1. 按 SQL 语义：inner join、left join、right join、full join、semi join、anti join。\n2. 按物理执行：Broadcast Hash Join、Shuffle Hash Join、Sort Merge Join、Broadcast Nested Loop Join。\n3. 按是否 shuffle：广播小表可以避免大表 shuffle；普通大表 join 通常需要 shuffle。\n实际优化重点：小表广播、过滤前置、避免数据倾斜、保证 join key 类型一致、必要时使用 bucket 或 salting。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459586_68b77e1a",
+      "question": "Spark map join的实现原理？",
+      "answer": "Spark map join 通常指 Broadcast Join。\n实现原理：\n1. Driver 或 Executor 端先把小表收集并构建成 hash map。\n2. 小表通过广播变量分发到各个 Executor。\n3. 大表不需要按 key shuffle，每个分区直接在本地和广播小表匹配。\n优点：减少 shuffle，速度快。\n限制：小表必须足够小，否则会导致 Driver/Executor 内存压力，甚至 OOM。\nSpark SQL 中可通过自动广播阈值或 broadcast hint 触发。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459593_da922e0c",
+      "question": "介绍下Spark Shuffle及其优缺点？",
+      "answer": "Shuffle 是 Spark 中跨分区重新分布数据的过程。\n优点：\n1. 支持按 key 聚合、关联、排序等复杂计算。\n2. 可以重新组织数据分布，让下游并行计算。\n缺点：\n1. 涉及磁盘 IO、网络传输和序列化，成本高。\n2. 容易产生数据倾斜，导致部分 Task 特别慢。\n3. 中间文件多，可能带来磁盘和文件句柄压力。\n优化方向：减少 shuffle 次数、map 端预聚合、合理分区、广播小表、处理倾斜 key。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459599_14cff70b",
+      "question": "什么情况下会产生Spark Shuffle？",
+      "answer": "当数据需要跨分区重新分布时会产生 Spark Shuffle。\n常见场景：\n1. 按 key 聚合：groupByKey、reduceByKey、aggregateByKey。\n2. 关联：join、cogroup。\n3. 排序：sortBy、order by。\n4. 去重：distinct、dropDuplicates。\n5. 重分区：repartition。\n6. SQL 中 group by、join、distinct、order by。\n判断标准：如果下游某个分区需要从多个上游分区拉取数据，一般就是 shuffle。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459604_47b703e5",
+      "question": "为什么要Spark Shuffle？",
+      "answer": "Spark 需要 Shuffle 是因为很多计算不能只在单个分区内完成。\n比如 groupByKey、join、distinct、order by 都要求相同 key 或全局顺序的数据被重新组织到一起。\nShuffle 的作用：\n1. 按 key 把数据重新分区。\n2. 支持全局聚合、关联、排序、去重。\n3. 让下游 Task 能拿到完整的数据范围。\n但 shuffle 成本很高，所以优化 Spark 作业时通常会重点减少 shuffle、控制 shuffle 数据量、处理倾斜。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459609_480d3c16",
+      "question": "Spark为什么快？",
+      "answer": "Spark 快主要有几个原因：\n1. 内存计算：中间结果可以缓存到内存，减少反复落盘。\n2. DAG 调度：能把多个窄依赖操作合并到同一个 Stage 内流水线执行。\n3. 延迟执行：遇到 action 才生成整体执行计划，便于优化。\n4. 并行计算：数据按分区分散到多个 Executor 并行处理。\n5. Spark SQL 优化：Catalyst 优化器和 Tungsten 执行引擎提升 SQL 性能。\n但 Spark 不一定所有场景都快，shuffle 大、数据倾斜、资源配置不合理时也会很慢。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459615_6854b436",
+      "question": "Spark为什么适合迭代处理？",
+      "answer": "Spark 适合迭代处理，核心原因是中间结果可以缓存在内存中。\n传统 MapReduce 每轮迭代通常都要把中间结果落盘再读取，IO 成本高。\nSpark 可以通过 cache/persist 把反复使用的数据集缓存起来，下一轮迭代直接复用。\n典型场景：\n1. 机器学习模型训练。\n2. 图计算。\n3. 多轮特征加工。\n4. 交互式查询。\n需要注意缓存会占用 Executor 内存，缓存过多反而可能引起频繁淘汰或 OOM。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459620_2d0f9d3b",
+      "question": "Spark数据倾斜问题，如何定位，解决方案？",
+      "answer": "数据倾斜表现为少数 Task 处理数据远多于其他 Task，导致任务长尾。\n定位方法：\n1. 看 Spark UI 中 Stage 的 Task duration、shuffle read/write 是否明显不均。\n2. 统计 key 分布，找出热点 key。\n3. 查看 SQL 执行计划，确认倾斜发生在 join、group by 还是 distinct。\n解决方案：\n1. 过滤无效或异常热点 key。\n2. 小表使用 broadcast join。\n3. 对热点 key 加盐打散，再二次聚合。\n4. 提高 shuffle 分区数，缓解单分区压力。\n5. 开启 AQE skew join 优化。\n6. 预聚合，减少进入 shuffle 的数据量。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459629_55cf6b3a",
+      "question": "Spark的stage如何划分?在源码中是怎么判断属于Shuffle Map Stage或Result Stage的？",
+      "answer": "Stage 按 shuffle 依赖划分。\n源码层面，DAGScheduler 会从最终 RDD 反向递归查找依赖：\n1. 遇到 NarrowDependency，继续放在当前 Stage。\n2. 遇到 ShuffleDependency，切分出新的 ShuffleMapStage。\n3. 最终 action 对应的最后阶段是 ResultStage。\nShuffleMapStage 的作用是产生 shuffle 输出文件，供下游 Stage 拉取。\nResultStage 的作用是计算最终结果并返回 Driver 或写入外部系统。\n判断关键就是当前 Stage 是否需要为下游产生 shuffle map output。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459637_bdb07ee3",
+      "question": "Spark join在什么情况下会变成窄依赖？",
+      "answer": "Spark join 在不需要跨分区重分布时可能变成窄依赖。\n常见情况：\n1. Broadcast Join：小表广播到每个 Executor，大表各分区本地 join，不需要大表 shuffle。\n2. 两个 RDD/DataFrame 已经按相同 key、相同分区器分区，且分区数一致，join 可以避免重新 shuffle。\n3. bucket join 场景下，如果两张表按相同 key 分桶且满足条件，也可能减少或避免 shuffle。\n面试中可以说：普通大表 join 多数是宽依赖，广播小表或预分区一致时才可能避免 shuffle。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459644_4bfadcf9",
+      "question": "Spark的内存模型？",
+      "answer": "Spark Executor 内存大体分为三类：\n1. Execution Memory：执行内存，用于 shuffle、join、sort、aggregation 等计算。\n2. Storage Memory：存储内存，用于 cache、persist、广播变量等。\n3. User Memory / Reserved Memory：用户对象、元数据、系统保留内存。\n统一内存管理下，Execution 和 Storage 可以在一定范围内相互借用。\n常见问题：\n1. cache 太多会挤压执行内存。\n2. shuffle 聚合数据太大可能 spill 到磁盘或 OOM。\n3. executor-memory、memoryOverhead 配置不合理会导致容器被 Yarn kill。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459656_8df06048",
+      "question": "Spark分哪几个部分(模块)?分别有什么作用(做什么，自己用过哪些，做过什么)？",
+      "answer": "Spark 主要模块：\n1. Spark Core：RDD、任务调度、内存管理、shuffle、容错，是底层基础。\n2. Spark SQL：结构化数据处理，支持 DataFrame、Dataset、SQL。\n3. Spark Streaming / Structured Streaming：流式计算。\n4. MLlib：机器学习算法库。\n5. GraphX：图计算。\n工作中最常用的一般是 Spark Core 和 Spark SQL。数仓开发里通常用 Spark SQL 做 ETL、指标加工、宽表构建，也会用 DataFrame API 做复杂转换。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459663_e4a18cdf",
+      "question": "RDD的宽依赖和窄依赖，举例一些算子？",
+      "answer": "窄依赖：一个父分区最多被一个子分区依赖，可以流水线执行。\n例子：map、filter、flatMap、union（部分场景）。\n宽依赖：一个父分区会被多个子分区依赖，通常产生 shuffle。\n例子：groupByKey、reduceByKey、join、distinct、repartition、sortByKey。\n区别：\n1. 窄依赖不需要跨节点拉取大量数据。\n2. 宽依赖需要 shuffle，涉及网络和磁盘 IO。\n3. Spark 以宽依赖为边界划分 Stage。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459670_7cd14552",
+      "question": "Spark SQL的GroupBy会造成窄依赖吗？",
+      "answer": "Spark SQL 的 GroupBy 通常会造成宽依赖。\n原因是相同 group key 的数据可能分散在不同分区，需要通过 shuffle 把相同 key 的数据拉到同一个 reducer 分区做聚合。\n但也有例外：\n1. 如果数据已经按 group key 分区，且执行计划能复用该分区分布，可能减少 shuffle。\n2. map 端会先做局部聚合，但最终全局聚合通常仍需要 shuffle。\n所以面试回答可以说：一般情况下 GroupBy 是宽依赖，会产生 shuffle；除非上游分区分布已经满足聚合要求。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459677_ae93b78f",
+      "question": "GroupBy是行动算子吗？",
+      "answer": "GroupBy 不是 action，而是 transformation。\n在 RDD 中，groupBy、groupByKey 都只是生成新的 RDD 依赖关系，不会立即执行。\n在 DataFrame/Spark SQL 中，groupBy 返回的是 RelationalGroupedDataset，后面通常还要接 count、sum、agg 等聚合操作。\n真正触发执行的是 action，比如 collect、count、show、save、foreach。\n注意：虽然 groupBy 不是 action，但它通常会引入 shuffle，所以一旦被 action 触发，执行成本可能很高。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459683_def3ad75",
+      "question": "Spark的宽依赖和窄依赖，为什么要这么划分？",
+      "answer": "划分宽依赖和窄依赖主要是为了调度和容错。\n1. 调度：窄依赖可以放在同一个 Stage 内流水线执行，宽依赖需要 shuffle，必须切分 Stage。\n2. 容错：窄依赖恢复只需要少量父分区，宽依赖恢复可能涉及多个上游分区。\n3. 性能判断：宽依赖通常意味着网络、磁盘和序列化开销，是优化重点。\n4. 资源规划：宽依赖 Stage 的并行度、shuffle 分区数、内存压力都需要重点关注。\n所以宽窄依赖是 Spark DAG 调度的核心依据。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459692_2bfd3d69",
+      "question": "说下Spark中的Transform和Action，为什么Spark要把操作分为Transform和Action?常用的列举一些，说下算子原理？",
+      "answer": "Transform 和 Action 的区别：\n1. Transformation：转换算子，返回新的 RDD/DataFrame，不立即执行。如 map、filter、join、groupByKey。\n2. Action：行动算子，触发真正计算并返回结果或写出数据。如 count、collect、take、save、foreach。\nSpark 这样设计是为了延迟执行。它可以先记录完整 DAG，等 action 触发时统一优化和调度。\n常见 transformation 原理：map 是逐条转换，filter 是过滤，reduceByKey 是 map 端预聚合加 shuffle 聚合，join 是按 key 关联。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459704_dda95158",
+      "question": "Spark有了RDD，为什么还要有Dataform和DataSet？",
+      "answer": "RDD 是底层分布式数据抽象，灵活但缺少结构信息。\nDataFrame 和 Dataset 的价值：\n1. 有 schema，Spark 可以理解字段、类型和表达式。\n2. Catalyst 优化器可以做谓词下推、列裁剪、join 重排、常量折叠等优化。\n3. Tungsten 执行引擎可以做更高效的内存和代码生成优化。\n4. API 更接近 SQL，适合数仓和结构化数据处理。\nDataFrame 更适合通用结构化分析；Dataset 在 Scala/Java 中提供类型安全；RDD 更适合底层、非结构化或自定义控制场景。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459710_29b3ee1f",
+      "question": "Spark的RDD、DataFrame、DataSet、DataStream区别？",
+      "answer": "RDD：底层弹性分布式数据集，没有 schema，函数式 API 灵活，优化主要依赖开发者。\nDataFrame：带 schema 的分布式表，本质是 Dataset[Row]，支持 SQL 优化，数仓场景最常用。\nDataset：强类型结构化数据集，兼具类型安全和 Catalyst 优化，主要在 Scala/Java 中使用。\nDataStream：流式数据抽象，用于实时/准实时处理；在 Structured Streaming 中更常见的是 streaming DataFrame/Dataset。\n简单说：RDD 灵活，DataFrame 适合 SQL/数仓，Dataset 类型安全，DataStream 面向流处理。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459720_490af26e",
+      "question": "Spark的Job、Stage、Task分别介绍下，如何划分？",
+      "answer": "Job、Stage、Task 是 Spark 调度层级。\n1. Job：由一个 action 触发，一个 action 通常对应一个 Job。\n2. Stage：Job 按 shuffle 边界切分成多个 Stage。\n3. Task：Stage 按分区拆成多个 Task，一个 Task 通常处理一个分区。\n划分规则：\n1. action 触发 Job。\n2. 宽依赖/shuffle 切分 Stage。\n3. Stage 最后一个 RDD 的分区数决定 Task 数。\n关系是：一个 Application 有多个 Job，一个 Job 有多个 Stage，一个 Stage 有多个 Task。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459727_19ff20af",
+      "question": "Application、job、Stage、task之间的关系？",
+      "answer": "Application、Job、Stage、Task 是从大到小的关系。\n1. Application：一次 Spark 应用，对应一个 SparkContext。\n2. Job：一个 action 触发一个 Job。\n3. Stage：Job 根据 shuffle 依赖切分成多个 Stage。\n4. Task：Stage 根据分区数生成多个 Task。\n例子：一个 Spark 程序里有 3 个 action，就可能有 3 个 Job；每个 Job 如果有两次 shuffle，就可能被切成多个 Stage；每个 Stage 有多少 Task 取决于分区数。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459735_37746731",
+      "question": "Stage内部逻辑？",
+      "answer": "Stage 内部是一组可以并行执行的 Task。\n特点：\n1. Stage 内部通常都是窄依赖，可以流水线执行多个算子。\n2. 一个 Stage 会生成一个 TaskSet。\n3. Task 数量通常等于该 Stage 最后一个 RDD 的分区数。\n4. TaskScheduler 负责把这些 Task 分配到 Executor。\n5. 对 ShuffleMapStage，Task 会生成 shuffle 输出；对 ResultStage，Task 会生成最终结果。\nStage 内部失败时，失败 Task 可以重试；如果 shuffle 输出丢失，可能需要重算上游 Stage。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459743_af233d33",
+      "question": "为什么要根据宽依赖划分Stage？",
+      "answer": "根据宽依赖划分 Stage，是因为宽依赖需要 shuffle，不能简单流水线执行。\n窄依赖中，父分区和子分区关系固定，一个 Task 可以连续执行 map、filter 等多个操作。\n宽依赖中，下游分区需要从多个上游分区拉取数据，必须等上游 shuffle 输出准备好后才能执行。\n所以宽依赖天然形成执行边界：\n1. 上游 Stage 负责写 shuffle 文件。\n2. 下游 Stage 负责读取 shuffle 文件继续计算。\n这也是 Spark DAG 调度的核心逻辑。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459751_20b8544e",
+      "question": "为什么要划分Stage？",
+      "answer": "划分 Stage 的目的：\n1. 把可以流水线执行的窄依赖操作合并，减少调度开销。\n2. 在 shuffle 边界处拆开，保证上游数据准备好后下游再执行。\n3. 便于失败恢复，某个 Stage 失败可以按依赖重算。\n4. 便于资源调度，把一组 Task 作为 TaskSet 分发执行。\n简单说：Stage 是 Spark 在 Job 内部的执行阶段，既服务于性能，也服务于调度和容错。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459758_91d511ff",
+      "question": "Stage的数量等于什么？",
+      "answer": "Stage 数量通常由 shuffle 次数决定。\n一般可以理解为：Stage 数量约等于 shuffle 依赖数量 + 1。\n例如：\n1. 没有 shuffle 的 Job，通常只有 1 个 Stage。\n2. 有 1 次 reduceByKey，通常有 2 个 Stage。\n3. 有多次 join/groupBy/orderBy，可能有多个 Stage。\n实际 Stage 数还会受执行计划、复用 shuffle、AQE 优化等影响，但面试中说“按宽依赖切分，shuffle 越多 Stage 越多”即可。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459764_7b480047",
+      "question": "对RDD、DAG和Task的理解？",
+      "answer": "RDD、DAG、Task 是 Spark 执行链路中的不同层次。\n1. RDD：数据抽象，表示分区数据集和依赖关系。\n2. DAG：由 RDD 的 transformation 依赖组成的有向无环图。\n3. Task：真正发到 Executor 上执行的计算单元。\n执行过程：用户写 transformation，Spark 记录 RDD 依赖形成 DAG；action 触发后，DAGScheduler 将 DAG 切成 Stage；每个 Stage 再按分区生成 Task 并行执行。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459772_560aa216",
+      "question": "DAG为什么适合Spark？",
+      "answer": "DAG 适合 Spark，因为 Spark 的计算通常是多个转换步骤组成的有向无环依赖链。\n优势：\n1. 可以全局看见计算流程，按 shuffle 边界做 Stage 划分。\n2. 可以把窄依赖操作流水线合并，提高执行效率。\n3. 可以基于 lineage 做失败恢复。\n4. 可以延迟执行，等 action 触发后统一优化。\n相比每一步都落盘的模型，DAG 能减少不必要 IO，更适合复杂 ETL 和迭代计算。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459779_d92dfce3",
+      "question": "介绍下Spark的DAG以及它的生成过程？",
+      "answer": "Spark DAG 是由 RDD/DataFrame 的一系列转换操作形成的有向无环执行图。\n生成过程：\n1. 用户调用 transformation，如 map、filter、join。\n2. Spark 不立即执行，而是记录依赖关系。\n3. action 触发 Job。\n4. DAGScheduler 根据依赖关系构建 DAG。\n5. 按 shuffle 依赖切分 Stage。\n6. 每个 Stage 生成 TaskSet 执行。\nDAG 中的边表示数据依赖，宽依赖是切分 Stage 的关键边界。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459785_6237caf0",
+      "question": "DAGScheduler如何划分?干了什么活？",
+      "answer": "DAGScheduler 的核心职责是把逻辑依赖变成可调度的 Stage。\n主要工作：\n1. 接收 action 触发的 Job。\n2. 根据 RDD 依赖构建 DAG。\n3. 按 ShuffleDependency 划分 Stage。\n4. 生成 ResultStage 和 ShuffleMapStage。\n5. 为 Stage 创建 TaskSet，并提交给 TaskScheduler。\n6. 处理 Stage 失败、shuffle 输出丢失等情况。\n简单说：DAGScheduler 管“阶段划分和依赖”，TaskScheduler 管“具体 Task 怎么发到 Executor”。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459792_d27395cc",
+      "question": "Spark容错机制？",
+      "answer": "Spark 容错主要依靠 lineage、任务重试和数据副本/重算机制。\n1. RDD lineage：分区丢失时根据依赖链重新计算。\n2. Task 重试：单个 Task 失败后可以重新调度到其他 Executor。\n3. Stage 重试：shuffle 输出丢失时可能重算上游 Stage。\n4. Checkpoint：把中间结果保存到可靠存储，截断过长血统。\n5. 数据源容错：HDFS 等底层存储本身有副本。\n面试重点：Spark 不需要每一步都落盘，主要通过血统重算来保证容错。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459799_b63649b6",
+      "question": "RDD的容错？",
+      "answer": "RDD 的容错依赖 lineage。\n每个 RDD 都记录自己由哪些父 RDD 经过什么 transformation 得到。\n当某个分区丢失时，Spark 可以只重算这个分区所依赖的上游分区，而不是重算全部数据。\n窄依赖恢复成本较低，因为依赖关系少；宽依赖可能需要重新读取多个上游分区或重算 shuffle。\n如果 lineage 很长，恢复成本会变高，可以使用 checkpoint 截断血统，或者 cache/persist 减少重复计算。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459804_521899fc",
+      "question": "Executor内存分配？",
+      "answer": "Executor 内存主要包括：\n1. Execution Memory：shuffle、join、sort、aggregation 使用。\n2. Storage Memory：cache、persist、广播变量使用。\n3. User Memory：用户代码对象、数据结构等。\n4. Memory Overhead：堆外内存、Python worker、Netty、容器开销等。\n常见配置：\n1. spark.executor.memory：Executor JVM 堆内存。\n2. spark.executor.memoryOverhead：堆外和容器额外内存。\n3. spark.memory.fraction：统一内存占比。\n调优关注 OOM、spill、GC 时间和 Yarn container killed。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459812_4514882d",
+      "question": "Spark的batchsize，怎么解决小文件合并问题？",
+      "answer": "batch size 通常和一次处理/拉取的数据量有关，配置过大可能内存压力大，过小可能调度和 IO 开销高。\n小文件问题解决思路：\n1. 读入前在源头合并小文件，如 Hive 表 compact。\n2. 读入后使用 coalesce 减少分区数，避免过多小 Task。\n3. 写出前控制分区数，使用 coalesce/repartition。\n4. Spark SQL 中调节 spark.sql.files.maxPartitionBytes 和 openCostInBytes。\n5. 使用文件格式优化，如 Parquet/ORC，并定期合并。\n目标是让分区大小适中，减少任务调度和 NameNode 压力。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459819_63fd6f41",
+      "question": "Spark参数(性能)调优？",
+      "answer": "Spark 性能调优可以从资源、并行度、shuffle、数据倾斜和 SQL 计划入手。\n1. 资源：合理设置 executor 数量、cores、memory、memoryOverhead。\n2. 并行度：分区数既不能太少也不能过多，常调 spark.sql.shuffle.partitions。\n3. Shuffle：减少 shuffle 次数，使用 reduceByKey 替代 groupByKey，广播小表。\n4. 倾斜：热点 key 加盐、AQE skew join、拆分大 key。\n5. 缓存：复用数据才 cache，避免缓存过多。\n6. SQL 优化：列裁剪、谓词下推、分区裁剪、合理 join 策略。\n最终要结合 Spark UI 看瓶颈。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459827_4a2384ee",
+      "question": "介绍一下Spark怎么基于内存计算的？",
+      "answer": "Spark 基于内存计算，指的是中间结果可以保存在内存中复用，而不是每一步都强制落盘。\n工作方式：\n1. RDD/DataFrame 按分区分布在 Executor 上。\n2. transformation 形成 DAG，窄依赖可以流水线计算。\n3. 需要复用的数据可以 cache/persist 到内存。\n4. 如果内存不足，会按存储级别溢写磁盘或重新计算。\n优势是减少磁盘 IO，特别适合迭代计算和交互式分析。\n注意：shuffle 仍可能写磁盘，Spark 不是完全不落盘。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459839_c6255cb1",
+      "question": "RDD有哪些特点？",
+      "answer": "RDD 的特点：\n1. 弹性：分区丢失可通过 lineage 重新计算。\n2. 分布式：数据分布在多个节点的多个分区中。\n3. 不可变：RDD 创建后不能修改，只能通过 transformation 生成新 RDD。\n4. 可分区：每个 RDD 由多个 Partition 组成。\n5. 延迟计算：transformation 只记录依赖，action 才触发执行。\n6. 可缓存：可通过 cache/persist 复用中间结果。\n7. 支持容错：依赖血统和任务重试。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459845_5ec70b99",
+      "question": "说下知道的RDD算子？",
+      "answer": "常见 RDD 算子：\nTransformation：\n1. map：逐条转换。\n2. flatMap：一条转多条。\n3. filter：过滤。\n4. reduceByKey：按 key 聚合。\n5. groupByKey：按 key 分组。\n6. join：按 key 关联。\n7. distinct：去重。\n8. repartition/coalesce：调整分区。\nAction：\n1. count：计数。\n2. collect：拉回 Driver。\n3. take：取前 N 条。\n4. reduce：全局聚合。\n5. saveAsTextFile：写出结果。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459850_468f9f18",
+      "question": "RDD底层原理？",
+      "answer": "RDD 底层可以理解为五个核心属性：\n1. partitions：分区列表。\n2. compute：每个分区如何计算。\n3. dependencies：依赖哪些父 RDD。\n4. partitioner：可选的分区器，常用于 key-value RDD。\n5. preferredLocations：数据本地性位置。\nSpark 通过这些信息完成调度和容错。\n执行时，Driver 根据 RDD 依赖生成 DAG，按 Stage 切分后，每个 Task 调用对应分区的 compute 方法计算数据。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459855_666594c6",
+      "question": "RDD的缓存级别？",
+      "answer": "RDD 常见缓存级别：\n1. MEMORY_ONLY：只存内存，放不下的分区下次重算。\n2. MEMORY_AND_DISK：优先内存，放不下写磁盘。\n3. DISK_ONLY：只存磁盘。\n4. MEMORY_ONLY_SER：序列化后存内存，省空间但 CPU 开销更高。\n5. MEMORY_AND_DISK_SER：序列化后内存加磁盘。\n6. 带 _2 的级别：保存两份副本，提高容错。\n选择原则：内存够用选 MEMORY_ONLY；数据大或不稳定选 MEMORY_AND_DISK；需要省内存可考虑序列化级别。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459865_6c054a7e",
+      "question": "Spark广播变量的实现和原理？",
+      "answer": "广播变量用于把只读小数据高效分发到各个 Executor。\n实现原理：\n1. Driver 创建 broadcast 变量。\n2. Spark 将数据切分并分发到 Executor。\n3. Executor 本地缓存广播数据，多个 Task 复用。\n4. Task 使用本地副本，避免每个 Task 都从 Driver 拉取。\n常见场景：大表 join 小表、维表映射、规则表匹配。\n注意：广播对象应只读，不能太大；过大可能导致 Driver 或 Executor 内存压力。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459871_f42783a8",
+      "question": "reduceByKey和groupByKey的区别和作用？",
+      "answer": "reduceByKey 和 groupByKey 都按 key 处理数据，但性能差别很大。\ngroupByKey：把同一个 key 的所有 value 拉到一起，再处理。数据量大时 shuffle 压力大，容易 OOM。\nreduceByKey：先在 map 端做局部聚合，再 shuffle 到 reduce 端做最终聚合。\n区别：\n1. reduceByKey 有 map 端预聚合，shuffle 数据更少。\n2. groupByKey 保留全量 value，适合确实需要完整列表的场景。\n3. 做求和、计数、最大最小等聚合时优先用 reduceByKey。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459877_ec744a57",
+      "question": "reduceByKey和reduce的区别？",
+      "answer": "reduceByKey 和 reduce 的区别：\n1. reduceByKey 是 key-value RDD 算子，按 key 分组聚合，返回每个 key 的聚合结果。\n2. reduce 是 action，对整个 RDD 做全局聚合，返回一个最终值到 Driver。\n3. reduceByKey 是 transformation，会产生新的 RDD，通常涉及 shuffle。\n4. reduce 是 action，会触发作业执行。\n例子：统计每个单词出现次数用 reduceByKey；求一个 RDD 所有数字总和可以用 reduce。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459886_a53c04f0",
+      "question": "使用reduceByKey出现数据倾斜怎么办？",
+      "answer": "reduceByKey 出现数据倾斜，说明某些 key 数据量特别大。\n解决方法：\n1. 先统计 key 分布，找出热点 key。\n2. 对热点 key 加随机盐，先局部聚合，再去盐做二次聚合。\n3. 过滤无效热点 key，如空值、默认值。\n4. 增加 shuffle 分区数，缓解单个分区压力。\n5. 如果是 join 场景，考虑广播小表或倾斜 join 优化。\n6. 业务上拆分超大 key，单独处理后再 union 回结果。\n核心是把热点 key 打散，避免少数 Task 承担过多数据。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459890_fa33ef2f",
+      "question": "Spark SQL的执行原理？",
+      "answer": "Spark SQL 执行流程：\n1. SQL 文本或 DataFrame 操作生成 Unresolved Logical Plan。\n2. Analyzer 结合 Catalog 解析表、字段、函数，生成 Logical Plan。\n3. Optimizer 使用 Catalyst 做逻辑优化，如谓词下推、列裁剪、常量折叠。\n4. Planner 生成 Physical Plan，选择 join、聚合、排序等物理算子。\n5. WholeStageCodegen/Tungsten 优化执行代码。\n6. 转换为 RDD/Task，在 Executor 上执行。\n简单说：SQL -> 逻辑计划 -> 优化计划 -> 物理计划 -> 分布式执行。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459897_6a48c847",
+      "question": "Spark SQL的优化？",
+      "answer": "Spark SQL 优化常见方向：\n1. 谓词下推：尽早过滤数据。\n2. 列裁剪：只读取需要的字段。\n3. 分区裁剪：where 条件命中分区字段。\n4. Join 优化：小表广播、调整 join 顺序、避免数据倾斜。\n5. AQE：运行时动态调整 shuffle 分区、处理 skew join、切换 join 策略。\n6. 文件格式：优先 Parquet/ORC，利用列式存储和压缩。\n7. 控制小文件和合理分区数。\n看执行计划可以用 explain，性能瓶颈可以结合 Spark UI 分析。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459906_9a3f25eb",
+      "question": "Spark SQL与DataFrame的使用？",
+      "answer": "Spark SQL 可以直接写 SQL，DataFrame 是结构化 API。\n使用方式：\n1. 读取数据：spark.read.parquet/json/csv/table。\n2. 注册临时视图：df.createOrReplaceTempView。\n3. 执行 SQL：spark.sql(\"select ...\")。\n4. DataFrame API：select、filter、groupBy、join、withColumn。\n两者底层都会生成逻辑计划，并经过 Catalyst 优化。\n实际开发中，简单查询用 SQL 更直观；复杂逻辑、动态字段、工程化封装时 DataFrame API 更灵活。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459915_ef62999e",
+      "question": "Sparksql自定义函数?怎么创建DataFrame？",
+      "answer": "Spark SQL 自定义函数常见有 UDF 和 UDAF。\nUDF：一进一出，用于自定义字段转换。\n创建 DataFrame 的方式：\n1. 从文件读取：spark.read.parquet/csv/json。\n2. 从 Hive 表读取：spark.table 或 spark.sql。\n3. 从 RDD 转换：rdd.toDF。\n4. 从本地集合创建：spark.createDataFrame。\n注意：普通 UDF 可能影响 Catalyst 优化和代码生成，能用内置函数就优先用内置函数；Python UDF 还可能有序列化开销。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459920_5c3af449",
+      "question": "HashPartitioner和RangePartitioner的实现？",
+      "answer": "HashPartitioner 和 RangePartitioner 都是分区器。\nHashPartitioner：对 key 的 hash 值取模决定分区。优点是简单、分布通常较均匀；缺点是不保证 key 有序，遇到热点 key 仍会倾斜。\nRangePartitioner：按 key 的范围划分分区，通常会先抽样估计边界。优点是分区内和分区间具有范围顺序，适合排序场景；缺点是抽样不准时可能倾斜。\nreduceByKey 等常用 HashPartitioner；sortByKey 常用 RangePartitioner。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459929_8718a454",
+      "question": "Spark的水塘抽样？",
+      "answer": "水塘抽样用于在不知道总数据量或数据量很大时，从数据流中等概率抽取固定数量样本。\n核心思想：\n1. 先把前 k 个元素放入水塘。\n2. 第 i 个元素到来时，以 k/i 的概率进入水塘。\n3. 如果进入，则随机替换水塘中的一个元素。\n最终每个元素被选中的概率相同。\nSpark 中抽样可用于统计估计、RangePartitioner 边界采样、数据探查等场景。优点是不需要把全量数据放入内存。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459936_09c6af1e",
+      "question": "DAGScheduler、TaskScheduler、SchedulerBackend实现原理？",
+      "answer": "DAGScheduler、TaskScheduler、SchedulerBackend 分工不同。\n1. DAGScheduler：面向 Stage，负责 DAG 构建、Stage 切分、失败恢复。\n2. TaskScheduler：面向 TaskSet，负责 Task 调度、重试、本地性、推测执行。\n3. SchedulerBackend：面向集群，负责和资源管理器及 Executor 通信。\n执行链路：DAGScheduler 把 Job 切成 Stage 并提交 TaskSet；TaskScheduler 选择合适 Executor；SchedulerBackend 把 Task 发送到 Executor 并接收状态回报。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459945_9c010667",
+      "question": "介绍下Sparkclient提交application后，接下来的流程？",
+      "answer": "Spark client 提交 application 后流程：\n1. spark-submit 启动提交进程并解析参数。\n2. 根据 deploy-mode 启动 Driver，client 模式 Driver 在提交端，cluster 模式 Driver 在集群中。\n3. Driver 创建 SparkContext。\n4. Driver 向资源管理器申请 Executor。\n5. Executor 启动后向 Driver 注册。\n6. Driver 执行用户程序，遇到 action 后生成 Job。\n7. Job 被切成 Stage 和 Task，下发到 Executor 执行。\n8. 结果写出或返回，应用结束后释放资源。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459949_707c6b8e",
+      "question": "Spark的几种部署方式？",
+      "answer": "Spark 常见部署方式：\n1. Local：本地模式，适合开发测试。\n2. Standalone：Spark 自带集群管理器，部署简单。\n3. Yarn：运行在 Hadoop Yarn 上，企业数仓常见。\n4. Kubernetes：运行在 K8s 上，适合云原生环境。\n按 Driver 位置还可分 client 和 cluster 模式。\nclient 模式适合调试，日志直接在提交机器看；cluster 模式 Driver 在集群中，更适合生产长期运行。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459960_9edc7259",
+      "question": "在Yarn-client情况下，Driver此时在哪？",
+      "answer": "Yarn-client 模式下，Driver 运行在提交任务的客户端机器上。\nApplicationMaster 运行在 Yarn 集群中，主要负责向 ResourceManager 申请资源。\nExecutor 运行在 NodeManager 管理的容器中。\n特点：\n1. Driver 日志在客户端，调试方便。\n2. 客户端不能断开，否则 Driver 可能失败。\n3. 适合开发调试，不太适合生产长任务。\n生产更常用 yarn-cluster，因为 Driver 运行在集群容器中，稳定性更好。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459966_27631e68",
+      "question": "Spark的cluster模式有什么好处？",
+      "answer": "Cluster 模式的好处：\n1. Driver 运行在集群中，不依赖提交机器，适合生产任务。\n2. 客户端提交后可以断开，任务仍继续运行。\n3. Driver 更靠近 Executor，网络和稳定性通常更好。\n4. 资源统一由集群管理器调度，便于队列和权限管理。\n缺点是调试不如 client 模式直观，需要到 Yarn/K8s/Spark UI 查看日志。\n一般开发调试用 client，生产调度用 cluster。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459975_9ea49477",
+      "question": "Driver怎么管理executor？",
+      "answer": "Driver 通过 Spark 的调度组件管理 Executor。\n1. Executor 启动后会向 Driver 注册。\n2. Driver 维护 Executor 的状态、资源和心跳。\n3. TaskScheduler 根据可用 Executor 资源分配 Task。\n4. SchedulerBackend 负责把 Task 发送给 Executor。\n5. Executor 执行完成后向 Driver 汇报状态和结果。\n6. 如果 Executor 丢失，Driver 会标记失败，并根据情况重试 Task 或重算 Stage。\nDriver 是应用级主控，所以 Driver 异常通常会导致整个 Application 失败。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459981_6e4cd58a",
+      "question": "Spark的map和flatmap的区别？",
+      "answer": "map 和 flatMap 都是 transformation。\nmap：一条输入对应一条输出。\n例子：把每一行转换成长度，输入 3 行输出 3 个长度。\nflatMap：一条输入可以对应 0 条、1 条或多条输出，并把结果拍平。\n例子：文本分词，一行句子拆成多个单词。\n区别：\n1. map 保持记录数一对一。\n2. flatMap 会展开集合，输出数量可能变化。\n常见词频统计中，先用 flatMap 拆词，再用 map 转成 (word,1)。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661459991_c57b90f0",
+      "question": "Spark的cache和persist的区别?它们是transformaiton算子还是action算子？",
+      "answer": "cache 是 persist 的简写。\n1. cache 默认使用 MEMORY_ONLY。\n2. persist 可以指定存储级别，如 MEMORY_AND_DISK、DISK_ONLY、MEMORY_ONLY_SER。\n3. 两者都是惰性的，不会立即触发计算。\n4. 它们不是 action，不会单独启动 Job；只有后续 action 触发时才会真正缓存。\n使用建议：只有当同一个 RDD/DataFrame 被复用多次时才缓存；缓存后不再使用要 unpersist，避免占用内存。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:30:59Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792661460000_b9379c61",
+      "question": "Saprk Streaming从Kafka中读取数据两种方式？",
+      "answer": "Spark Streaming 从 Kafka 读取数据主要有两种方式：\n1. Receiver 方式：通过 Receiver 接收 Kafka 数据，数据先进入 Executor 内存，再由 Spark Streaming 处理。早期方式，可能需要 WAL 保证可靠性。\n2. Direct 方式：Spark 直接按 Kafka offset 拉取数据，不需要 Receiver。每个 batch 直接读取对应 offset 范围，可靠性和性能更好。\nDirect 方式优势：可以精确管理 offset，减少数据丢失风险，也避免 Receiver 额外开销。\nStructured Streaming 中通常使用 Kafka Source，以 DataFrame 方式读取 Kafka。",
+      "entryId": "entry_1792661459474_c253e778",
+      "sourceTitle": "spark八股",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T09:31:00Z",
+      "updatedAt": "2026-10-22T09:41:52Z"
+    },
+    {
+      "id": "qa_1792662609954_0306d8e7",
+      "question": "Spark SQL的劣势?",
+      "answer": "x",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -555,190 +1926,8 @@
       ],
       "confirmed": true,
       "autoGenerated": false,
-      "createdAt": "2026-10-21T07:33:04Z",
-      "updatedAt": "2026-10-21T08:01:17Z"
-    },
-    {
-      "id": "qa_1792567864559_2ca91806",
-      "question": "以下哪个sql会发生shuffle?(多选)\n1.  select col1,col2 from table where col1 = 'hello'     \n2.  select table1.a from table1 join table2 on table1.a = table2.a     \n3.  select col1,count(1) as ct from table group by col1    \n4.  select col1, col2, row_number() over(partition by col1,sort by col2 desc) as rn from table",
-      "answer": "1  错误。过滤不会产生shuffle\n2  正确。join是shuffle最主要的场景\n3  正确。聚合也会产生shuffle\n4  正确。窗口函数中有分区操作，也产生来shuffle",
-      "entryId": "",
-      "sourceTitle": "人工添加",
-      "tags": [
-        "数仓基础"
-      ],
-      "confirmed": true,
-      "autoGenerated": false,
-      "createdAt": "2026-10-21T07:31:04Z",
-      "updatedAt": "2026-10-21T08:02:32Z"
-    },
-    {
-      "id": "qa_1792567772852_07d84a84",
-      "question": "数据倾斜会在哪一个环节出现？为什么?",
-      "answer": "数据倾斜会在shuffle阶段出现，因为涉及到了数据打散，如果某个值的数据异常多，则会导致这个值全部分布在一个partition中，造成数据倾斜。 \n\n\n**group by** 某key分布不均匀 比如热点城市  uid=0（未登录用户）\n**join**\n (1) 空值/异常值倾斜\n关联字段大量为 NULL 或 ''，Hive 中 NULL 在 common/shuffle join 时会被分到同一个 reducer（Hive 2+ 对 null key 有优化，但仍要注意），那个 reducer 爆炸。\n(2) 热点 key 倾斜\n大表 join 大表/小表，某个 key（爆款商品、大代理商、平台自营）对应海量记录，集中到一个 reducer。\n(3) 大表 join 大表（双方都大）\n无法用 MapJoin，走 ReduceJoin，倾斜 key 直接拖垮。\n(4) 不同数据类型关联导致的隐式转换\n如 string 类型的 id join bigint 的 id，发生隐式类型转换，使关联字段变成非分区/非索引计算，且可能把大量值归并（典型\"看着不倾斜，实际倾斜\"），还会让分区裁剪失效。\n**Count Distinct 倾斜**\nCOUNT(DISTINCT uid) 时，去重字段的所有值默认只能走少量/单个 reducer 做最终去重（distinct 不能像普通聚合那样提前 combiner 摊平），数据量大时单 reducer 扛不住。\n这是非常经典的倾斜场景。\n**小文件 / 输入数据分布不均（Map 端倾斜）**\n不是 reducer 倾斜，而是 map 端：单个超大未分片文件（不可切分的压缩 GZIP、超大文件）、或某些 map 处理的数据块特别大，导致个别 map task 特别慢。\n**动态分区写入倾斜**\nINSERT OVERWRITE ... PARTITION(dt) 开启动态分区时，如果分区值集中（如大量数据都写入某一个分区/某几个分区），对应的 reducer（按分区字段分发）数据量巨大，造成倾斜，甚至单分区文件过大。\n**窗口函数 / 排序（ORDER BY / 全局排序）倾斜**\nORDER BY（不带分区）强制全局排序，只有 1 个 reducer，数据一大必然慢；\n窗口函数 PARTITION BY key 时，某个 partition key 数据特别多，对应分组处理也会拖尾。",
-      "entryId": "entry_1792567772849_7f747183",
-      "sourceTitle": "SPARK 相关",
-      "tags": [
-        "数仓基础"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:29:32Z",
-      "updatedAt": "2026-10-21T10:17:53Z"
-    },
-    {
-      "id": "qa_1792567772853_b8be216c",
-      "question": "shuffle过程会消耗那些资源？哪些会成为瓶颈？为什么 是什么？",
-      "answer": "shuffle中涉及到了数据的shuffle write、shuffle read，数据的序列化，网络传输。 在我们可控制的内存、cpu资源来看，最主要的瓶颈是shuffle read阶段会因为数据量的过大而导致内存溢出，因此需要合理的调整每个partition的数据量并均匀的分散数据。",
-      "entryId": "entry_1792567772849_7f747183",
-      "sourceTitle": "SPARK 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:29:32Z",
-      "updatedAt": "2026-10-21T08:01:38Z"
-    },
-    {
-      "id": "qa_1792567772853_a27f8475",
-      "question": "join操作一定发生shuffle吗？ 是什么？",
-      "answer": "如果其中一张表的数据量非常小，可以采取broadcast join来避免shuffle操作，大大缩短任务时间。 \n在RDD api中可以自由控制每个shuffle的并行度，在两个RDD已由相同分区函数分区并partition数相同的情况下，join不会发生shuffle操作。",
-      "entryId": "entry_1792567772849_7f747183",
-      "sourceTitle": "SPARK 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:29:32Z",
-      "updatedAt": "2026-10-21T08:01:45Z"
-    },
-    {
-      "id": "qa_1792567772854_7e09d285",
-      "question": "并行度越大越好吗？为什么？ 是什么？",
-      "answer": "在每个task处理的数据量过多时，可以适当增加并行度来减少每个task处理的数据量，以此增加速度。 但当task处理的数据量非常小时，可以适当的减小并行度来减少task个数，因为driver在生成、分配、监视task时需要消耗时间，executor在切换处理task时也需要消耗时间。",
-      "entryId": "entry_1792567772849_7f747183",
-      "sourceTitle": "SPARK 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:29:32Z",
-      "updatedAt": "2026-10-21T08:01:50Z"
-    },
-    {
-      "id": "qa_1792567035284_960bf089",
-      "question": "什么是 RDD？",
-      "answer": "RDD是指弹性分布式数据集，在代码中是一个抽象类，它代表一个不可变、可分区、里面的元素可并行计算的数据集合。",
-      "entryId": "entry_1792567035279_fc29dc2b",
-      "sourceTitle": "spark 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:17:15Z",
-      "updatedAt": "2026-10-21T08:03:48Z"
-    },
-    {
-      "id": "qa_1792567035285_0a2c8161",
-      "question": "RDD 的核心概念是什么？",
-      "answer": "RDD的核心概念是分区（Partition）和计算函数。 在真正计算时，RDD的不同分区是分散到不同的计算节点进行计算的，每个节点计算RDD的一个分区或多个分区，从而形成数据的分布式计算。",
-      "entryId": "entry_1792567035279_fc29dc2b",
-      "sourceTitle": "spark 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:17:15Z",
-      "updatedAt": "2026-10-21T08:03:56Z"
-    },
-    {
-      "id": "qa_1792567035285_8af5e9d6",
-      "question": "RDD 的数据来源有哪些？",
-      "answer": "- 从数据源或者集合中进行加载（如HDFS、Hbase）\n- 由其他RDD进行转换（由各种算子实现，如map、filter、groupBy等。主要分为transformation和action算子）",
-      "entryId": "entry_1792567035279_fc29dc2b",
-      "sourceTitle": "spark 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:17:15Z",
-      "updatedAt": "2026-10-21T08:04:01Z"
-    },
-    {
-      "id": "qa_1792567035285_65982d45",
-      "question": "Driver 和 Executor 分别负责什么？",
-      "answer": "Driver：主控进程，负责产生DAG和提交Job，解析sql的逻辑和物理执行计划，同时负责回收任务的执行结果，不涉及具体的计算。如果使用广播变量，广播变量会先拉取到Driver端，之后再分发到Executor端执行broadcastjoin。 Executor：Task具体执行的节点，负责具体的数据计算和缓存RDD等，执行具体的task任务。Spark的分布式计算就体现在Executor是分布式的。",
-      "entryId": "entry_1792567035279_fc29dc2b",
-      "sourceTitle": "spark 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:17:15Z",
-      "updatedAt": "2026-10-21T08:03:18Z"
-    },
-    {
-      "id": "qa_1792567035285_5f97f4a3",
-      "question": "Spark DAG 中 Job、Stage、Task 分别是什么？",
-      "answer": "Job：在一个任务中，以Action算子划分Job，如collect、saveAsTextFile、show Stage：一个Job中，又以Shuffle为边界（宽窄依赖）划分出的不同阶段，如join、groupByKey、reduceByKey Task：每个Stage由一组并发的Task组成（即TaskSet），task个数由输入文件的切片个数来决定的。通过算子修改了某一个rdd的分区数量，task数量也会同步修改。一个Stage的总Task的个数由Stage中最后的一个RDD的Partition数量决定。",
-      "entryId": "entry_1792567035279_fc29dc2b",
-      "sourceTitle": "spark 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:17:15Z",
-      "updatedAt": "2026-10-21T08:04:06Z"
-    },
-    {
-      "id": "qa_1792567035285_f7abb8e3",
-      "question": "Spark 作业的执行流程是什么？",
-      "answer": "为便于理解，Spark作业的执行流程可简化为：读取文件并转换为RDD，然后按照解析出的物理执行计划进行RDD Partition的转换、计算。 当Spark读取文件作为输入时，会根据具体数据格式对应的InputFormat进行解析，一般是将若干个Block合并成一个输入分片，称为InputSplit，注意InputSplit不能跨越文件。 随后这些具体的Task每个都会被分配到集群上的某个节点的某个Executor去执行。",
-      "entryId": "entry_1792567035279_fc29dc2b",
-      "sourceTitle": "spark 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:17:15Z",
-      "updatedAt": "2026-10-21T08:03:24Z"
-    },
-    {
-      "id": "qa_1792567035285_48a3dd8c",
-      "question": "InputSplit、Partition 和 Task 的关系是什么？",
-      "answer": "当Spark读取文件作为输入时，会根据具体数据格式对应的InputFormat进行解析，一般是将若干个Block合并成一个输入分片，称为InputSplit，注意InputSplit不能跨越文件。 Spark将为InputSplit和后续的RDD Partition生成具体的Task。 InputSplit/Partition的数量决定了Task的数量，是一一对应的。",
-      "entryId": "entry_1792567035279_fc29dc2b",
-      "sourceTitle": "spark 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:17:15Z",
-      "updatedAt": "2026-10-21T08:03:35Z"
-    },
-    {
-      "id": "qa_1792567035285_2a6455e2",
-      "question": "Spark Task 的实际并发度如何计算？",
-      "answer": "每个Executor由若干core组成，每个Executor的每个core一次只能执行一个Task。 \nTask被执行的实际并发度 = Executor数目 * 每个Executor核数 * 虚拟运行核数。",
-      "entryId": "entry_1792567035279_fc29dc2b",
-      "sourceTitle": "spark 相关",
-      "tags": [
-        "Spark"
-      ],
-      "confirmed": true,
-      "autoGenerated": true,
-      "createdAt": "2026-10-21T07:17:15Z",
-      "updatedAt": "2026-10-21T08:36:08Z"
+      "createdAt": "2026-10-22T09:50:09Z",
+      "updatedAt": "2026-10-22T09:50:09Z"
     }
   ],
   "settings": {

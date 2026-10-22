@@ -562,6 +562,24 @@ label {
   gap: 16px;
 }
 
+.qa-detail-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fbfdfc;
+}
+
+.qa-detail-nav span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .qa-detail-label {
   width: 30px;
   height: 30px;
