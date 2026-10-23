@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "id": "entry_1792666345607_87310877",
+      "title": "Hbase基础",
+      "content": "1. 介绍下HBase ？\n2. HBase优缺点？\n3. 说下HBase原理？\n4. 介绍下HBase架构 ？\n5. HBase读写数据流程？\n6. HBase的读写缓存？\n7. 在删除HBase中的一个数据的时候，它什么时候真正的进行删除呢?当你进行删除操作，它是立马就把数据删除掉了吗?\n8. HBase中的二级索引？\n9. HBase的RegionServer宕机以后怎么恢复的? \n10. HBase的一个region由哪些东西组成? \n11. HBase高可用怎么实现的?\n12. 为什么HBase适合写多读少业务?\n13. 列式数据库的适用场景和优势?列式存储的特点? \n14. HBase的rowkey设计原则？\n15. HBase的rowkey为什么不能超过一定的长度?为什么要唯一?rowkey太长会影响Hfile的存储是吧? \n16. HBase的RowKey设置讲究有什么原因 ？\n17. HBase的大合并、小合并是什么?\n18. HBase和关系型数据库(传统数据库)的区别(优点)? \n19. HBase数据结构？\n20. HBase为什么随机查询很快? \n21. HBase的LSM结构？\n22. HBase的Get和Scan的区别和联系?\n23. HBase数据的存储结构(底层存储结构) ？\n24. HBase数据compact流程? \n25. HBase的预分区 ？\n26. HBase的热点问题？\n27. HBase的memstore冲刷条件 ？\n28. HBase的MVCC？\n29. HBase的大合并与小合并，大合并是如何做的?为什么要大合并？\n30. 既然HBase底层数据是存储在HDFS上，为什么不直接使用HDFS，而还要用HBase？\n31. HBase和Phoenix的区别 ？\n32. HBase支持SQL操作吗？\n33. HBase适合读多写少还是写多读少 ？\n34. HBase表设计 ？\n35. Region分配？\n36. HBase的Region切分？",
+      "summary": "在删除HBase中的一个数据的时候，它什么时候真正的进行删除呢",
+      "sourceType": "text",
+      "sourceUrl": "",
+      "tags": [
+        "Hbase"
+      ],
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:52:25Z"
+    },
+    {
       "id": "entry_1792661459474_c253e778",
       "title": "spark八股",
       "content": "Spark提交作业参数？\n简述Spark的架构与作业提交流程？\n如何理解Spark中的血统概念？\n简述Spark的宽容依赖，以及Spark如何划分stage每个stage又根据什么决定task个数?\n请列举Spark的transformation算子，并简述功能？\n请列举Spark的action算子，并简述功能？\n请列举会引起Shuffle过程的Spark算子，并简述功能？\n简述Spark的两种核心Shuffle的工作流程？\nSpark的任务执行流程 ？\nSpark的运行流程？\nSpark的作业运行流程是怎么样的? \nSpark的特点？\nSpark源码中的任务调度 ？\nSpark作业调度 ？\nSpark的架构？\nSpark的使用场景？\nSpark on standalone模型、YARN架构模型(画架构图) ？\nSpark的yarn-cluster涉及的参数有哪些? \nSpark提交job的流程 ？\nSpark的阶段划分？\nSpark处理数据的具体流程说下？\nSparkjoin的分类？\nSpark map join的实现原理？\n介绍下Spark Shuffle及其优缺点？\n什么情况下会产生Spark Shuffle?\n为什么要Spark Shuffle? \nSpark为什么快?\nSpark为什么适合迭代处理?\nSpark数据倾斜问题，如何定位，解决方案？\nSpark的stage如何划分?在源码中是怎么判断属于Shuffle Map Stage或Result Stage的?\nSpark join在什么情况下会变成窄依赖? \nSpark的内存模型?\nSpark分哪几个部分(模块)?分别有什么作用(做什么，自己用过哪些，做过什么)? \nRDD的宽依赖和窄依赖，举例一些算子 ？\nSpark SQL的GroupBy会造成窄依赖吗? \nGroupBy是行动算子吗？\nSpark的宽依赖和窄依赖，为什么要这么划分?\n说下Spark中的Transform和Action，为什么Spark要把操作分为Transform和Action?常用的列举一些，说下算子原理 ？\nSpark的哪些算子会有shuffle过程?\nSpark有了RDD，为什么还要有Dataform和DataSet?\nSpark的RDD、DataFrame、DataSet、DataStream区别? \nSpark的Job、Stage、Task分别介绍下，如何划分?\nApplication、job、Stage、task之间的关系 ？\nStage内部逻辑？\n为什么要根据宽依赖划分Stage?\n为什么要划分Stage ？\nStage的数量等于什么？\n对RDD、DAG和Task的理解 ？\nDAG为什么适合Spark?\n介绍下Spark的DAG以及它的生成过程 ？\nDAGScheduler如何划分?干了什么活? \nSpark容错机制? \nRDD的容错？\nExecutor内存分配?\nSpark的batchsize，怎么解决小文件合并问题? \nSpark参数(性能)调优？\n介绍一下Spark怎么基于内存计算的？\n说下什么是RDD(对RDD的理解)?\nRDD有哪些特点?\n说下知道的RDD算子 ？\nRDD底层原理 ？\nRDD属性？\nRDD的缓存级别?\nSpark广播变量的实现和原理?\nreduceByKey和groupByKey的区别和作用? \nreduceByKey和reduce的区别?\n使用reduceByKey出现数据倾斜怎么办? \nSpark SQL的执行原理? \nSpark SQL的优化?\n说下Spark checkpoint？\nSpark SQL与DataFrame的使用?\nSparksql自定义函数?怎么创建DataFrame? \nHashPartitioner和RangePartitioner的实现 ？\nSpark的水塘抽样？\nDAGScheduler、TaskScheduler、SchedulerBackend实现原理？\n介绍下Sparkclient提交application后，接下来的流程? \nSpark的几种部署方式？\n在Yarn-client情况下，Driver此时在哪？\nSpark的cluster模式有什么好处 ？\nDriver怎么管理executor？\nSpark的map和flatmap的区别?\nSpark的cache和persist的区别?它们是transformaiton算子还是action算子? \nSaprk Streaming从Kafka中读取数据两种方式? \nSpark Streaming的工作原理?\nSpark Streaming的DStream和DStreamGraph的区别? \nSpark输出文件的个数，如何合并小文件?\nSpark的driver是怎么驱动作业流程的? \nSpark SQL的劣势?\n介绍下Spark Streaming和Structed Streaming ？\nSpark为什么比Hadoop速度快? \nDAG划分Spark源码实现?\nSpark Streaming的双流join的过程，怎么做的? \nSpark的Block管理？\nSpark怎么保证数据不丢失 ？\nSpark SQL如何使用UDF? \nSpark温度二次排序 ？\nSpark实现wordcount？\nSpark Streaming怎么实现数据持久化保存?\nSpark SQL读取文件，内存不够使用，如何处理? \nSpark的lazy体现在哪里? \nSpark中的并行度等于什么 ？\nSpark运行时并行度的设署 ？\nSpark SQL的数据倾斜 ？\nSpark的exactly-once？\nSpark的RDD和partition的联系 ？\npark 3.0特性？\nSpark计算的灵活性体现在哪里？",
@@ -182,7 +195,7 @@
     {
       "id": "qa_1792567772852_07d84a84",
       "question": "数据倾斜会在哪一个环节出现？为什么?",
-      "answer": "数据倾斜会在shuffle阶段出现，因为涉及到了数据打散，如果某个值的数据异常多，则会导致这个值全部分布在一个partition中，造成数据倾斜。 \n\n\n**group by** 某key分布不均匀 比如热点城市  uid=0（未登录用户）\n**join**\n (1) 空值/异常值倾斜\n关联字段大量为 NULL 或 ''，Hive 中 NULL 在 common/shuffle join 时会被分到同一个 reducer（Hive 2+ 对 null key 有优化，但仍要注意），那个 reducer 爆炸。\n(2) 热点 key 倾斜\n大表 join 大表/小表，某个 key（爆款商品、大代理商、平台自营）对应海量记录，集中到一个 reducer。\n(3) 大表 join 大表（双方都大）\n无法用 MapJoin，走 ReduceJoin，倾斜 key 直接拖垮。\n(4) 不同数据类型关联导致的隐式转换\n如 string 类型的 id join bigint 的 id，发生隐式类型转换，使关联字段变成非分区/非索引计算，且可能把大量值归并（典型\"看着不倾斜，实际倾斜\"），还会让分区裁剪失效。\n**Count Distinct 倾斜**\nCOUNT(DISTINCT uid) 时，去重字段的所有值默认只能走少量/单个 reducer 做最终去重（distinct 不能像普通聚合那样提前 combiner 摊平），数据量大时单 reducer 扛不住。\n这是非常经典的倾斜场景。\n**小文件 / 输入数据分布不均（Map 端倾斜）**\n不是 reducer 倾斜，而是 map 端：单个超大未分片文件（不可切分的压缩 GZIP、超大文件）、或某些 map 处理的数据块特别大，导致个别 map task 特别慢。\n**动态分区写入倾斜**\nINSERT OVERWRITE ... PARTITION(dt) 开启动态分区时，如果分区值集中（如大量数据都写入某一个分区/某几个分区），对应的 reducer（按分区字段分发）数据量巨大，造成倾斜，甚至单分区文件过大。\n**窗口函数 / 排序（ORDER BY / 全局排序）倾斜**\nORDER BY（不带分区）强制全局排序，只有 1 个 reducer，数据一大必然慢；\n窗口函数 PARTITION BY key 时，某个 partition key 数据特别多，对应分组处理也会拖尾。",
+      "answer": "数据倾斜会在shuffle阶段出现，因为涉及到了数据打散，如果某个值的数据异常多，则会导致这个值全部分布在一个partition中，造成数据倾斜。",
       "entryId": "entry_1792567772849_7f747183",
       "sourceTitle": "SPARK 相关",
       "tags": [
@@ -191,7 +204,7 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T07:29:32Z",
-      "updatedAt": "2026-10-21T10:17:53Z"
+      "updatedAt": "2026-10-23T02:32:10Z"
     },
     {
       "id": "qa_1792567772853_b8be216c",
@@ -238,7 +251,7 @@
     {
       "id": "qa_1792567864559_2ca91806",
       "question": "以下哪个sql会发生shuffle?(多选)\n1.  select col1,col2 from table where col1 = 'hello'     \n2.  select table1.a from table1 join table2 on table1.a = table2.a     \n3.  select col1,count(1) as ct from table group by col1    \n4.  select col1, col2, row_number() over(partition by col1,sort by col2 desc) as rn from table",
-      "answer": "1  错误。过滤不会产生shuffle\n2  正确。join是shuffle最主要的场景\n3  正确。聚合也会产生shuffle\n4  正确。窗口函数中有分区操作，也产生来shuffle",
+      "answer": "1  错误。过滤不会产生shuffle\n2  正确。join是shuffle最主要的场景\n3  正确。聚合也会产生shuffle\n4  正确。窗口函数中有分区操作，也会shuffle",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -247,7 +260,7 @@
       "confirmed": true,
       "autoGenerated": false,
       "createdAt": "2026-10-21T07:31:04Z",
-      "updatedAt": "2026-10-21T08:02:32Z"
+      "updatedAt": "2026-10-23T02:33:49Z"
     },
     {
       "id": "qa_1792567984445_c145201b",
@@ -294,7 +307,7 @@
     {
       "id": "qa_1792571706050_c970d6de",
       "question": "数仓是怎么分层的",
-      "answer": "ODS层\n保留业务系统原始数据，保持和数据源的一致性，不做任何类型转换和数据加工处理\nDWD层\n明细宽表层，用于存放完整详细历史数据。面向业务过程建模，紧紧围绕着业务过程来设计，通过获取描述业务过程的度量来表达业务过程，包含了引用的维度和与业务过程有关的度量。其设计目标是为后续的Data Warehouse Model提供灵活性和扩展性的基础，同时可以在DW层无法支持需求时直接为应用层提供数据。DWD层由于与业务系统耦合程度较高，其稳定性会受到业务系统的影响。\nDWS层\n存放详细历史数据的公共汇总数据层，面向分析主题建模。DWS是核心数据层，是为应用层提供足够的灵活性和扩展性的基础。\nADS层\n提供直接面向业务或应用的数据，主要对个性化指标数据进行架构处理，如无公用性或复杂性（如指数型、比值型、排名型等指标数据）的指标数据加工。同时为方便实现数据应用、数据消费的诉求，进行面向应用逻辑的数据组装（如打宽表集市、横表转纵表、趋势指标串等）。",
+      "answer": "ODS ：MySQL、LarkSheet 等源数据接入为主\n         保留源语义，减少复杂业务加工\nDIM ：HSQL 建模与人工配置同步并存\n         统一实体、枚举和公共维度口径\nDWD：明细加工规模低于结果层\n         沉淀稳定事实粒度与业务事件\nDWM/DWS\n         DWM 有一定规模，DWS 基本缺位\n        承载跨应用复用的主题聚合与公共指标\nDM/APP\n          面向确定场景输出，避免再承载公共底层逻辑",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -303,7 +316,7 @@
       "confirmed": true,
       "autoGenerated": false,
       "createdAt": "2026-10-21T08:35:06Z",
-      "updatedAt": "2026-10-21T08:35:06Z"
+      "updatedAt": "2026-10-23T02:52:39Z"
     },
     {
       "id": "qa_1792571823232_7c302d43",
@@ -364,7 +377,7 @@
     {
       "id": "qa_1792573443466_7350e967",
       "question": "讲讲你项目中的数据建模？",
-      "answer": "",
+      "answer": "可以按“业务背景、模型设计、分层落地、效果”来讲。\n示例表达：\n我在项目中主要负责数仓分层建模和指标口径沉淀。业务上先梳理核心业务过程，比如下单、支付、履约、退款等；然后确定粒度，例如订单粒度、用户天粒度、商品天粒度；再识别维度和事实，把明细数据沉淀到 DWD，把可复用的主题汇总沉淀到 DWS，最后在 ADS 面向报表和应用输出。\n难点通常有三个：\n1. 口径不统一：通过原子指标、派生指标、维度限定统一定义。\n2. 模型复用差：把公共逻辑下沉到 DWD/DWS，避免 ADS 重复加工。\n3. 数据质量问题：增加完整性、准确性、时效性校验和异常告警。\n结果可以强调：减少重复开发，提升查询效率，并让业务取数口径更稳定。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -373,12 +386,12 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443468_4c84bbf7",
       "question": "讲下你觉得做的最好的项目 从做了什么 和 难点在哪儿怎么解决 两部分说明？",
-      "answer": "",
+      "answer": "回答时建议分成“做了什么”和“难点怎么解决”两部分。\n示例：\n我做得比较好的项目是某业务主题数仓建设。主要工作是从 ODS 接入业务原始表，梳理核心业务过程，建设 DWD 明细事实表和维度表，再沉淀 DWS 公共汇总层，最终支撑 ADS 报表和分析场景。\n难点一是口径不一致，不同报表对同一指标定义不同。我通过指标字典统一原子指标、时间周期、过滤条件和维度口径。\n难点二是链路长、产出慢。我排查 Spark SQL 执行计划，优化大表 join、分区裁剪和数据倾斜，并把公共逻辑下沉复用。\n难点三是数据质量不稳定。我加了主键唯一、非空、枚举值、波动率、产出时效等校验。\n最终效果是报表口径统一、重复开发减少、任务稳定性和产出时效提升。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -387,7 +400,7 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443469_cf852f52",
@@ -406,7 +419,7 @@
     {
       "id": "qa_1792573443471_32e089d6",
       "question": "如何保障数据质量（完整性、准确性、一致性、时效性）有哪些方法？",
-      "answer": "",
+      "answer": "数据质量通常从完整性、准确性、一致性、时效性四个方面保障。\n1. 完整性：检查主键、必填字段、分区是否缺失，源表和目标表数据量是否匹配。\n2. 准确性：检查金额、状态、时间等字段是否符合业务规则，核心指标是否在合理范围内。\n3. 一致性：统一指标口径、字段命名、维度编码，同一含义字段在不同表中保持一致。\n4. 时效性：监控任务产出时间、上游依赖完成时间、数据延迟。\n常见方法：\n1. 建立数据质量规则，如非空、唯一、枚举、范围、波动率。\n2. 在调度链路中加入质量校验节点。\n3. 异常告警和阻断机制。\n4. 指标口径文档化，避免多处重复开发。\n5. 对重要表建立 SLA 和血缘追踪。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -415,12 +428,12 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443473_68e50ece",
       "question": "怎么衡量数仓的数据质量，有哪些指标？",
-      "answer": "",
+      "answer": "数仓数据质量可以用规则指标和链路指标一起衡量。\n完整性指标：\n1. 分区产出成功率。\n2. 必填字段非空率。\n3. 主键覆盖率。\n4. 源目标数据量一致率。\n准确性指标：\n1. 指标波动率。\n2. 金额、状态、时间等业务规则通过率。\n3. 抽样核对准确率。\n一致性指标：\n1. 同指标多出口差异率。\n2. 同字段同名率。\n3. 维度编码一致率。\n时效性指标：\n1. 数据准时率。\n2. 任务延迟时长。\n3. SLA 达成率。\n也可以补充治理类指标：表引用数、跨层引用率、模型复用率、命名规范率、数据泄露率等。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -429,7 +442,7 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443475_30a319e9",
@@ -448,7 +461,7 @@
     {
       "id": "qa_1792573443476_678e4c6b",
       "question": "单事务事实表、多事务事实表区别与作用？",
-      "answer": "",
+      "answer": "单事务事实表记录单一业务过程的明细事件，多事务事实表把多个业务过程放在同一张事实表中统一表达。\n单事务事实表：\n1. 粒度清晰，一条记录对应一个业务事件，如支付成功、订单创建。\n2. 字段围绕一个业务过程设计，稳定性和可维护性较好。\n3. 适合 DWD 层沉淀原子明细事实。\n多事务事实表：\n1. 一张表包含多个业务过程，通常通过业务过程类型字段区分。\n2. 适合多个事件结构相似、分析时经常放在一起比较的场景。\n3. 可以减少表数量，但模型复杂度更高。\n实际使用中，核心明细层更推荐单事务事实表；如果多个业务过程粒度一致、维度一致、度量相似，可以考虑多事务事实表。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -457,12 +470,12 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443478_dae2dfc6",
       "question": "指标下沉时为何要拆分？",
-      "answer": "",
+      "answer": "指标下沉时要拆分，是为了把复杂指标拆成可复用、可管理的指标体系。\n原因：\n1. 避免重复开发：公共原子指标下沉后，不同应用可以复用。\n2. 统一口径：先定义原子指标，再通过维度、周期、修饰词派生，口径更稳定。\n3. 降低复杂度：把一个复杂指标拆成原子指标、修饰词、时间周期、统计粒度。\n4. 方便治理：可以追踪每个指标来源、加工逻辑和使用范围。\n5. 提升可维护性：业务口径变化时，只需要调整底层公共指标或派生规则。\n例如“近 7 日支付成功用户数”可以拆成原子指标“用户数”、业务限定“支付成功”、时间周期“近 7 日”、统计粒度“用户”。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -471,12 +484,12 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443481_7f9959d5",
       "question": "原子指标、复合指标、衍生指标的区别？",
-      "answer": "",
+      "answer": "原子指标、复合指标、衍生指标是指标体系中的不同层次。\n原子指标：\n1. 最基础、不可再拆的度量。\n2. 通常由业务过程和度量组成。\n3. 例如支付金额、下单次数、活跃用户数。\n复合指标：\n1. 由多个原子指标通过计算得到。\n2. 例如转化率 = 支付人数 / 访问人数，客单价 = 支付金额 / 支付订单数。\n衍生指标：\n1. 在原子指标基础上增加统计周期、维度、修饰条件。\n2. 例如近 7 日支付金额、北京地区活跃用户数、支付成功订单数。\n简单说：原子指标解决“算什么”，衍生指标解决“在什么范围算”，复合指标解决“指标之间怎么计算”。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -485,12 +498,12 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443484_f721b61d",
       "question": "如何保证指标不会重复开发？",
-      "answer": "",
+      "answer": "保证指标不重复开发，核心是建设统一指标管理机制。\n做法：\n1. 建立指标字典：记录指标名称、业务定义、计算逻辑、负责人、适用范围。\n2. 统一命名规范：同一含义指标只能有一个标准名称。\n3. 指标分层管理：沉淀原子指标、派生指标、复合指标，应用层优先复用。\n4. 需求评审：新增指标前先检索已有指标，能复用就不新建。\n5. 统一出口：通过 DWS/ADS 或指标平台对外提供指标，避免各团队私自加工。\n6. 血缘追踪：查看指标被哪些报表和任务引用，便于治理和影响分析。\n一句话：通过“指标定义统一、加工逻辑下沉、出口统一管理”来避免重复建设。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -499,12 +512,12 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443485_159251f3",
       "question": "某个链路产出比较晚怎么解决？",
-      "answer": "答：任务优化 /上下游链路优化",
+      "answer": "链路产出晚通常从任务自身、资源、上下游依赖和数据倾斜四个方向排查。\n处理方法：\n1. 看调度依赖，确认是否是上游任务晚产出。\n2. 看 Spark UI 或执行日志，定位慢 Stage、慢 Task、shuffle、倾斜、GC 等问题。\n3. 优化 SQL：分区裁剪、减少扫描字段、广播小表、提前过滤、避免重复计算。\n4. 处理数据倾斜：热点 key 加盐、拆分大 key、开启 AQE。\n5. 调整资源：executor 数量、内存、shuffle 分区数、队列资源。\n6. 链路治理：公共逻辑下沉、拆分长任务、关键任务设置 SLA 和告警。\n回答时可以说：先定位瓶颈，再分别做任务优化和上下游链路优化。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -513,12 +526,12 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:54:45Z"
     },
     {
       "id": "qa_1792573443487_ae67daec",
       "question": "哪些字段适合放到DW的宽表里？",
-      "answer": "",
+      "answer": "DW 宽表适合放高频使用、粒度一致、与主题强相关的字段。\n适合放入宽表的字段：\n1. 主键和业务标识字段，如订单 id、用户 id、商品 id。\n2. 常用维度字段，如类目、渠道、地区、用户类型。\n3. 核心事实度量，如金额、次数、数量、时长。\n4. 常用状态字段，如订单状态、支付状态、履约状态。\n5. 高频分析会一起使用的扩展字段。\n不适合放入宽表的字段：\n1. 低频、个性化、临时需求字段。\n2. 与当前粒度不一致的字段。\n3. 变化频繁且会导致宽表频繁改动的字段。\n4. 过度冗余、成本很高但复用低的字段。\n原则是高内聚低耦合，在查询性能、复用度和存储成本之间平衡。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -527,12 +540,12 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443489_e9051bb6",
       "question": "数仓主题域划分 为什么这么划分？",
-      "answer": "",
+      "answer": "数仓主题域是按业务分析对象或业务过程对数据进行归类。\n常见划分方式：\n1. 按业务对象：用户、商品、订单、交易、营销、履约、财务等。\n2. 按业务过程：下单、支付、发货、退款、结算等。\n3. 按组织或业务线：电商、内容、广告、供应链等。\n为什么这样划分：\n1. 让模型边界清晰，方便定位数据。\n2. 让相近业务的数据放在一起，提高复用性。\n3. 降低跨团队协作成本，明确数据负责人。\n4. 便于指标和维度统一管理。\n5. 支撑后续 DWD/DWS/ADS 分层建设。\n好的主题域划分应该相对稳定，和业务认知一致，同时避免过细导致碎片化、过粗导致边界不清。",
       "entryId": "entry_1792573443459_65a27995",
       "sourceTitle": "数仓八股",
       "tags": [
@@ -541,7 +554,7 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-21T09:04:03Z",
-      "updatedAt": "2026-10-21T09:04:03Z"
+      "updatedAt": "2026-10-22T10:51:28Z"
     },
     {
       "id": "qa_1792573443491_d084fb97",
@@ -588,7 +601,7 @@
     {
       "id": "qa_1792575278651_b54b9e7b",
       "question": "数仓是什么？",
-      "answer": "面向主题的、集成的、反应历史变化的数据集合 用来支持分析与决策",
+      "answer": "数仓是面向分析决策的数据组织体系，不是简单的数据堆积。\n经典定义是：面向主题的、集成的、相对稳定的、反映历史变化的数据集合，用来支持分析和决策。\n理解要点：\n1. 面向主题：围绕用户、商品、订单、交易等主题组织数据。\n2. 集成：把多个业务系统的数据统一清洗、转换、整合。\n3. 稳定：数据进入数仓后通常不频繁被业务系统直接修改。\n4. 反映历史：保存历史快照和变化过程，支持趋势分析。\n5. 支持决策：最终服务报表、指标、分析、运营和算法等场景。",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -597,7 +610,7 @@
       "confirmed": true,
       "autoGenerated": false,
       "createdAt": "2026-10-21T09:34:38Z",
-      "updatedAt": "2026-10-21T09:35:02Z"
+      "updatedAt": "2026-10-22T10:54:45Z"
     },
     {
       "id": "qa_1792576402777_c242ce43",
@@ -672,7 +685,7 @@
     {
       "id": "qa_1792578035920_c2099708",
       "question": "数据倾斜解决办法",
-      "answer": "Group By 倾斜\t：\nhive.map.aggr=true（map 端预聚合）；\nhive.groupby.skewindata=true（两阶段聚合，把倾斜 key 加随机前缀打散再合并）\n\nJoin 空值倾斜：\n空值 加随机数打散（case when id is null then concat('n',rand) else id end），或空值直接过滤/单独处理\nJoin 热点 key\t热点 key 拆出来单独 mapjoin / 膨胀小表，其余正常 join，最后 union all；hive.optimize.skewjoin=true\n\n大表 join 小表：\n走 MapJoin（hive.auto.convert.join=true），无 reducer 自然不倾斜\n\nCount Distinct：\t\n改写为两阶段：先 distinct 子查询去重再 count，或 group by 后 count；可加随机数分桶去重\n大表 join 大表：\n调大内存、增加 reducer、SkewJoin、分桶表（bucket join）\n动态分区倾斜：\nhive.optimize.sort.dynamic.partition、控制 hive.exec.max.dynamic.partitions、分小批写入\nMap 端小文件/大文件：\n小文件合并（CombineHiveInputFormat）、避免不可切分压缩、合理设置 split 大小\n全局 ORDER BY：\n用 DISTRIBUTE BY ... SORT BY ... 替代，只在必要时 order by",
+      "answer": "**Group By 倾斜**：\nhive.map.aggr=true（map 端预聚合）；\nhive.groupby.skewindata=true（两阶段聚合，把倾斜 key 加随机前缀打散再合并）\n\n**Join 空值倾斜**：\n空值 加随机数打散（case when id is null then concat('n',rand) else id end），或空值直接过滤/单独处理\nJoin 热点 key\t热点 key 拆出来单独 mapjoin / 膨胀小表，其余正常 join，最后 union all；hive.optimize.skewjoin=true\n\n**大表 join 小表**：\n走 MapJoin（hive.auto.convert.join=true），无 reducer 自然不倾斜\n\n**Count Distinct**：\t\n改写为两阶段：先 distinct 子查询去重再 count，或 group by 后 count；可加随机数分桶去重\n**大表 join 大表**：\n调大内存、增加 reducer、SkewJoin、分桶表（bucket join）\n**动态分区倾斜**：\nhive.optimize.sort.dynamic.partition、控制 hive.exec.max.dynamic.partitions、分小批写入\n**Map 端小文件/大文件**：\n小文件合并（CombineHiveInputFormat）、避免不可切分压缩、合理设置 split 大小\n**全局 ORDER BY**：\n用 DISTRIBUTE BY ... SORT BY ... 替代，只在必要时 order by",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -681,7 +694,7 @@
       "confirmed": true,
       "autoGenerated": false,
       "createdAt": "2026-10-21T10:20:35Z",
-      "updatedAt": "2026-10-21T10:20:35Z"
+      "updatedAt": "2026-10-23T02:33:06Z"
     },
     {
       "id": "qa_1792578089228_357a077e",
@@ -1497,8 +1510,8 @@
     },
     {
       "id": "qa_1792661459785_6237caf0",
-      "question": "DAGScheduler如何划分?干了什么活？",
-      "answer": "DAGScheduler 的核心职责是把逻辑依赖变成可调度的 Stage。\n主要工作：\n1. 接收 action 触发的 Job。\n2. 根据 RDD 依赖构建 DAG。\n3. 按 ShuffleDependency 划分 Stage。\n4. 生成 ResultStage 和 ShuffleMapStage。\n5. 为 Stage 创建 TaskSet，并提交给 TaskScheduler。\n6. 处理 Stage 失败、shuffle 输出丢失等情况。\n简单说：DAGScheduler 管“阶段划分和依赖”，TaskScheduler 管“具体 Task 怎么发到 Executor”。",
+      "question": "DAGScheduler的职责？如何划分stage？",
+      "answer": "DAGScheduler把DAG拆分成很多的Tasks,每组的Tasks都是一个 Sage,解析时是以Shuffle为边界反向解析构建Stage,每当遇到 Shuffle,就会产生新的Stage,然后以一个个TaskSet(每个Stage封装一个TaskSet)的形式提交给底层调度器TaskScheduler。\n\n**它的三个主要职责：**\n● 根据用户代码构建DAG;\n● 以Shuffle为边界切割Stages;\n● 基于Stages创建TaskSets，并将TaskSets提交给TaskScheduler 请求调度。\n\n**DAGScheduler划分Stage的原理**\nSpark在分布式环境下将数据分区,然后将作业转化为DAG, 并分阶段进行 DAG的调度和任务的分布式并行处理。DAG将调度提交给DAGScheduler, DAGScheduler调度时会根据是否需要经过Shuffle过程将Job划分为多个 Stage。\n在DAGScheduler调度过程中,Stage阶段换分是依据作业是否有Shuffle过程,也就是存在ShuffleDependency的宽依赖时,需要进行Shuffle,此时才会将作业划分为多个Stage。",
       "entryId": "entry_1792661459474_c253e778",
       "sourceTitle": "spark八股",
       "tags": [
@@ -1507,7 +1520,7 @@
       "confirmed": true,
       "autoGenerated": true,
       "createdAt": "2026-10-22T09:30:59Z",
-      "updatedAt": "2026-10-22T09:41:52Z"
+      "updatedAt": "2026-10-22T10:37:37Z"
     },
     {
       "id": "qa_1792661459792_d27395cc",
@@ -1918,7 +1931,7 @@
     {
       "id": "qa_1792662609954_0306d8e7",
       "question": "Spark SQL的劣势?",
-      "answer": "x",
+      "answer": "Spark SQL 的劣势主要体现在复杂场景下的可控性和资源成本。\n1. 对执行计划依赖较强，如果统计信息不准，可能选择不合适的 join 策略。\n2. 大 shuffle、复杂 join、数据倾斜时性能波动明显。\n3. SQL 表达复杂逻辑时可读性和可维护性可能下降。\n4. UDF 可能影响 Catalyst 优化，尤其 Python UDF 有序列化开销。\n5. 小文件多、分区设计差时容易产生大量 task 和调度开销。\n6. 对实时低延迟点查不是强项，更适合批处理和分析型计算。\n所以 Spark SQL 适合大规模离线分析，但仍需要结合执行计划、数据分布和资源配置做优化。",
       "entryId": "",
       "sourceTitle": "人工添加",
       "tags": [
@@ -1927,7 +1940,7 @@
       "confirmed": true,
       "autoGenerated": false,
       "createdAt": "2026-10-22T09:50:09Z",
-      "updatedAt": "2026-10-22T09:50:09Z"
+      "updatedAt": "2026-10-22T10:54:45Z"
     },
     {
       "id": "qa_1792663908279_7bd5bc92",
@@ -1984,6 +1997,482 @@
       "autoGenerated": false,
       "createdAt": "2026-10-22T10:23:51Z",
       "updatedAt": "2026-10-22T10:23:51Z"
+    },
+    {
+      "id": "qa_1792665497507_bb644cfe",
+      "question": "TaskScheduler职责？",
+      "answer": "TaskScheduler的核心任务是提交TaskSets到集群运算并汇报结果。\n他主要做三件事：\n1. 为TaskSet创建和维护一个TaskSetManager，并追踪任务的本地性以及错误信息。\n2. 遇到Straggle任务时，会放到其他节点进行重试。\n3. 向DAGScheduler汇报执行情况，包括在Shuffle输出丢失的时候报告 fetch failed错误等信息。",
+      "entryId": "",
+      "sourceTitle": "人工添加",
+      "tags": [
+        "Spark"
+      ],
+      "confirmed": true,
+      "autoGenerated": false,
+      "createdAt": "2026-10-22T10:38:17Z",
+      "updatedAt": "2026-10-22T10:38:17Z"
+    },
+    {
+      "id": "qa_1792666345633_fca8596c",
+      "question": "介绍下HBase？",
+      "answer": "HBase 是一个基于 HDFS 的分布式、面向列族的 NoSQL 数据库，适合存储海量稀疏数据，并支持按 RowKey 的低延迟随机读写。\n核心特点：\n1. 数据按表、行键、列族、列限定符、时间版本组织。\n2. 底层数据最终存储在 HDFS 的 HFile 中。\n3. 写入先进入 WAL 和 MemStore，再 flush 成 HFile。\n4. 通过 Region 水平切分实现分布式扩展。\n5. 依赖 ZooKeeper 做协调和元数据定位。\n适用场景是大数据量、列稀疏、按主键随机查询、写入量较大的业务。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345658_c07f15ac",
+      "question": "HBase优缺点？",
+      "answer": "HBase 优点：\n1. 可横向扩展，Region 可以分布到多个 RegionServer。\n2. 支持海量稀疏表，列可以动态增加。\n3. 基于 RowKey 查询速度快，适合随机读写。\n4. 写入吞吐高，采用 WAL + MemStore + HFile 的 LSM 思路。\n5. 支持多版本数据。\n缺点：\n1. 不适合复杂 SQL、多表 join 和事务分析。\n2. 强依赖 RowKey 设计，设计不好容易热点。\n3. 二级索引能力弱，非 RowKey 查询成本高。\n4. 运维复杂，需要关注 Region、Compaction、MemStore、HFile 数量等。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345683_4fb3609c",
+      "question": "说下HBase原理？",
+      "answer": "HBase 的核心原理是基于 LSM Tree 的分布式列式存储。\n写入流程：客户端先定位 RegionServer，写 WAL 保证可靠性，再写 MemStore；MemStore 达到阈值后 flush 成 HFile 存到 HDFS。\n读取流程：先查 BlockCache，再查 MemStore，最后查 HFile；如果有多个 HFile，会根据索引、BloomFilter、BlockCache 等减少 IO。\n扩展方式：表按 RowKey 范围切成多个 Region，Region 分布在不同 RegionServer 上。\n容错方式：HFile 存在 HDFS 有副本，WAL 可用于 RegionServer 宕机后的数据恢复。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345706_dbe0e0ba",
+      "question": "介绍下HBase架构？",
+      "answer": "HBase 架构主要包括 Client、ZooKeeper、HMaster、RegionServer、HDFS。\n1. Client：访问 HBase 的客户端，负责定位 Region 并读写数据。\n2. ZooKeeper：保存集群协调信息，帮助发现 Master 和 RegionServer。\n3. HMaster：负责表管理、Region 分配、RegionServer 故障恢复协调。\n4. RegionServer：真正处理读写请求，管理多个 Region。\n5. Region：表按 RowKey 范围切分后的分片。\n6. HDFS：保存底层 HFile 和 WAL。\n读写数据主要走 RegionServer，HMaster 不在核心读写链路上。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345736_feadeadf",
+      "question": "HBase读写数据流程？",
+      "answer": "写流程：\n1. Client 根据 RowKey 定位目标 RegionServer。\n2. RegionServer 先写 WAL，保证故障可恢复。\n3. 再写入对应 Region 的 MemStore。\n4. MemStore 达到阈值后 flush 成 HFile 写入 HDFS。\n读流程：\n1. Client 定位 RowKey 所在 Region。\n2. RegionServer 先查 BlockCache。\n3. 再查 MemStore 中未 flush 的新数据。\n4. 最后查 HDFS 上的 HFile。\n5. 多版本数据按时间戳合并，返回最新或指定版本。\n核心点：写入顺序追加，读取时合并内存和磁盘多份数据。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345759_32cc90a0",
+      "question": "HBase的读写缓存？",
+      "answer": "HBase 读写缓存主要包括 MemStore 和 BlockCache。\nMemStore：\n1. 写入先进入 MemStore，是写缓存。\n2. 每个列族通常有独立 MemStore。\n3. 达到阈值后 flush 成 HFile。\nBlockCache：\n1. 读 HFile 时会把数据块缓存到内存。\n2. 后续读取相同块可以直接从缓存返回。\n3. 适合热点数据随机读。\n区别：MemStore 服务写入和新数据读取，BlockCache 服务历史 HFile 数据读取。调优时要平衡写入内存和读缓存内存。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345814_4283fee0",
+      "question": "在删除HBase中的一个数据的时候，它什么时候真正的进行删除呢?当你进行删除操作，它是立马就把数据删除掉了吗？",
+      "answer": "HBase 删除数据不是立即物理删除，而是先写入删除标记 Tombstone。\n删除流程：\n1. delete 操作会写 WAL。\n2. 再写入 MemStore 中的删除标记。\n3. flush 后删除标记也会进入 HFile。\n4. 读取时 HBase 根据 Tombstone 过滤掉被删除的数据。\n5. 真正物理删除通常发生在 Major Compaction 时。\n这样设计是因为 HBase 的 HFile 是不可变文件，不能原地删除。通过 Tombstone + Compaction，可以保证写入高效和数据一致性。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345839_aa9374eb",
+      "question": "HBase中的二级索引？",
+      "answer": "HBase 原生主要按 RowKey 查询，二级索引能力较弱。\n常见二级索引方案：\n1. 冗余索引表：以查询字段作为索引表 RowKey，value 存原表 RowKey。\n2. Phoenix：在 HBase 上提供 SQL 和二级索引能力。\n3. ElasticSearch：把需要复杂检索的字段同步到 ES。\n4. Coprocessor：在服务端做一些索引或过滤逻辑，但复杂度较高。\n设计原则：如果某个字段经常作为查询条件，最好在建模时把它设计进 RowKey 或建立独立索引表。HBase 不适合随意按任意字段查询。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345870_7840dba5",
+      "question": "HBase的RegionServer宕机以后怎么恢复的？",
+      "answer": "RegionServer 宕机后，HBase 会通过 ZooKeeper 感知节点失联，然后由 HMaster 协调恢复。\n恢复过程：\n1. ZooKeeper 发现 RegionServer 会话失效。\n2. HMaster 将该 RegionServer 上的 Region 标记为待恢复。\n3. 读取并拆分该 RegionServer 的 WAL。\n4. 把 WAL 中未 flush 的数据重放到对应 Region。\n5. 将 Region 重新分配到其他正常 RegionServer。\n6. 新 RegionServer 打开 Region 后继续服务。\nHFile 在 HDFS 上有副本，未落盘的数据依赖 WAL 恢复。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345894_8fdda60e",
+      "question": "HBase的一个region由哪些东西组成？",
+      "answer": "一个 Region 是 HBase 表按 RowKey 范围切分后的分片。\nRegion 内部主要包括：\n1. RowKey 范围：startKey 到 endKey。\n2. 多个 Store：每个列族对应一个 Store。\n3. MemStore：每个 Store 的内存写缓存。\n4. StoreFile/HFile：flush 后形成的磁盘文件。\n5. WAL 引用：写入日志用于恢复。\n所以可以理解为：Region 是水平分片，Store 是按列族组织，MemStore 和 HFile 是具体存储组件。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345919_3b8c3a93",
+      "question": "HBase高可用怎么实现的？",
+      "answer": "HBase 高可用主要通过 ZooKeeper、HDFS 副本、WAL 和 Region 重新分配实现。\n1. HDFS 副本保证底层 HFile 不因单节点故障丢失。\n2. WAL 记录未 flush 的写入，用于故障恢复。\n3. RegionServer 宕机后，HMaster 会把 Region 迁移到其他 RegionServer。\n4. ZooKeeper 负责感知节点状态和集群协调。\n5. HMaster 可以配置多 Master，一个 Active，其他 Standby。\n读写链路主要依赖 RegionServer，Master 故障短时间不影响已有 Region 的读写，但会影响建表、Region 分配等管理操作。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345943_78db752f",
+      "question": "为什么HBase适合写多读少业务？",
+      "answer": "HBase 适合写多读少或写入吞吐高的场景，原因是它采用 LSM Tree 思路。\n写入特点：\n1. 写入先追加 WAL。\n2. 再写内存 MemStore。\n3. 后续批量 flush 成 HFile。\n4. HFile 不原地修改，顺序写 HDFS。\n这种方式避免了随机磁盘写，写入效率高。\n但读取时可能需要合并 MemStore 和多个 HFile，如果 HFile 过多会影响读性能，所以需要 Compaction、BlockCache、BloomFilter 等优化。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345968_51dd9097",
+      "question": "列式数据库的适用场景和优势?列式存储的特点？",
+      "answer": "列式数据库适合字段多、查询只访问部分列、数据稀疏或分析类场景。\n列式存储特点：\n1. 按列族/列组织数据，读取时可以只读需要的列。\n2. 同一列数据类型相似，压缩率高。\n3. 适合宽表和稀疏表，空列不需要像关系型数据库一样占固定空间。\n4. 扩展列更灵活。\nHBase 更准确地说是面向列族存储，不是传统 OLAP 列式数据库。它更适合基于 RowKey 的随机读写，而不是复杂聚合分析。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345982_935ab174",
+      "question": "HBase的rowkey设计原则？",
+      "answer": "RowKey 设计原则：\n1. 唯一性：RowKey 唯一标识一行。\n2. 查询优先：把高频查询条件放入 RowKey。\n3. 避免热点：不要使用单调递增 key 直接作为前缀。\n4. 长度适中：过长会增加存储和索引开销。\n5. 保持有序：利用字典序支持范围扫描。\n6. 散列或加盐：对热点前缀进行打散。\n常见设计：业务字段组合、反转时间戳、hash 前缀、salt 前缀。核心是兼顾查询效率和数据分布均衡。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666345999_7bd8ed7f",
+      "question": "HBase的rowkey为什么不能超过一定的长度?为什么要唯一?rowkey太长会影响Hfile的存储是吧？",
+      "answer": "RowKey 不宜过长，因为它会重复出现在索引、HFile、Block、MemStore 等结构中。\n影响：\n1. 增加存储空间。\n2. 增加内存占用。\n3. 降低 BlockCache 有效利用率。\n4. 比较 RowKey 时 CPU 开销更高。\nRowKey 必须唯一，因为 HBase 中一行由 RowKey 唯一定位；相同 RowKey 的不同列或不同版本属于同一行。\nRowKey 太长确实会影响 HFile 存储和索引效率。一般建议控制在业务可读和性能之间，不要把大量无关字段拼进去。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:25Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346012_fd48c2cc",
+      "question": "HBase的RowKey设置讲究有什么原因？",
+      "answer": "RowKey 设置讲究，本质是因为 HBase 的数据按 RowKey 字典序排序并按范围切分 Region。\n原因：\n1. RowKey 决定查询能否快速定位。\n2. RowKey 决定数据在 Region 间是否均匀分布。\n3. RowKey 决定范围扫描是否方便。\n4. RowKey 过长会带来存储和内存开销。\n5. RowKey 单调递增容易导致写热点。\n设计时要从访问模式出发：如果常按用户查，就把 userId 放前面；如果常按时间范围查，可以组合业务 ID + 时间；如果写入热点明显，可以加盐或 hash 前缀。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346026_6c1d3060",
+      "question": "HBase的大合并、小合并是什么？",
+      "answer": "HBase Compaction 分为 Minor Compaction 和 Major Compaction。\n小合并 Minor Compaction：\n1. 合并部分小 HFile。\n2. 减少 HFile 数量，提高读性能。\n3. 一般不会清理所有删除标记和过期版本。\n大合并 Major Compaction：\n1. 合并某个 Store 下的所有 HFile。\n2. 清理删除标记、过期版本和多余版本。\n3. 生成更少的新 HFile。\nCompaction 的目的：减少读放大、清理无效数据、优化存储。但它会消耗 IO 和 CPU，需要避免高峰期过度 compaction。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346043_332d421a",
+      "question": "HBase和关系型数据库(传统数据库)的区别(优点)？",
+      "answer": "HBase 和关系型数据库区别：\n1. 数据模型：HBase 是列族模型，关系型数据库是表关系模型。\n2. 查询方式：HBase 主要按 RowKey 查询，RDBMS 支持 SQL 和复杂索引。\n3. 事务能力：HBase 行级强一致，复杂事务能力弱；RDBMS 事务能力强。\n4. 扩展方式：HBase 天然水平扩展；传统关系型数据库扩展成本更高。\n5. 适用场景：HBase 适合海量稀疏数据和随机读写；RDBMS 适合强事务、复杂查询和结构化业务系统。\n优点是扩展性和写入吞吐，缺点是查询灵活性不如关系型数据库。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346055_bfe40df1",
+      "question": "HBase数据结构？",
+      "answer": "HBase 数据结构可以理解为多维 Map：\nTable -> RowKey -> ColumnFamily -> ColumnQualifier -> Timestamp -> Value。\n组成：\n1. Table：表。\n2. RowKey：行键，唯一定位一行。\n3. ColumnFamily：列族，建表时定义。\n4. ColumnQualifier：列名，可动态增加。\n5. Timestamp：版本号，支持多版本。\n6. Value：具体值，字节数组形式存储。\n物理上，表按 RowKey 范围切成 Region；每个 Region 内按列族拆成 Store；Store 中包含 MemStore 和多个 HFile。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346075_e12241c7",
+      "question": "HBase为什么随机查询很快？",
+      "answer": "HBase 随机查询快，主要是按 RowKey 定位效率高。\n原因：\n1. 数据按 RowKey 有序存储，可快速定位 Region。\n2. META 表记录 RowKey 范围到 RegionServer 的映射。\n3. HFile 内有索引，可以快速定位数据块。\n4. BlockCache 缓存热点数据块。\n5. BloomFilter 可以减少不必要的 HFile 查找。\n6. MemStore 保存最新写入，读新数据不一定要访问磁盘。\n前提是查询条件能命中 RowKey。如果按非 RowKey 字段查，HBase 并不会天然很快。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346087_c1a8509c",
+      "question": "HBase的LSM结构？",
+      "answer": "HBase 底层采用类似 LSM Tree 的结构。\n写入先进入 WAL 和 MemStore，MemStore 达到阈值后 flush 成不可变 HFile。随着写入增加，HFile 会越来越多，后台通过 Compaction 合并 HFile。\n优点：\n1. 写入是顺序追加，吞吐高。\n2. 适合高并发写入和海量数据。\n3. 通过批量合并减少随机写。\n缺点：\n1. 读取时可能要查多个 HFile，存在读放大。\n2. Compaction 会消耗 IO。\n3. 删除和更新不是原地修改，需要靠 Tombstone 和 Compaction 清理。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346099_9c8c752e",
+      "question": "HBase的Get和Scan的区别和联系？",
+      "answer": "Get 和 Scan 都是 HBase 读操作。\nGet：\n1. 按 RowKey 精确查询单行。\n2. 延迟低，适合点查。\n3. 可以指定列族、列、版本。\nScan：\n1. 按 RowKey 范围顺序扫描多行。\n2. 适合范围查询和批量读取。\n3. 可以设置 startRow、stopRow、filter、缓存批次等。\n联系：两者都可以读取 HBase 表数据，也都可以指定列和过滤条件。\n区别：Get 是点查，Scan 是范围查；Scan 范围过大时成本高，要避免全表扫描。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346121_4d75dfbe",
+      "question": "HBase数据的存储结构(底层存储结构)？",
+      "answer": "HBase 底层存储结构：\n1. 表按 RowKey 范围切分为 Region。\n2. Region 分布在不同 RegionServer 上。\n3. Region 内每个列族对应一个 Store。\n4. Store 包含一个 MemStore 和多个 StoreFile。\n5. StoreFile 底层是 HFile，存储在 HDFS。\n6. 写入日志 WAL 也存储在 HDFS，用于故障恢复。\nHFile 内部包含数据块、索引块、BloomFilter、元数据等。数据按 RowKey、列族、列、时间戳有序组织。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346137_5ebcba3b",
+      "question": "HBase数据compact流程？",
+      "answer": "Compaction 流程：\n1. RegionServer 发现某个 Store 下 HFile 数量或大小达到触发条件。\n2. 选择一批 HFile 作为合并输入。\n3. 按 RowKey 顺序读取并归并数据。\n4. 清理过期版本、被删除数据和 Tombstone（主要在 Major Compaction）。\n5. 生成新的 HFile。\n6. 用新 HFile 替换旧 HFile，旧文件后续删除。\nMinor Compaction 合并部分 HFile，Major Compaction 合并全部 HFile。Compaction 能提升读性能，但会带来 IO 压力。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346158_f2d40c82",
+      "question": "HBase的预分区？",
+      "answer": "预分区是在建表时提前创建多个 Region，而不是让表从一个 Region 开始自然 split。\n目的：\n1. 避免初期所有写入集中到一个 Region。\n2. 提高并发写入能力。\n3. 让数据更均匀地分布到多个 RegionServer。\n常见方式：\n1. 按 RowKey 范围预切分。\n2. 使用 hash/salt 前缀后按前缀预分区。\n3. 根据历史数据分布设置 split key。\n注意：预分区必须和 RowKey 设计配合，否则仍然可能热点或分布不均。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346175_8f06e689",
+      "question": "HBase的热点问题？",
+      "answer": "HBase 热点问题指大量读写集中到少数 Region 或 RegionServer。\n常见原因：\n1. RowKey 单调递增，如时间戳、自增 ID。\n2. 热门用户或热门业务 key 数据量过大。\n3. 预分区不足或 split 不合理。\n影响是某些 RegionServer 负载很高，整体吞吐下降。\n解决方案：\n1. RowKey 加盐或 hash 前缀。\n2. 反转 RowKey，如手机号反转。\n3. 预分区。\n4. 热点 key 拆分。\n5. 读热点可增加缓存或冗余表。\n核心是让 RowKey 分布更均匀。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346196_9e9821ae",
+      "question": "HBase的memstore冲刷条件？",
+      "answer": "MemStore flush 常见触发条件：\n1. 单个 MemStore 达到 flush 阈值。\n2. RegionServer 全局 MemStore 内存达到上限。\n3. WAL 数量或大小达到限制，需要 flush 以便回收 WAL。\n4. 手动 flush。\n5. Region 关闭、迁移或 split 前可能触发 flush。\nflush 会把 MemStore 中的数据写成 HFile。flush 太频繁会产生大量小 HFile，增加 Compaction 压力；flush 太慢又可能占用过多内存。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346218_986d5ba2",
+      "question": "HBase的大合并与小合并，大合并是如何做的?为什么要大合并？",
+      "answer": "小合并 Minor Compaction 合并部分 HFile，主要减少小文件数量。\n大合并 Major Compaction 会合并某个 Store 下所有 HFile，并清理删除标记、过期版本和多余版本。\n大合并流程：\n1. 读取 Store 下所有 HFile。\n2. 按 KeyValue 顺序归并。\n3. 丢弃被 Tombstone 删除的数据和过期版本。\n4. 生成一个或少数几个新 HFile。\n5. 替换旧 HFile。\n为什么要大合并：释放被删除数据占用的空间，减少 HFile 数量，降低读放大。但 Major Compaction IO 压力大，通常要控制频率和时间窗口。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346241_3d19932c",
+      "question": "既然HBase底层数据是存储在HDFS上，为什么不直接使用HDFS，而还要用HBase？",
+      "answer": "HDFS 是分布式文件系统，适合大文件顺序读写；HBase 是基于 HDFS 的数据库，适合按 RowKey 随机读写。\n不能直接用 HDFS 替代 HBase 的原因：\n1. HDFS 不支持低延迟随机更新和点查。\n2. HDFS 文件一旦写入不适合频繁小更新。\n3. HDFS 没有表、RowKey、列族、多版本等数据模型。\n4. HBase 提供 Region、MemStore、BlockCache、WAL、BloomFilter 等能力。\n简单说：HDFS 解决“可靠存文件”，HBase 解决“在海量数据上做随机读写”。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346271_1a758978",
+      "question": "HBase支持SQL操作吗？",
+      "answer": "HBase 原生不以 SQL 为主要接口，主要通过 Java API、Shell、REST 等方式访问。\n如果需要 SQL，可以使用 Apache Phoenix。Phoenix 在 HBase 之上提供类 SQL 能力，支持建表、查询、二级索引等。\n但要注意：\n1. Phoenix SQL 最终仍然落到 HBase 读写。\n2. 设计不合理仍然会全表扫描。\n3. HBase 不适合复杂多表 join 和 OLAP 分析。\n所以可以说：HBase 原生不是 SQL 数据库，但可以通过 Phoenix 等组件支持 SQL 化访问。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346282_7ddd1ae6",
+      "question": "HBase适合读多写少还是写多读少？",
+      "answer": "HBase 更适合写多读少或高吞吐写入场景，同时也支持按 RowKey 的快速随机读。\n原因：\n1. 写入走 WAL + MemStore，顺序追加，效率高。\n2. flush 后形成不可变 HFile，适合批量落盘。\n3. 读路径可能要查 MemStore、BlockCache 和多个 HFile，成本相对复杂。\n如果是读多场景，也可以用 HBase，但要依赖良好的 RowKey 设计、BlockCache、BloomFilter、Compaction 和热点控制。\n结论：HBase 不是不能读多，而是更擅长高并发写入和 RowKey 点查。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346302_64d3defb",
+      "question": "HBase表设计？",
+      "answer": "HBase 表设计重点是 RowKey、列族、预分区和访问模式。\n设计步骤：\n1. 先明确查询方式：点查、范围查、按什么字段查。\n2. 设计 RowKey：保证唯一、长度适中、避免热点、支持主要查询。\n3. 设计列族：列族不宜过多，通常 1 到 3 个。\n4. 决定版本数和 TTL：避免历史版本无限增长。\n5. 规划预分区：让数据均匀分布。\n6. 考虑二级索引：非 RowKey 查询可建索引表或用 Phoenix/ES。\n原则是以查询驱动设计，而不是照搬关系型数据库范式。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
+    },
+    {
+      "id": "qa_1792666346313_ad1ac190",
+      "question": "HBase的Region切分？",
+      "answer": "Region 切分是把一个过大的 Region 按 RowKey 范围拆成两个 Region。\n触发原因：\n1. Region 文件大小达到阈值。\n2. 手动 split。\n3. 预分区在建表时提前切好。\n切分过程：\n1. 确定 split key。\n2. 父 Region 暂停写入并生成两个子 Region。\n3. 子 Region 分别负责不同 RowKey 范围。\n4. HMaster 将子 Region 分配到 RegionServer。\n作用是提升并行度和扩展能力。\n注意：如果 RowKey 单调递增，即使 split 也可能持续写到最后一个 Region，仍然会热点。",
+      "entryId": "entry_1792666345607_87310877",
+      "sourceTitle": "Hbase基础",
+      "tags": [
+        "Hbase"
+      ],
+      "confirmed": true,
+      "autoGenerated": true,
+      "createdAt": "2026-10-22T10:52:26Z",
+      "updatedAt": "2026-10-22T10:54:45Z"
     }
   ],
   "settings": {
