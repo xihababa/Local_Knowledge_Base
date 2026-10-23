@@ -1,6 +1,7 @@
 const state = {
   entries: [],
   qas: [],
+  articles: [],
   categories: [],
   view: "dashboard",
   importType: "mixed",
@@ -11,7 +12,11 @@ const state = {
   qaMode: "exam",
   qaDetailId: "",
   qaAnswerVisible: false,
-  collapsedQaGroups: new Set()
+  collapsedQaGroups: new Set(),
+  articleTag: "",
+  articleQuery: "",
+  articleDetailId: "",
+  collapsedArticleGroups: new Set()
 };
 
 const $ = selector => document.querySelector(selector);
@@ -292,10 +297,14 @@ async function loadState() {
   const data = await api("/api/state");
   state.entries = data.entries || [];
   state.qas = sortQasByCreatedAt(data.qas);
+  state.articles = data.articles || [];
   state.categories = data.categories || [];
   if (state.qaDetailId && !state.qas.some(qa => qa.id === state.qaDetailId)) {
     state.qaDetailId = "";
     state.qaAnswerVisible = false;
+  }
+  if (state.articleDetailId && !state.articles.some(article => article.id === state.articleDetailId)) {
+    state.articleDetailId = "";
   }
   render();
 }
@@ -310,7 +319,8 @@ function setView(view) {
     import: "导入",
     ask: "问答",
     knowledge: "知识库",
-    qa: "题库"
+    qa: "题库",
+    article: "文章库"
   };
   $("#viewTitle").textContent = titles[view] || "数仓知识库";
 }
@@ -376,20 +386,40 @@ function formatQaAnswer(answer) {
 }
 
 function formatInlineRichText(text) {
-  const pattern = /(\*\*([^*\n]+)\*\*)|(\[([^\]\n]{1,200})\]\{color=(#[0-9a-fA-F]{6})\})/g;
+  const pattern = /(\*\*([^*\n]+)\*\*)|(\[([^\]\n]{1,200})\]\{color=(#[0-9a-fA-F]{6})\})|(\[([^\]\n]{1,300})\]\((https?:\/\/[^)\s]+)\))/g;
   let result = "";
   let lastIndex = 0;
   let match;
   while ((match = pattern.exec(text)) !== null) {
-    result += escapeHtml(text.slice(lastIndex, match.index));
+    result += formatSafeInlineHtml(text.slice(lastIndex, match.index));
     if (match[2]) {
-      result += `<strong>${escapeHtml(match[2])}</strong>`;
+      result += `<strong>${formatInlineRichText(match[2])}</strong>`;
     } else if (match[4] && match[5]) {
       result += `<span class="qa-rich-color" style="color: ${match[5]}">${escapeHtml(match[4])}</span>`;
+    } else if (match[7] && match[8]) {
+      result += `<a href="${escapeHtml(match[8])}" target="_blank" rel="noopener noreferrer">${formatInlineRichText(match[7])}</a>`;
     }
     lastIndex = pattern.lastIndex;
   }
-  return result + escapeHtml(text.slice(lastIndex));
+  return result + formatSafeInlineHtml(text.slice(lastIndex));
+}
+
+function normalizeLegacyFontTags(value) {
+  return String(value || "")
+    .replace(/<font\b([^>]*)>/gi, (_, attrs) => {
+      const styleMatch = String(attrs || "").match(/style\s*=\s*(['"])([\s\S]*?)\1/i);
+      const colorMatch = styleMatch ? styleMatch[2].match(/color\s*:\s*([^;]+)/i) : null;
+      const color = colorMatch ? colorMatch[1].trim().replace(/["<>]/g, "") : "";
+      return color ? `<span style="color: ${color}">` : "<span>";
+    })
+    .replace(/<\/font>/gi, "</span>");
+}
+
+function formatSafeInlineHtml(text) {
+  const source = normalizeLegacyFontTags(text);
+  return /<\s*(?:span|font|a|strong|b|em|i|u|s|code|br)\b/i.test(source)
+    ? sanitizeRichHtml(source)
+    : escapeHtml(source);
 }
 
 function formatRichAnswer(text) {
@@ -399,17 +429,266 @@ function formatRichAnswer(text) {
     .join("\n");
 }
 
-function answerEditorHtml(id, value = "", placeholder = "输入答案") {
+function splitMarkdownTableRow(line) {
+  return String(line || "")
+    .trim()
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map(cell => cell.trim());
+}
+
+function isMarkdownTableSeparator(line) {
+  const cells = splitMarkdownTableRow(line);
+  return cells.length >= 2 && cells.every(cell => /^:?-{3,}:?$/.test(cell));
+}
+
+function renderMarkdownTable(lines, startIndex) {
+  if (startIndex + 1 >= lines.length || !isMarkdownTableSeparator(lines[startIndex + 1])) {
+    return null;
+  }
+  const header = splitMarkdownTableRow(lines[startIndex]);
+  if (header.length < 2) return null;
+  const rows = [];
+  let index = startIndex + 2;
+  while (index < lines.length && lines[index].includes("|") && lines[index].trim()) {
+    const row = splitMarkdownTableRow(lines[index]);
+    if (row.length >= 2) rows.push(row);
+    index += 1;
+  }
+  return {
+    nextIndex: index,
+    html: `
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead>
+            <tr>${header.map(cell => `<th>${formatInlineRichText(cell)}</th>`).join("")}</tr>
+          </thead>
+          <tbody>
+            ${rows.map(row => `
+              <tr>${header.map((_, cellIndex) => `<td>${formatInlineRichText(row[cellIndex] || "")}</td>`).join("")}</tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `
+  };
+}
+
+function splitDelimitedTableRow(line) {
+  return String(line || "")
+    .split(/\t+/)
+    .map(cell => cell.trim());
+}
+
+function renderDelimitedTable(lines, startIndex) {
+  if (!String(lines[startIndex] || "").includes("\t")) return null;
+  const rows = [];
+  let index = startIndex;
+  while (index < lines.length && String(lines[index] || "").includes("\t")) {
+    const row = splitDelimitedTableRow(lines[index]).filter(cell => cell || cell === "");
+    if (row.length >= 2) rows.push(row);
+    index += 1;
+  }
+  if (rows.length < 2) return null;
+  const maxColumns = Math.max(...rows.map(row => row.length));
+  const header = rows[0];
+  return {
+    nextIndex: index,
+    html: `
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead>
+            <tr>${Array.from({ length: maxColumns }).map((_, cellIndex) => `<th>${formatInlineRichText(header[cellIndex] || "")}</th>`).join("")}</tr>
+          </thead>
+          <tbody>
+            ${rows.slice(1).map(row => `
+              <tr>${Array.from({ length: maxColumns }).map((_, cellIndex) => `<td>${formatInlineRichText(row[cellIndex] || "")}</td>`).join("")}</tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `
+  };
+}
+
+function renderMarkdownImage(line) {
+  const match = String(line || "").trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+  if (!match) return "";
+  const alt = match[1] || "文章图片";
+  const src = match[2] || "";
+  if (!src.startsWith("/uploads/") && !/^https?:\/\//i.test(src)) return "";
   return `
-    <div class="rich-editor">
+    <figure class="article-image">
+      <img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}">
+    </figure>
+  `;
+}
+
+function renderSimpleList(lines, startIndex) {
+  const items = [];
+  let index = startIndex;
+  while (index < lines.length) {
+    const match = String(lines[index] || "").trim().match(/^(?:[-+*]|[•●])\s+(.+)$/);
+    if (!match) break;
+    items.push(match[1]);
+    index += 1;
+  }
+  if (!items.length) return null;
+  return {
+    nextIndex: index,
+    html: `<ul>${items.map(item => `<li>${formatInlineRichText(item)}</li>`).join("")}</ul>`
+  };
+}
+
+function isIgnorableArticleLine(line) {
+  const normalized = String(line || "").trim();
+  return normalized.startsWith("<!--") || /^<\/?(?:font|span)\b[^>]*>\s*$/i.test(normalized);
+}
+
+function isRichHtmlContent(content) {
+  return /<\s*(?:p|div|h[1-6]|table|thead|tbody|tr|td|th|ul|ol|li|figure|img|a|strong|b|em|i|span|pre|code|blockquote|hr|br)\b/i.test(String(content || ""));
+}
+
+function cleanRichStyle(element) {
+  const style = element.style;
+  const next = {};
+  if (style.color) next.color = style.color;
+  if (style.backgroundColor && style.backgroundColor !== "transparent") next.backgroundColor = style.backgroundColor;
+  if (style.fontWeight) next.fontWeight = style.fontWeight;
+  if (style.fontStyle) next.fontStyle = style.fontStyle;
+  if (style.textDecorationLine && style.textDecorationLine !== "none") next.textDecoration = style.textDecorationLine;
+  if (style.textAlign) next.textAlign = style.textAlign;
+  if (/^\d+(\.\d+)?(px|em|rem|%)$/.test(style.fontSize || "")) next.fontSize = style.fontSize;
+  const cssText = Object.entries(next).map(([key, value]) => `${key.replace(/[A-Z]/g, item => `-${item.toLowerCase()}`)}: ${value}`).join("; ");
+  if (cssText) {
+    element.setAttribute("style", cssText);
+  } else {
+    element.removeAttribute("style");
+  }
+}
+
+function sanitizeRichHtml(html) {
+  const template = document.createElement("template");
+  template.innerHTML = String(html || "");
+  const allowedTags = new Set(["P", "DIV", "H1", "H2", "H3", "H4", "H5", "H6", "BR", "HR", "STRONG", "B", "EM", "I", "U", "S", "SPAN", "A", "UL", "OL", "LI", "BLOCKQUOTE", "PRE", "CODE", "TABLE", "THEAD", "TBODY", "TR", "TH", "TD", "FIGURE", "IMG"]);
+  const allowedImage = src => /^\/uploads\/[^"'<>]+$/i.test(src) || /^https?:\/\/[^"'<>]+$/i.test(src);
+  const cleanNode = node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return document.createTextNode(node.textContent || "");
+    }
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+      return document.createDocumentFragment();
+    }
+    if (!allowedTags.has(node.tagName)) {
+      const fragment = document.createDocumentFragment();
+      Array.from(node.childNodes).forEach(child => fragment.appendChild(cleanNode(child)));
+      return fragment;
+    }
+    const element = document.createElement(node.tagName.toLowerCase());
+    Array.from(node.childNodes).forEach(child => element.appendChild(cleanNode(child)));
+    if (node.tagName === "A") {
+      const href = node.getAttribute("href") || "";
+      if (/^https?:\/\//i.test(href) || href.startsWith("#")) {
+        element.setAttribute("href", href);
+        element.setAttribute("target", "_blank");
+        element.setAttribute("rel", "noopener noreferrer");
+      }
+    }
+    if (node.tagName === "IMG") {
+      const src = node.getAttribute("src") || "";
+      if (!allowedImage(src)) return document.createDocumentFragment();
+      element.setAttribute("src", src);
+      element.setAttribute("alt", node.getAttribute("alt") || "文章图片");
+      element.setAttribute("loading", "lazy");
+    }
+    if (node.hasAttribute("style")) {
+      element.setAttribute("style", node.getAttribute("style") || "");
+      cleanRichStyle(element);
+    }
+    return element;
+  };
+  const wrapper = document.createElement("div");
+  Array.from(template.content.childNodes).forEach(child => wrapper.appendChild(cleanNode(child)));
+  return wrapper.innerHTML.trim();
+}
+
+function formatArticleMarkdown(content) {
+  const lines = String(content || "").replace(/\r\n/g, "\n").split("\n");
+  const html = [];
+  let index = 0;
+  while (index < lines.length) {
+    const line = lines[index];
+    if (!line.trim()) {
+      html.push(`<div class="article-spacer"></div>`);
+      index += 1;
+      continue;
+    }
+    if (isIgnorableArticleLine(line)) {
+      index += 1;
+      continue;
+    }
+    const table = renderMarkdownTable(lines, index);
+    if (table) {
+      html.push(table.html);
+      index = table.nextIndex;
+      continue;
+    }
+    const list = renderSimpleList(lines, index);
+    if (list) {
+      html.push(list.html);
+      index = list.nextIndex;
+      continue;
+    }
+    const delimitedTable = renderDelimitedTable(lines, index);
+    if (delimitedTable) {
+      html.push(delimitedTable.html);
+      index = delimitedTable.nextIndex;
+      continue;
+    }
+    const image = renderMarkdownImage(line);
+    if (image) {
+      html.push(image);
+      index += 1;
+      continue;
+    }
+    html.push(`<p>${formatInlineRichText(line)}</p>`);
+    index += 1;
+  }
+  return html.join("");
+}
+
+function articleContentToEditorHtml(content) {
+  const normalized = String(content || "").trim().replace(/\r\n/g, "\n");
+  if (!normalized) return "";
+  if (isRichHtmlContent(normalized)) return sanitizeRichHtml(normalized);
+  return formatArticleMarkdown(normalized);
+}
+
+function answerEditorHtml(id, value = "", placeholder = "输入答案", options = {}) {
+  const imageTools = options.images
+    ? `
+        <button class="secondary small rich-button" type="button" data-rich-image title="插入图片">图片</button>
+        <input class="rich-image-input hidden" type="file" accept="image/png,image/jpeg,image/gif,image/webp">
+      `
+    : "";
+  const editorBody = options.richHtml
+    ? `
+      <div id="${id}Editor" class="rich-html-input" contenteditable="true" data-rich-html-input data-target="${id}" data-placeholder="${escapeHtml(placeholder)}">${articleContentToEditorHtml(value)}</div>
+      <textarea id="${id}" class="hidden">${escapeHtml(value)}</textarea>
+    `
+    : `<textarea id="${id}" rows="7" placeholder="${escapeHtml(placeholder)}">${escapeHtml(value)}</textarea>`;
+  return `
+    <div class="rich-editor" data-image-upload="${options.images ? "1" : "0"}" data-rich-html="${options.richHtml ? "1" : "0"}">
       <div class="rich-toolbar" aria-label="答案格式工具">
         <button class="secondary small rich-button rich-bold" type="button" data-rich-action="bold" title="加粗">B</button>
         <button class="secondary small rich-button color-red" type="button" data-rich-color="#d93025" title="红色"></button>
         <button class="secondary small rich-button color-green" type="button" data-rich-color="#087443" title="绿色"></button>
         <button class="secondary small rich-button color-blue" type="button" data-rich-color="#1a73e8" title="蓝色"></button>
+        ${imageTools}
       </div>
-      <textarea id="${id}" rows="7" placeholder="${escapeHtml(placeholder)}">${escapeHtml(value)}</textarea>
-      <span class="help-text">选中文字后点击按钮，可设置加粗或颜色；保存后在答案详情中生效。</span>
+      ${editorBody}
+      <span class="help-text">${options.richHtml ? "支持直接粘贴网页图文，标题、字号、链接、表格会尽量保留；图片会自动保存并插入。" : options.images ? "支持 Markdown 表格；可直接粘贴图文，图片会自动保存并插入。" : "选中文字后点击按钮，可设置加粗或颜色；保存后在详情中生效。"}</span>
     </div>
   `;
 }
@@ -421,6 +700,69 @@ function applyAnswerFormat(textarea, prefix, suffix, fallbackText) {
   const nextText = `${prefix}${selected}${suffix}`;
   textarea.setRangeText(nextText, start, end, "select");
   textarea.focus();
+}
+
+function insertAtCursor(textarea, text) {
+  const start = textarea.selectionStart || 0;
+  const end = textarea.selectionEnd || 0;
+  textarea.setRangeText(text, start, end, "end");
+  textarea.focus();
+}
+
+function syncRichEditor(editor) {
+  const input = editor?.querySelector("[data-rich-html-input]");
+  const textarea = editor?.querySelector("textarea");
+  if (!input || !textarea) return;
+  textarea.value = sanitizeRichHtml(input.innerHTML);
+}
+
+function syncRichEditors() {
+  $$(".rich-editor[data-rich-html='1']").forEach(syncRichEditor);
+}
+
+function insertHtmlAtSelection(editable, html) {
+  editable.focus();
+  document.execCommand("insertHTML", false, sanitizeRichHtml(html));
+  syncRichEditor(editable.closest(".rich-editor"));
+}
+
+function normalizePastedArticleText(text) {
+  return String(text || "")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function insertArticleBlock(textarea, text) {
+  const content = normalizePastedArticleText(text);
+  if (!content) return;
+  const prefix = textarea.selectionStart > 0 && !textarea.value.slice(0, textarea.selectionStart).endsWith("\n") ? "\n" : "";
+  insertAtCursor(textarea, `${prefix}${content}\n`);
+}
+
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadArticleImage(file) {
+  if (!file || !file.type.startsWith("image/")) {
+    throw new Error("请选择图片文件");
+  }
+  const dataUrl = await fileToDataUrl(file);
+  const data = await api("/api/uploads", {
+    method: "POST",
+    body: JSON.stringify({
+      fileName: file.name || "image",
+      mimeType: file.type,
+      data: dataUrl
+    })
+  });
+  return data.upload;
 }
 
 function empty(message) {
@@ -436,7 +778,8 @@ function matchesQuery(item) {
 function allTags() {
   return Array.from(new Set([
     ...state.entries.flatMap(entry => entry.tags || []),
-    ...state.qas.flatMap(qa => qa.tags || [])
+    ...state.qas.flatMap(qa => qa.tags || []),
+    ...state.articles.flatMap(article => article.tags || [])
   ])).filter(Boolean);
 }
 
@@ -444,15 +787,18 @@ function renderFilters() {
   const tagOptions = allTags().map(tag => `<option value="${escapeHtml(tag)}">${escapeHtml(tag)}</option>`).join("");
   $("#knowledgeTagFilter").innerHTML = `<option value="">全部标签</option>${tagOptions}`;
   $("#qaTagFilter").innerHTML = `<option value="">全部标签</option>${tagOptions}`;
+  $("#articleTagFilter").innerHTML = `<option value="">全部标签</option>${tagOptions}`;
   $("#existingTagOptions").innerHTML = tagOptions;
   $("#knowledgeTagFilter").value = state.knowledgeTag;
   $("#qaTagFilter").value = state.qaTag;
+  $("#articleTagFilter").value = state.articleTag;
 }
 
 function renderDashboard() {
   const tags = allTags();
   $("#entryCount").textContent = state.entries.length;
   $("#qaCount").textContent = state.qas.length;
+  $("#articleCount").textContent = state.articles.length;
   $("#tagCount").textContent = tags.length;
 
   const recent = state.entries.slice(0, 5);
@@ -640,16 +986,140 @@ function renderQas() {
   $("#qaList").innerHTML = qas.length ? groupQasByTag(qas).map(qaGroupCard).join("") : empty("没有匹配的题目。");
 }
 
+function articleMatchesQuery(article) {
+  if (!state.articleQuery) return true;
+  const query = compactSearchText(state.articleQuery);
+  const text = compactSearchText(`${article.title || ""} ${article.content || ""} ${(article.tags || []).join(" ")}`);
+  return query && text.includes(query);
+}
+
+function visibleArticles() {
+  return state.articles
+    .filter(matchesQuery)
+    .filter(articleMatchesQuery)
+    .filter(article => !state.articleTag || (article.tags || []).includes(state.articleTag));
+}
+
+function navigateArticle(direction) {
+  const articles = visibleArticles();
+  const currentIndex = articles.findIndex(article => article.id === state.articleDetailId);
+  if (currentIndex < 0) return;
+  const nextIndex = direction === "prev" ? currentIndex - 1 : currentIndex + 1;
+  if (nextIndex < 0 || nextIndex >= articles.length) return;
+  state.articleDetailId = articles[nextIndex].id;
+  renderArticles();
+}
+
+function groupArticlesByTag(articles) {
+  const groups = [];
+  const index = new Map();
+  articles.forEach(article => {
+    const tags = article.tags || [];
+    const groupTag = state.articleTag && tags.includes(state.articleTag) ? state.articleTag : (tags[0] || "未打标签");
+    if (!index.has(groupTag)) {
+      index.set(groupTag, { tag: groupTag, items: [] });
+      groups.push(index.get(groupTag));
+    }
+    index.get(groupTag).items.push(article);
+  });
+  return groups;
+}
+
+function articleCard(article) {
+  return `
+    <button class="article-card" data-open-article="${article.id}" title="${escapeHtml(article.title)}">
+      <div>
+        <div class="item-title">${escapeHtml(article.title)}</div>
+      </div>
+      <span class="status">更新于 ${formatTime(article.updatedAt || article.createdAt)}</span>
+    </button>
+  `;
+}
+
+function articleGroupCard(group) {
+  const collapsed = state.collapsedArticleGroups.has(group.tag);
+  return `
+    <section class="qa-group${collapsed ? " collapsed" : ""}">
+      <div class="qa-group-title">
+        <div class="qa-group-title-text">
+          <span>${escapeHtml(group.tag)}</span>
+          <small>${group.items.length} 篇</small>
+        </div>
+        <button class="secondary small qa-group-toggle" type="button" data-toggle-article-group="${escapeHtml(group.tag)}">
+          ${collapsed ? "展开" : "折叠"}
+        </button>
+      </div>
+      <div class="qa-group-list${collapsed ? " hidden" : ""}">
+        ${group.items.map(articleCard).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function formatArticleContent(content) {
+  const normalized = String(content || "").trim().replace(/\r\n/g, "\n");
+  if (!normalized) return `<p class="answer-placeholder">暂无内容</p>`;
+  if (isRichHtmlContent(normalized)) {
+    return `<div class="article-content-text rich-article-html">${sanitizeRichHtml(normalized)}</div>`;
+  }
+  return `<div class="article-content-text">${formatArticleMarkdown(normalized)}</div>`;
+}
+
+function articleDetailCard(article, index, total = 0) {
+  const canNavigate = Number.isInteger(index) && index >= 0 && total > 0;
+  const navHtml = canNavigate
+    ? `
+      <div class="qa-detail-nav">
+        <button class="secondary small" data-article-nav="prev" ${index <= 0 ? "disabled" : ""}>上一篇</button>
+        <span>${index + 1} / ${total}</span>
+        <button class="secondary small" data-article-nav="next" ${index >= total - 1 ? "disabled" : ""}>下一篇</button>
+      </div>
+    `
+    : "";
+  return `
+    <article class="article-detail">
+      <div class="item-head">
+        <button class="secondary small" data-back-article>返回文章库</button>
+        <div class="item-actions">
+          <button class="secondary small" data-edit-article="${article.id}">编辑</button>
+          <button class="secondary small danger" data-delete-article="${article.id}">删除</button>
+        </div>
+      </div>
+      ${navHtml}
+      <div>
+        <h3 class="article-detail-title">${escapeHtml(article.title)}</h3>
+        <span class="status">更新于 ${formatTime(article.updatedAt || article.createdAt)}</span>
+      </div>
+      ${tagsHtml(article.tags)}
+      <div class="article-content">${formatArticleContent(article.content)}</div>
+    </article>
+  `;
+}
+
+function renderArticles() {
+  const articles = visibleArticles();
+  const selected = state.articleDetailId ? state.articles.find(article => article.id === state.articleDetailId) : null;
+  if (selected) {
+    const selectedIndex = articles.findIndex(article => article.id === selected.id);
+    $("#articleList").innerHTML = articleDetailCard(selected, selectedIndex, articles.length);
+    return;
+  }
+  $("#articleList").innerHTML = articles.length
+    ? groupArticlesByTag(articles).map(articleGroupCard).join("")
+    : empty("没有匹配的文章。");
+}
+
 function render() {
   renderFilters();
   renderDashboard();
   renderKnowledge();
   renderQas();
+  renderArticles();
 }
 
 function setImportType(type) {
   state.importType = type;
-  $$(".segment").forEach(button => button.classList.toggle("active", button.dataset.importType === type));
+  $$("[data-import-type]").forEach(button => button.classList.toggle("active", button.dataset.importType === type));
   $("#urlField").classList.toggle("hidden", type !== "link");
   $("#importContent").placeholder = type === "link"
     ? "可补充链接备注；系统会解析链接正文并合并导入"
@@ -916,6 +1386,50 @@ function newQa() {
   });
 }
 
+function editArticle(id) {
+  const article = state.articles.find(item => item.id === id);
+  if (!article) return;
+  openDialog("编辑文章", `
+    <div class="form">
+      <label>标题<input id="editArticleTitle" value="${escapeHtml(article.title)}"></label>
+      <label>内容${answerEditorHtml("editArticleContent", article.content, "输入文章内容", { images: true, richHtml: true })}</label>
+      <label>标签<input id="editArticleTags" list="existingTagOptions" value="${escapeHtml((article.tags || []).join(", "))}" placeholder="输入或选择已有标签，多个标签用逗号分隔"></label>
+    </div>
+  `, async () => {
+    syncRichEditors();
+    await api(`/api/articles/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: $("#editArticleTitle").value,
+        content: $("#editArticleContent").value,
+        tags: splitTags($("#editArticleTags").value)
+      })
+    });
+    await loadState();
+  });
+}
+
+function newArticle() {
+  openDialog("新增文章", `
+    <div class="form">
+      <label>标题<input id="newArticleTitle" placeholder="输入文章标题"></label>
+      <label>内容${answerEditorHtml("newArticleContent", "", "输入文章内容", { images: true, richHtml: true })}</label>
+      <label>标签<input id="newArticleTags" list="existingTagOptions" placeholder="输入或选择已有标签，多个标签用逗号分隔"></label>
+    </div>
+  `, async () => {
+    syncRichEditors();
+    await api("/api/articles", {
+      method: "POST",
+      body: JSON.stringify({
+        title: $("#newArticleTitle").value,
+        content: $("#newArticleContent").value,
+        tags: splitTags($("#newArticleTags").value)
+      })
+    });
+    await loadState();
+  });
+}
+
 async function deleteEntry(id) {
   if (!confirm("删除知识条目会同时删除它自动生成的 QA，确定删除？")) return;
   await api(`/api/entries/${id}`, { method: "DELETE" });
@@ -932,6 +1446,15 @@ async function deleteQa(id) {
   await loadState();
 }
 
+async function deleteArticle(id) {
+  if (!confirm("确定删除这篇文章？")) return;
+  await api(`/api/articles/${id}`, { method: "DELETE" });
+  if (state.articleDetailId === id) {
+    state.articleDetailId = "";
+  }
+  await loadState();
+}
+
 function bindEvents() {
   $$(".nav-item").forEach(button => button.addEventListener("click", () => setView(button.dataset.view)));
   $$("[data-jump]").forEach(button => button.addEventListener("click", () => setView(button.dataset.jump)));
@@ -940,7 +1463,7 @@ function bindEvents() {
     localStorage.setItem("kbSidebarCollapsed", collapsed ? "1" : "0");
     applySidebarState(collapsed);
   });
-  $$(".segment").forEach(button => button.addEventListener("click", () => setImportType(button.dataset.importType)));
+  $$("[data-import-type]").forEach(button => button.addEventListener("click", () => setImportType(button.dataset.importType)));
   $("#importForm").addEventListener("submit", handleImport);
   $("#standardizeBtn").addEventListener("click", standardizeImportContent);
   $("#importContent").addEventListener("paste", handleImportPaste);
@@ -949,8 +1472,10 @@ function bindEvents() {
     state.query = event.target.value.trim();
     state.qaDetailId = "";
     state.qaAnswerVisible = false;
+    state.articleDetailId = "";
     renderKnowledge();
     renderQas();
+    renderArticles();
   });
   $("#knowledgeTagFilter").addEventListener("change", event => {
     state.knowledgeTag = event.target.value;
@@ -968,6 +1493,16 @@ function bindEvents() {
     state.qaAnswerVisible = false;
     renderQas();
   });
+  $("#articleSearch").addEventListener("input", event => {
+    state.articleQuery = event.target.value.trim();
+    state.articleDetailId = "";
+    renderArticles();
+  });
+  $("#articleTagFilter").addEventListener("change", event => {
+    state.articleTag = event.target.value;
+    state.articleDetailId = "";
+    renderArticles();
+  });
   $$("#qaModeToggle [data-qa-mode]").forEach(button => {
     button.addEventListener("click", () => {
       state.qaMode = button.dataset.qaMode;
@@ -981,10 +1516,12 @@ function bindEvents() {
     renderDashboard();
   });
   $("#newQaBtn").addEventListener("click", newQa);
+  $("#newArticleBtn").addEventListener("click", newArticle);
 
   document.body.addEventListener("click", event => {
     const richActionButton = event.target.closest("[data-rich-action]");
     const richColorButton = event.target.closest("[data-rich-color]");
+    const richImageButton = event.target.closest("[data-rich-image]");
     const editEntryButton = event.target.closest("[data-edit-entry]");
     const deleteEntryButton = event.target.closest("[data-delete-entry]");
     const openQaButton = event.target.closest("[data-open-qa]");
@@ -994,8 +1531,30 @@ function bindEvents() {
     const deleteQaButton = event.target.closest("[data-delete-qa]");
     const toggleQaGroupButton = event.target.closest("[data-toggle-qa-group]");
     const qaNavButton = event.target.closest("[data-qa-nav]");
+    const openArticleButton = event.target.closest("[data-open-article]");
+    const backArticleButton = event.target.closest("[data-back-article]");
+    const editArticleButton = event.target.closest("[data-edit-article]");
+    const deleteArticleButton = event.target.closest("[data-delete-article]");
+    const toggleArticleGroupButton = event.target.closest("[data-toggle-article-group]");
+    const articleNavButton = event.target.closest("[data-article-nav]");
+    if (richImageButton) {
+      const editor = richImageButton.closest(".rich-editor");
+      editor?.querySelector(".rich-image-input")?.click();
+      return;
+    }
     if (richActionButton || richColorButton) {
       const editor = event.target.closest(".rich-editor");
+      const richInput = editor?.querySelector("[data-rich-html-input]");
+      if (richInput) {
+        richInput.focus();
+        if (richActionButton?.dataset.richAction === "bold") {
+          document.execCommand("bold", false);
+        } else if (richColorButton?.dataset.richColor) {
+          document.execCommand("foreColor", false, richColorButton.dataset.richColor);
+        }
+        syncRichEditor(editor);
+        return;
+      }
       const textarea = editor?.querySelector("textarea");
       if (!textarea) return;
       if (richActionButton?.dataset.richAction === "bold") {
@@ -1033,6 +1592,38 @@ function bindEvents() {
       navigateQa(qaNavButton.dataset.qaNav);
       return;
     }
+    if (openArticleButton) {
+      state.articleDetailId = openArticleButton.dataset.openArticle;
+      renderArticles();
+      return;
+    }
+    if (articleNavButton) {
+      navigateArticle(articleNavButton.dataset.articleNav);
+      return;
+    }
+    if (toggleArticleGroupButton) {
+      const tag = toggleArticleGroupButton.dataset.toggleArticleGroup;
+      if (state.collapsedArticleGroups.has(tag)) {
+        state.collapsedArticleGroups.delete(tag);
+      } else {
+        state.collapsedArticleGroups.add(tag);
+      }
+      renderArticles();
+      return;
+    }
+    if (backArticleButton) {
+      state.articleDetailId = "";
+      renderArticles();
+      return;
+    }
+    if (editArticleButton) {
+      editArticle(editArticleButton.dataset.editArticle);
+      return;
+    }
+    if (deleteArticleButton) {
+      deleteArticle(deleteArticleButton.dataset.deleteArticle);
+      return;
+    }
     if (backQaButton) {
       closeQaDetail();
       return;
@@ -1060,6 +1651,72 @@ function bindEvents() {
       !event.target.closest("button, input, select, textarea, a, dialog")
     ) {
       closeQaDetail();
+    }
+    if (
+      state.view === "article" &&
+      state.articleDetailId &&
+      event.target.closest(".app") &&
+      !event.target.closest(".article-detail") &&
+      !event.target.closest(".panel-head") &&
+      !event.target.closest("button, input, select, textarea, a, dialog")
+    ) {
+      state.articleDetailId = "";
+      renderArticles();
+    }
+  });
+
+  document.body.addEventListener("change", async event => {
+    const input = event.target.closest(".rich-image-input");
+    if (!input || !input.files?.length) return;
+    const editor = input.closest(".rich-editor");
+    const richInput = editor?.querySelector("[data-rich-html-input]");
+    const textarea = editor?.querySelector("textarea");
+    if (!textarea && !richInput) return;
+    try {
+      const upload = await uploadArticleImage(input.files[0]);
+      if (richInput) {
+        insertHtmlAtSelection(richInput, `<figure class="article-image"><img src="${upload.url}" alt="${escapeHtml(input.files[0].name || "图片")}"></figure>`);
+      } else {
+        insertAtCursor(textarea, `\n![${input.files[0].name || "图片"}](${upload.url})\n`);
+      }
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      input.value = "";
+    }
+  });
+
+  document.body.addEventListener("paste", async event => {
+    const editor = event.target.closest(".rich-editor[data-image-upload='1']");
+    if (!editor) return;
+    const richInput = event.target.closest("[data-rich-html-input]");
+    const textarea = event.target.closest("textarea");
+    if (!richInput && !textarea) return;
+    const pastedHtml = event.clipboardData?.getData("text/html") || "";
+    const pastedText = event.clipboardData?.getData("text/plain") || "";
+    const files = Array.from(event.clipboardData?.items || [])
+      .filter(item => item.kind === "file" && item.type.startsWith("image/"))
+      .map(item => item.getAsFile())
+      .filter(Boolean);
+    if (!files.length && !richInput) return;
+    event.preventDefault();
+    try {
+      if (richInput) {
+        const html = pastedHtml ? sanitizeRichHtml(pastedHtml) : `<p>${escapeHtml(pastedText).replace(/\n{2,}/g, "</p><p>").replace(/\n/g, "<br>")}</p>`;
+        if (html) insertHtmlAtSelection(richInput, html);
+      } else {
+        insertArticleBlock(textarea, pastedText);
+      }
+      for (const file of files) {
+        const upload = await uploadArticleImage(file);
+        if (richInput) {
+          insertHtmlAtSelection(richInput, `<figure class="article-image"><img src="${upload.url}" alt="粘贴图片"></figure>`);
+        } else {
+          insertAtCursor(textarea, `\n![粘贴图片](${upload.url})\n`);
+        }
+      }
+    } catch (error) {
+      alert(error.message);
     }
   });
 }

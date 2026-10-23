@@ -1,3 +1,4 @@
+import base64
 import json
 import os
 import random
@@ -14,7 +15,15 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 PUBLIC_DIR = os.path.join(ROOT, "public")
 DATA_DIR = os.path.join(ROOT, "data")
 DB_PATH = os.path.join(DATA_DIR, "db.json")
+UPLOAD_DIR = os.path.join(DATA_DIR, "uploads")
 PORT = int(os.environ.get("PORT", "5173"))
+IMAGE_EXTENSIONS = {
+    "image/png": ".png",
+    "image/jpeg": ".jpg",
+    "image/jpg": ".jpg",
+    "image/gif": ".gif",
+    "image/webp": ".webp",
+}
 
 CATEGORIES = [
     "概念解释",
@@ -37,14 +46,32 @@ class LinkFetchError(Exception):
 def ensure_db():
     if not os.path.exists(DATA_DIR):
         os.makedirs(DATA_DIR)
+    if not os.path.exists(UPLOAD_DIR):
+        os.makedirs(UPLOAD_DIR)
     if not os.path.exists(DB_PATH):
-        write_db({"entries": [], "qas": [], "settings": {"categories": CATEGORIES}})
+        write_db({"entries": [], "qas": [], "articles": [], "settings": {"categories": CATEGORIES}})
 
 
 def read_db():
     ensure_db()
     with open(DB_PATH, "r", encoding="utf-8") as file:
-        return json.load(file)
+        db = json.load(file)
+    changed = False
+    if "entries" not in db:
+        db["entries"] = []
+        changed = True
+    if "qas" not in db:
+        db["qas"] = []
+        changed = True
+    if "articles" not in db:
+        db["articles"] = []
+        changed = True
+    if "settings" not in db:
+        db["settings"] = {"categories": CATEGORIES}
+        changed = True
+    if changed:
+        write_db(db)
+    return db
 
 
 def write_db(db):
@@ -56,6 +83,38 @@ def write_db(db):
 
 def make_id(prefix):
     return "%s_%s_%s" % (prefix, int(time.time() * 1000), uuid.uuid4().hex[:8])
+
+
+def safe_upload_name(file_name, mime_type):
+    ext = IMAGE_EXTENSIONS.get(str(mime_type or "").lower())
+    if not ext:
+        ext = os.path.splitext(str(file_name or ""))[1].lower()
+    if ext not in IMAGE_EXTENSIONS.values():
+        raise ValueError("只支持 png、jpg、gif、webp 图片")
+    return "%s%s" % (make_id("img"), ext)
+
+
+def build_upload(payload):
+    mime_type = str(payload.get("mimeType") or "").lower()
+    raw_data = str(payload.get("data") or "")
+    if "," in raw_data and raw_data.startswith("data:"):
+        raw_data = raw_data.split(",", 1)[1]
+    data = base64.b64decode(raw_data, validate=True)
+    if not data:
+        raise ValueError("图片内容为空")
+    if len(data) > 6 * 1024 * 1024:
+        raise ValueError("图片不能超过 6MB")
+    file_name = safe_upload_name(payload.get("fileName"), mime_type)
+    file_path = os.path.abspath(os.path.join(UPLOAD_DIR, file_name))
+    if not file_path.startswith(os.path.abspath(UPLOAD_DIR)):
+        raise ValueError("非法文件路径")
+    with open(file_path, "wb") as file:
+        file.write(data)
+    return {
+        "url": "/uploads/%s" % file_name,
+        "fileName": file_name,
+        "size": len(data),
+    }
 
 
 def now_iso():
@@ -497,6 +556,23 @@ def build_entry(payload):
     }
 
 
+def build_article(payload):
+    title = str(payload.get("title") or "").strip()
+    content = str(payload.get("content") or "").strip()
+    tags = sanitize_tags(payload.get("tags"))
+    plain_content = strip_html(content)
+    current = now_iso()
+    return {
+        "id": make_id("article"),
+        "title": title,
+        "content": content,
+        "summary": summarize(plain_content or content, 160),
+        "tags": tags,
+        "createdAt": current,
+        "updatedAt": current,
+    }
+
+
 def generate_qas_for_entry(entry, existing_qas):
     candidates = extract_question_answer_blocks(entry.get("content"))
     has_question_blocks = bool(candidates)
@@ -730,9 +806,15 @@ class Handler(BaseHTTPRequestHandler):
             ".js": "application/javascript; charset=utf-8",
             ".json": "application/json; charset=utf-8",
             ".svg": "image/svg+xml",
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".gif": "image/gif",
+            ".webp": "image/webp",
         }
         self.send_response(200)
         self.send_header("Content-Type", types.get(ext, "application/octet-stream"))
+        self.send_header("Cache-Control", "no-store")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -741,6 +823,14 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         if parsed.path.startswith("/api/"):
             return self.handle_api("GET", parsed)
+        if parsed.path.startswith("/uploads/"):
+            safe_name = os.path.basename(unquote(parsed.path))
+            full_path = os.path.abspath(os.path.join(UPLOAD_DIR, safe_name))
+            if not full_path.startswith(os.path.abspath(UPLOAD_DIR)):
+                return self.send_json(403, {"error": "Forbidden"})
+            if not os.path.exists(full_path) or os.path.isdir(full_path):
+                return self.send_json(404, {"error": "Not found"})
+            return self.send_file(full_path)
         safe_path = "/index.html" if parsed.path == "/" else unquote(parsed.path)
         full_path = os.path.abspath(os.path.join(PUBLIC_DIR, safe_path.lstrip("/")))
         if not full_path.startswith(PUBLIC_DIR):
@@ -770,6 +860,7 @@ class Handler(BaseHTTPRequestHandler):
                     {
                         "entries": db.get("entries", []),
                         "qas": db.get("qas", []),
+                        "articles": db.get("articles", []),
                         "categories": db.get("settings", {}).get("categories", CATEGORIES),
                     },
                 )
@@ -794,6 +885,14 @@ class Handler(BaseHTTPRequestHandler):
                 db.setdefault("qas", []).extend(qas)
                 write_db(db)
                 return self.send_json(201, {"entry": entry, "qas": qas, "message": "已导入，并自动生成 %s 条 QA" % len(qas)})
+
+            if method == "POST" and path == "/api/uploads":
+                payload = self.read_json()
+                try:
+                    upload = build_upload(payload)
+                except Exception as upload_error:
+                    return self.send_json(400, {"error": str(upload_error)})
+                return self.send_json(201, {"upload": upload})
 
             if method == "PUT" and path.startswith("/api/entries/"):
                 payload = self.read_json()
@@ -872,6 +971,50 @@ class Handler(BaseHTTPRequestHandler):
                 db["qas"] = [item for item in db.get("qas", []) if item.get("id") != qa_id]
                 write_db(db)
                 return self.send_json(200, {"deleted": before - len(db.get("qas", []))})
+
+            if method == "POST" and path == "/api/articles":
+                payload = self.read_json()
+                if not str(payload.get("title") or "").strip():
+                    return self.send_json(400, {"error": "文章标题不能为空"})
+                if not str(payload.get("content") or "").strip():
+                    return self.send_json(400, {"error": "文章内容不能为空"})
+                if not sanitize_tags(payload.get("tags")):
+                    return self.send_json(400, {"error": "文章必须至少指定一个标签"})
+                article = build_article(payload)
+                db.setdefault("articles", []).insert(0, article)
+                write_db(db)
+                return self.send_json(201, {"article": article})
+
+            if method == "PUT" and path.startswith("/api/articles/"):
+                payload = self.read_json()
+                article_id = path.split("/")[-1]
+                article = next((item for item in db.get("articles", []) if item.get("id") == article_id), None)
+                if not article:
+                    return self.send_json(404, {"error": "文章不存在"})
+                title = str(payload.get("title") or "").strip()
+                content = str(payload.get("content") or "").strip()
+                if not title:
+                    return self.send_json(400, {"error": "文章标题不能为空"})
+                if not content:
+                    return self.send_json(400, {"error": "文章内容不能为空"})
+                tags = sanitize_tags(payload.get("tags")) if isinstance(payload.get("tags"), list) else article.get("tags", [])
+                if not tags:
+                    return self.send_json(400, {"error": "文章必须至少指定一个标签"})
+                article["title"] = title
+                article["content"] = content
+                plain_content = strip_html(content)
+                article["summary"] = summarize(plain_content or content, 160)
+                article["tags"] = tags
+                article["updatedAt"] = now_iso()
+                write_db(db)
+                return self.send_json(200, {"article": article})
+
+            if method == "DELETE" and path.startswith("/api/articles/"):
+                article_id = path.split("/")[-1]
+                before = len(db.get("articles", []))
+                db["articles"] = [item for item in db.get("articles", []) if item.get("id") != article_id]
+                write_db(db)
+                return self.send_json(200, {"deleted": before - len(db.get("articles", []))})
 
             if method == "GET" and path == "/api/random-qa":
                 count = max(1, min(20, int(query.get("count", ["1"])[0])))

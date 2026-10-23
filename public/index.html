@@ -26,6 +26,7 @@
         <button class="nav-item" data-view="ask" data-short="问" title="问答">问答</button>
         <button class="nav-item" data-view="knowledge" data-short="库" title="知识库">知识库</button>
         <button class="nav-item" data-view="qa" data-short="题" title="题库">题库</button>
+        <button class="nav-item" data-view="article" data-short="文" title="文章库">文章库</button>
       </nav>
       <div class="side-note">
         <span>回答策略</span>
@@ -53,6 +54,10 @@
           <article class="metric">
             <span>题库数量</span>
             <strong id="qaCount">0</strong>
+          </article>
+          <article class="metric">
+            <span>文章数量</span>
+            <strong id="articleCount">0</strong>
           </article>
           <article class="metric">
             <span>标签数量</span>
@@ -163,6 +168,22 @@
           </div>
           <div id="randomQaBox" class="random-box hidden"></div>
           <div id="qaList" class="list empty-host"></div>
+        </section>
+      </section>
+
+      <section class="view" id="articleView">
+        <section class="panel">
+          <div class="panel-head">
+            <h3>文章库</h3>
+            <div class="toolbar">
+              <input id="articleSearch" class="qa-search" type="search" placeholder="搜索标题或内容">
+              <select id="articleTagFilter">
+                <option value="">全部标签</option>
+              </select>
+              <button class="primary small" id="newArticleBtn">新增文章</button>
+            </div>
+          </div>
+          <div id="articleList" class="list empty-host"></div>
         </section>
       </section>
     </main>
