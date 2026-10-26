@@ -163,6 +163,15 @@ function questionPreview(question) {
 
 function formatQuestion(question) {
   const text = String(question || "").trim().replace(/\r\n/g, "\n");
+  const sqlStart = findEmbeddedSqlStart(text);
+  if (sqlStart > 0) {
+    const prompt = text.slice(0, sqlStart).trim();
+    const sql = text.slice(sqlStart).trim();
+    return `
+      <div class="qa-question-text">${formatInlineRichText(prompt)}</div>
+      <pre class="qa-code"><code>${escapeHtml(formatQuestionSql(sql))}</code></pre>
+    `;
+  }
   const normalized = text
     .replace(/\s+(?=\d+[.、）)]\s*)/g, "\n")
     .split(/\n+/)
@@ -171,7 +180,7 @@ function formatQuestion(question) {
   const preview = questionPreview(text);
   const options = normalized.filter(line => /^\d+[.、）)]\s*/.test(line));
   if (!options.length) {
-    return escapeHtml(text);
+    return `<div class="qa-question-text">${formatInlineRichText(text)}</div>`;
   }
   return `
     <div class="qa-question-prompt">${escapeHtml(preview)}</div>
@@ -179,6 +188,16 @@ function formatQuestion(question) {
       ${options.map(option => `<div class="qa-question-option">${escapeHtml(option)}</div>`).join("")}
     </div>
   `;
+}
+
+function formatQuestionSql(sql) {
+  const normalized = String(sql || "").replace(/\r\n/g, "\n").trim();
+  const lines = normalized.split("\n");
+  const meaningfulLines = lines.filter(line => line.trim());
+  if (meaningfulLines.length >= 3) {
+    return lines.map(line => line.replace(/\s+$/g, "")).join("\n").trim();
+  }
+  return formatSql(normalized);
 }
 
 function splitTags(value) {
@@ -335,13 +354,103 @@ function tagsHtml(tags = []) {
   return `<div class="tags">${tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>`;
 }
 
+function findEmbeddedSqlStart(text) {
+  const match = String(text || "").match(/\b(?:CREATE\s+(?:EXTERNAL\s+)?TABLE|WITH\s+|SELECT\s+|INSERT\s+)/i);
+  return match ? match.index : -1;
+}
+
+function isDdlLike(text) {
+  return /\bCREATE\s+(?:EXTERNAL\s+)?TABLE\b/i.test(String(text || ""));
+}
+
 function isSqlLike(text) {
   const source = String(text || "").toLowerCase();
+  if (isDdlLike(source)) return true;
   const keywords = ["select", " from ", " where ", " join ", " group by ", " order by ", " partition by ", " over ", "with "];
   return source.includes("select") && keywords.filter(keyword => source.includes(keyword)).length >= 2;
 }
 
+function splitSqlTopLevelList(text) {
+  const items = [];
+  let current = "";
+  let depth = 0;
+  let quote = "";
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    const previous = text[index - 1];
+    if (quote) {
+      current += char;
+      if (char === quote && previous !== "\\") quote = "";
+      continue;
+    }
+    if (char === "'" || char === "\"" || char === "`") {
+      quote = char;
+      current += char;
+      continue;
+    }
+    if (char === "(") depth += 1;
+    if (char === ")") depth = Math.max(depth - 1, 0);
+    if (char === "," && depth === 0) {
+      if (current.trim()) items.push(current.trim());
+      current = "";
+      continue;
+    }
+    current += char;
+  }
+  if (current.trim()) items.push(current.trim());
+  return items;
+}
+
+function findMatchingParen(text, openIndex) {
+  let depth = 0;
+  let quote = "";
+  for (let index = openIndex; index < text.length; index += 1) {
+    const char = text[index];
+    const previous = text[index - 1];
+    if (quote) {
+      if (char === quote && previous !== "\\") quote = "";
+      continue;
+    }
+    if (char === "'" || char === "\"" || char === "`") {
+      quote = char;
+      continue;
+    }
+    if (char === "(") depth += 1;
+    if (char === ")") {
+      depth -= 1;
+      if (depth === 0) return index;
+    }
+  }
+  return -1;
+}
+
+function formatDdlSql(text) {
+  const source = String(text || "")
+    .replace(/\r\n/g, "\n")
+    .replace(/\t/g, "  ")
+    .split("\n")
+    .map(line => line.trim())
+    .filter(Boolean)
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const openIndex = source.indexOf("(");
+  if (openIndex < 0) return source;
+  const closeIndex = findMatchingParen(source, openIndex);
+  if (closeIndex < 0) return source;
+  const prefix = source.slice(0, openIndex).trim();
+  const body = source.slice(openIndex + 1, closeIndex).trim();
+  const suffix = source.slice(closeIndex + 1).trim()
+    .replace(/\s+(COMMENT|PARTITIONED BY|ROW FORMAT|FIELDS TERMINATED BY|COLLECTION ITEMS TERMINATED BY|MAP KEYS TERMINATED BY|LINES TERMINATED BY|STORED AS|LOCATION|TBLPROPERTIES|WITH SERDEPROPERTIES)\b/gi, "\n$1")
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+  const columns = splitSqlTopLevelList(body);
+  const columnText = columns.length ? `\n  ${columns.join(",\n  ")}\n` : "";
+  return `${prefix} (${columnText})${suffix ? `\n${suffix}` : ""}`.trim();
+}
+
 function formatSql(text) {
+  if (isDdlLike(text)) return formatDdlSql(text);
   const prepared = String(text || "")
     .replace(/\r\n/g, "\n")
     .replace(/\t/g, "  ")
@@ -525,6 +634,13 @@ function renderMarkdownImage(line) {
   `;
 }
 
+function renderMarkdownHeading(line) {
+  const match = String(line || "").trim().match(/^(#{1,6})\s+(.+)$/);
+  if (!match) return "";
+  const level = match[1].length;
+  return `<h${level}>${formatInlineRichText(match[2])}</h${level}>`;
+}
+
 function renderSimpleList(lines, startIndex) {
   const items = [];
   let index = startIndex;
@@ -538,6 +654,25 @@ function renderSimpleList(lines, startIndex) {
   return {
     nextIndex: index,
     html: `<ul>${items.map(item => `<li>${formatInlineRichText(item)}</li>`).join("")}</ul>`
+  };
+}
+
+function renderFencedCodeBlock(lines, startIndex) {
+  const startMatch = String(lines[startIndex] || "").trim().match(/^```([\w#+.-]*)\s*$/);
+  if (!startMatch) return null;
+  const language = startMatch[1] || "";
+  const code = [];
+  let index = startIndex + 1;
+  while (index < lines.length && String(lines[index] || "").trim() !== "```") {
+    code.push(lines[index]);
+    index += 1;
+  }
+  const nextIndex = index < lines.length ? index + 1 : index;
+  return {
+    nextIndex,
+    html: `
+      <pre class="article-code" data-language="${escapeHtml(language || "code")}"><code>${escapeHtml(code.join("\n"))}</code></pre>
+    `
   };
 }
 
@@ -625,6 +760,18 @@ function formatArticleMarkdown(content) {
       continue;
     }
     if (isIgnorableArticleLine(line)) {
+      index += 1;
+      continue;
+    }
+    const codeBlock = renderFencedCodeBlock(lines, index);
+    if (codeBlock) {
+      html.push(codeBlock.html);
+      index = codeBlock.nextIndex;
+      continue;
+    }
+    const heading = renderMarkdownHeading(line);
+    if (heading) {
+      html.push(heading);
       index += 1;
       continue;
     }
@@ -1455,6 +1602,27 @@ async function deleteArticle(id) {
   await loadState();
 }
 
+function openImagePreview(img) {
+  const preview = $("#imagePreview");
+  const previewImg = $("#imagePreviewImg");
+  if (!preview || !previewImg || !img?.src) return;
+  previewImg.src = img.src;
+  previewImg.alt = img.alt || "文章图片预览";
+  preview.classList.remove("hidden");
+  preview.setAttribute("aria-hidden", "false");
+  document.body.classList.add("preview-open");
+}
+
+function closeImagePreview() {
+  const preview = $("#imagePreview");
+  const previewImg = $("#imagePreviewImg");
+  if (!preview || preview.classList.contains("hidden")) return;
+  preview.classList.add("hidden");
+  preview.setAttribute("aria-hidden", "true");
+  if (previewImg) previewImg.src = "";
+  document.body.classList.remove("preview-open");
+}
+
 function bindEvents() {
   $$(".nav-item").forEach(button => button.addEventListener("click", () => setView(button.dataset.view)));
   $$("[data-jump]").forEach(button => button.addEventListener("click", () => setView(button.dataset.jump)));
@@ -1519,6 +1687,9 @@ function bindEvents() {
   $("#newArticleBtn").addEventListener("click", newArticle);
 
   document.body.addEventListener("click", event => {
+    const preview = event.target.closest("#imagePreview");
+    const closePreviewButton = event.target.closest(".image-preview-close");
+    const articleImage = event.target.closest(".article-content img");
     const richActionButton = event.target.closest("[data-rich-action]");
     const richColorButton = event.target.closest("[data-rich-color]");
     const richImageButton = event.target.closest("[data-rich-image]");
@@ -1537,6 +1708,16 @@ function bindEvents() {
     const deleteArticleButton = event.target.closest("[data-delete-article]");
     const toggleArticleGroupButton = event.target.closest("[data-toggle-article-group]");
     const articleNavButton = event.target.closest("[data-article-nav]");
+    if (closePreviewButton || (preview && event.target.id === "imagePreview")) {
+      closeImagePreview();
+      return;
+    }
+    if (articleImage) {
+      event.preventDefault();
+      event.stopPropagation();
+      openImagePreview(articleImage);
+      return;
+    }
     if (richImageButton) {
       const editor = richImageButton.closest(".rich-editor");
       editor?.querySelector(".rich-image-input")?.click();
@@ -1663,6 +1844,9 @@ function bindEvents() {
       state.articleDetailId = "";
       renderArticles();
     }
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeImagePreview();
   });
 
   document.body.addEventListener("change", async event => {

@@ -455,28 +455,59 @@ flex-wrap: wrap;
 .rich-html-input h2,
 .rich-html-input h3,
 .rich-html-input h4,
+.rich-html-input h5,
+.rich-html-input h6,
 .rich-article-html h1,
 .rich-article-html h2,
 .rich-article-html h3,
-.rich-article-html h4 {
+.rich-article-html h4,
+.rich-article-html h5,
+.rich-article-html h6,
+.article-content-text h1,
+.article-content-text h2,
+.article-content-text h3,
+.article-content-text h4,
+.article-content-text h5,
+.article-content-text h6 {
   margin: 18px 0 10px;
   color: var(--text);
   line-height: 1.35;
 }
 
 .rich-html-input h1,
-.rich-article-html h1 {
+.rich-article-html h1,
+.article-content-text h1 {
   font-size: 28px;
 }
 
 .rich-html-input h2,
-.rich-article-html h2 {
+.rich-article-html h2,
+.article-content-text h2 {
   font-size: 24px;
 }
 
 .rich-html-input h3,
-.rich-article-html h3 {
+.rich-article-html h3,
+.article-content-text h3 {
   font-size: 20px;
+}
+
+.rich-html-input h4,
+.rich-article-html h4,
+.article-content-text h4 {
+  font-size: 18px;
+}
+
+.rich-html-input h5,
+.rich-article-html h5,
+.article-content-text h5 {
+  font-size: 16px;
+}
+
+.rich-html-input h6,
+.rich-article-html h6,
+.article-content-text h6 {
+  font-size: 15px;
 }
 
 .rich-html-input p,
@@ -735,6 +766,24 @@ label {
   height: 4px;
 }
 
+.article-code {
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid #d6e4dc;
+  border-radius: var(--radius);
+  background: #f8fbfa;
+  color: #10251c;
+  font-family: Consolas, "Cascadia Mono", "SFMono-Regular", Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.58;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.article-code code {
+  font: inherit;
+}
+
 .article-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -786,12 +835,64 @@ label {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: #ffffff;
+  cursor: zoom-in;
 }
 
 .article-image figcaption {
   color: var(--muted);
   font-size: 12px;
   line-height: 18px;
+}
+
+.rich-article-html img {
+  cursor: zoom-in;
+}
+
+.preview-open {
+  overflow: hidden;
+}
+
+.image-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 48px;
+  background: rgba(10, 18, 14, 0.82);
+}
+
+.image-preview.hidden {
+  display: none;
+}
+
+.image-preview img {
+  max-width: min(100%, 1200px);
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius);
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+  cursor: zoom-out;
+}
+
+.image-preview-close {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.image-preview-close:hover {
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .qa-question small {
@@ -860,6 +961,11 @@ label {
 
 .qa-question-prompt {
   font-weight: 750;
+}
+
+.qa-question-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .qa-question-options {
