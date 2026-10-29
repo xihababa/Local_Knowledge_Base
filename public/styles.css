@@ -1030,9 +1030,11 @@ label {
 }
 
 .qa-code {
+  position: relative;
   margin: 0;
-  padding: 14px 16px;
+  padding: 34px 16px 14px;
   border: 1px solid #d6e4dc;
+  border-left: 4px solid var(--brand-strong);
   border-radius: var(--radius);
   background: #f8fbfa;
   color: #10251c;
@@ -1041,6 +1043,22 @@ label {
   line-height: 1.55;
   overflow-x: auto;
   white-space: pre;
+}
+
+.qa-code::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #d9f7e8;
+  color: #0d6b4f;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 18px;
+  letter-spacing: 0;
 }
 
 .qa-code code {

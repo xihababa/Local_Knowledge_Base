@@ -169,7 +169,7 @@ function formatQuestion(question) {
     const sql = text.slice(sqlStart).trim();
     return `
       <div class="qa-question-text">${formatInlineRichText(prompt)}</div>
-      <pre class="qa-code"><code>${escapeHtml(formatQuestionSql(sql))}</code></pre>
+      <pre class="qa-code" data-language="SQL"><code>${escapeHtml(formatQuestionSql(sql))}</code></pre>
     `;
   }
   const normalized = text
@@ -177,13 +177,13 @@ function formatQuestion(question) {
     .split(/\n+/)
     .map(line => line.trim())
     .filter(Boolean);
-  const preview = questionPreview(text);
   const options = normalized.filter(line => /^\d+[.、）)]\s*/.test(line));
   if (!options.length) {
     return `<div class="qa-question-text">${formatInlineRichText(text)}</div>`;
   }
+  const prompt = normalized.filter(line => !/^\d+[.、）)]\s*/.test(line)).join("\n");
   return `
-    <div class="qa-question-prompt">${escapeHtml(preview)}</div>
+    ${prompt ? `<div class="qa-question-text">${formatInlineRichText(prompt)}</div>` : ""}
     <div class="qa-question-options">
       ${options.map(option => `<div class="qa-question-option">${escapeHtml(option)}</div>`).join("")}
     </div>
@@ -355,7 +355,7 @@ function tagsHtml(tags = []) {
 }
 
 function findEmbeddedSqlStart(text) {
-  const match = String(text || "").match(/\b(?:CREATE\s+(?:EXTERNAL\s+)?TABLE|WITH\s+|SELECT\s+|INSERT\s+)/i);
+  const match = String(text || "").match(/(^|\n)[ \t]*(?:CREATE\s+(?:EXTERNAL\s+)?TABLE|WITH\b|SELECT\b|INSERT\b)/i);
   return match ? match.index : -1;
 }
 
@@ -364,10 +364,25 @@ function isDdlLike(text) {
 }
 
 function isSqlLike(text) {
-  const source = String(text || "").toLowerCase();
+  const source = String(text || "");
   if (isDdlLike(source)) return true;
-  const keywords = ["select", " from ", " where ", " join ", " group by ", " order by ", " partition by ", " over ", "with "];
-  return source.includes("select") && keywords.filter(keyword => source.includes(keyword)).length >= 2;
+  const hasSqlStart = /\b(?:SELECT|WITH|INSERT\s+(?:INTO|OVERWRITE)|CREATE\s+(?:EXTERNAL\s+)?TABLE)\b/i.test(source);
+  if (!hasSqlStart) return false;
+  const keywordPattern = /\b(?:FROM|WHERE|JOIN|GROUP\s+BY|ORDER\s+BY|HAVING|PARTITION\s+BY|OVER|UNION|VALUES|ROW_NUMBER|COUNT|SUM|AVG|MIN|MAX)\b/i;
+  const keywordMatches = source.match(new RegExp(keywordPattern.source, "gi")) || [];
+  return keywordMatches.length >= 1 || /\n\s*(?:FROM|WHERE|JOIN|GROUP\s+BY|ORDER\s+BY)\b/i.test(source);
+}
+
+function isMixedProseSqlAnswer(text) {
+  const firstLine = String(text || "")
+    .split("\n")
+    .map(line => line.trim())
+    .find(Boolean);
+  if (!firstLine) return false;
+  if (/^(?:--|\/\*|WITH\b|SELECT\b|INSERT\b|CREATE\s+(?:EXTERNAL\s+)?TABLE\b|SET\b|TRUNCATE\b)/i.test(firstLine)) {
+    return false;
+  }
+  return /[\u4e00-\u9fa5]/.test(firstLine) && /\b(?:SELECT|INSERT|CREATE\s+(?:EXTERNAL\s+)?TABLE|SET|DISTRIBUTE\s+BY)\b/i.test(text);
 }
 
 function splitSqlTopLevelList(text) {
@@ -451,14 +466,28 @@ function formatDdlSql(text) {
 
 function formatSql(text) {
   if (isDdlLike(text)) return formatDdlSql(text);
-  const prepared = String(text || "")
+  const rawLines = String(text || "")
     .replace(/\r\n/g, "\n")
     .replace(/\t/g, "  ")
+    .replace(/([^\n])\s+(?=(?:SELECT|WITH|INSERT\s+(?:INTO|OVERWRITE)|CREATE\s+(?:EXTERNAL\s+)?TABLE)\b)/gi, "$1\n")
+    .replace(/\s+--\s*/g, "\n-- ")
     .split("\n")
     .map(line => line.trim())
-    .filter(Boolean)
+    .filter(Boolean);
+  const normalizedLines = [];
+  rawLines.forEach(line => {
+    if (/^,\s*/.test(line) && normalizedLines.length) {
+      normalizedLines[normalizedLines.length - 1] = normalizedLines[normalizedLines.length - 1].replace(/\s*,?\s*$/, ",");
+      const nextLine = line.replace(/^,\s*/, "").trim();
+      if (nextLine) normalizedLines.push(nextLine);
+      return;
+    }
+    normalizedLines.push(line);
+  });
+  const prepared = normalizedLines
     .join("\n")
-    .replace(/\s+(FROM|WHERE|LEFT JOIN|RIGHT JOIN|INNER JOIN|JOIN|GROUP BY|ORDER BY|HAVING|PARTITION BY|OVER|ROWS BETWEEN|LIMIT)\b/gi, "\n$1")
+    .replace(/\bselect\s+(?=[A-Za-z_*])/gi, "select\n  ")
+    .replace(/\s+(FROM|WHERE|LEFT JOIN|RIGHT JOIN|INNER JOIN|JOIN|GROUP BY|ORDER BY|HAVING|PARTITION BY|ROWS BETWEEN|LIMIT)\b/gi, "\n$1")
     .replace(/\s+(AND|OR)\s+/gi, "\n  $1 ")
     .replace(/,\s*(?=[A-Za-z_][A-Za-z0-9_]*(?:\s|,|\)|$))/g, ",\n  ")
     .replace(/\n{2,}/g, "\n")
@@ -488,8 +517,8 @@ function formatQaAnswer(answer) {
     .trim()
     .replace(/\r\n/g, "\n");
   if (!normalized) return `<p class="answer-placeholder">答案待补充</p>`;
-  if (isSqlLike(normalized)) {
-    return `<pre class="qa-code"><code>${escapeHtml(formatSql(normalized))}</code></pre>`;
+  if (isSqlLike(normalized) && !isMixedProseSqlAnswer(normalized)) {
+    return `<pre class="qa-code" data-language="SQL"><code>${escapeHtml(formatSql(normalized))}</code></pre>`;
   }
   return `<div class="qa-answer-plain">${formatRichAnswer(normalized)}</div>`;
 }
