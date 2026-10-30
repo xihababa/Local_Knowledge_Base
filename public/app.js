@@ -12,7 +12,7 @@ const state = {
   qaMode: "exam",
   qaDetailId: "",
   qaAnswerVisible: false,
-  collapsedQaGroups: new Set(),
+  expandedQaGroups: new Set(),
   articleTag: "",
   articleQuery: "",
   articleDetailId: "",
@@ -1056,7 +1056,7 @@ function groupQasByTag(qas) {
 }
 
 function qaGroupCard(group) {
-  const collapsed = state.collapsedQaGroups.has(group.tag);
+  const collapsed = !state.expandedQaGroups.has(group.tag);
   return `
     <section class="qa-group${collapsed ? " collapsed" : ""}">
       <div class="qa-group-title">
@@ -1790,10 +1790,10 @@ function bindEvents() {
     }
     if (toggleQaGroupButton) {
       const tag = toggleQaGroupButton.dataset.toggleQaGroup;
-      if (state.collapsedQaGroups.has(tag)) {
-        state.collapsedQaGroups.delete(tag);
+      if (state.expandedQaGroups.has(tag)) {
+        state.expandedQaGroups.delete(tag);
       } else {
-        state.collapsedQaGroups.add(tag);
+        state.expandedQaGroups.add(tag);
       }
       renderQas();
       return;
