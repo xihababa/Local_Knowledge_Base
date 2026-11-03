@@ -523,6 +523,23 @@ function formatQaAnswer(answer) {
   return `<div class="qa-answer-plain">${formatRichAnswer(normalized)}</div>`;
 }
 
+function qaAnswerSizeClass(answer) {
+  const normalized = String(answer || "")
+    .trim()
+    .replace(/\r\n/g, "\n");
+  if (!normalized || isSqlLike(normalized)) return "";
+  const plainText = normalized
+    .replace(/\*\*([^*\n]+)\*\*/g, "$1")
+    .replace(/\[([^\]\n]+)\]\{color=#[0-9a-fA-F]{6}\}/g, "$1")
+    .replace(/\[([^\]\n]+)\]\(https?:\/\/[^)\s]+\)/g, "$1")
+    .replace(/^[-*]\s+/gm, "")
+    .replace(/\s+/g, "");
+  const lines = normalized.split("\n").filter(line => line.trim()).length;
+  if (plainText.length <= 180 && lines <= 2) return " qa-answer--short";
+  if (plainText.length <= 320 && lines <= 4) return " qa-answer--medium";
+  return "";
+}
+
 function formatInlineRichText(text) {
   const pattern = /(\*\*([^*\n]+)\*\*)|(\[([^\]\n]{1,200})\]\{color=(#[0-9a-fA-F]{6})\})|(\[([^\]\n]{1,300})\]\((https?:\/\/[^)\s]+)\))/g;
   let result = "";
@@ -1078,7 +1095,7 @@ function qaGroupCard(group) {
 function qaDetailCard(qa, index, total = 0) {
   const showAnswer = state.qaMode === "review" || state.qaAnswerVisible;
   const answerHtml = showAnswer
-    ? `<div class="qa-answer">${formatQaAnswer(qa.answer)}</div>`
+    ? `<div class="qa-answer${qaAnswerSizeClass(qa.answer)}">${formatQaAnswer(qa.answer)}</div>`
     : `<button class="primary" data-show-answer="${qa.id}">显示答案</button>`;
   const indexHtml = Number.isInteger(index) && index >= 0
     ? `<span class="qa-question-index qa-detail-index">${index + 1}</span>`

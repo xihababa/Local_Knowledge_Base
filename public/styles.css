@@ -990,9 +990,19 @@ label {
   padding: 16px 18px;
   background: #fbfdfc;
   color: var(--text);
+  font-size: 15px;
   line-height: 1.78;
   display: grid;
   gap: 12px;
+}
+
+.qa-answer--medium {
+  font-size: 18px;
+}
+
+.qa-answer--short {
+  font-size: 20px;
+  line-height: 1.62;
 }
 
 .qa-answer p {
@@ -1302,6 +1312,14 @@ dialog::backdrop {
 
   .qa-answer {
     padding: 12px;
+  }
+
+  .qa-answer--medium {
+    font-size: 16.5px;
+  }
+
+  .qa-answer--short {
+    font-size: 18px;
   }
 
   .qa-code {
