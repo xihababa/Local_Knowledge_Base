@@ -22,6 +22,34 @@ const state = {
 const $ = selector => document.querySelector(selector);
 const $$ = selector => Array.from(document.querySelectorAll(selector));
 
+const QA_TAG_ORDER = [
+  "数仓基础",
+  "Sql练习",
+  "SQL练习",
+  "Hive",
+  "Hbase",
+  "HBase",
+  "Kafka",
+  "Spark",
+  "Spark SQL",
+  "Flink",
+  "Doris",
+  "Paimon",
+  "Agent开发"
+];
+
+const QA_TAG_RANK = new Map(QA_TAG_ORDER.map((tag, index) => [tag, index]));
+
+function tagSortRank(tag) {
+  return QA_TAG_RANK.has(tag) ? QA_TAG_RANK.get(tag) : QA_TAG_ORDER.length;
+}
+
+function compareTags(left, right) {
+  const rankDiff = tagSortRank(left) - tagSortRank(right);
+  if (rankDiff !== 0) return rankDiff;
+  return String(left || "").localeCompare(String(right || ""), "zh-Hans-CN");
+}
+
 function qaCreatedTime(qa) {
   const time = Date.parse(qa?.createdAt || "");
   return Number.isNaN(time) ? 0 : time;
@@ -973,7 +1001,7 @@ function allTags() {
     ...state.entries.flatMap(entry => entry.tags || []),
     ...state.qas.flatMap(qa => qa.tags || []),
     ...state.articles.flatMap(article => article.tags || [])
-  ])).filter(Boolean);
+  ])).filter(Boolean).sort(compareTags);
 }
 
 function renderFilters() {
@@ -1069,7 +1097,7 @@ function groupQasByTag(qas) {
     }
     index.get(groupTag).items.push({ qa, order });
   });
-  return groups;
+  return groups.sort((left, right) => compareTags(left.tag, right.tag));
 }
 
 function qaGroupCard(group) {
