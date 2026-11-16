@@ -189,6 +189,10 @@ function questionPreview(question) {
   return firstLine;
 }
 
+function isQuestionOptionLine(line) {
+  return /^(?:\d{1,2}[、）)]\s*\S|\d{1,2}\.(?!\d)\s*\S)/.test(String(line || "").trim());
+}
+
 function formatQuestion(question) {
   const text = String(question || "").trim().replace(/\r\n/g, "\n");
   const sqlStart = findEmbeddedSqlStart(text);
@@ -201,15 +205,15 @@ function formatQuestion(question) {
     `;
   }
   const normalized = text
-    .replace(/\s+(?=\d+[.、）)]\s*)/g, "\n")
+    .replace(/\s+(?=\d{1,2}[、）)]\s*\S|\d{1,2}\.(?!\d)\s*\S)/g, "\n")
     .split(/\n+/)
     .map(line => line.trim())
     .filter(Boolean);
-  const options = normalized.filter(line => /^\d+[.、）)]\s*/.test(line));
+  const options = normalized.filter(isQuestionOptionLine);
   if (!options.length) {
     return `<div class="qa-question-text">${formatInlineRichText(text)}</div>`;
   }
-  const prompt = normalized.filter(line => !/^\d+[.、）)]\s*/.test(line)).join("\n");
+  const prompt = normalized.filter(line => !isQuestionOptionLine(line)).join("\n");
   return `
     ${prompt ? `<div class="qa-question-text">${formatInlineRichText(prompt)}</div>` : ""}
     <div class="qa-question-options">
