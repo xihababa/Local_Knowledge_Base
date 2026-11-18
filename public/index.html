@@ -65,6 +65,23 @@
           </article>
         </div>
 
+        <section class="panel wheel-panel">
+          <div class="panel-head">
+            <h3>今日复习转盘</h3>
+            <span class="pill" id="wheelCategoryCount">0 个类别</span>
+          </div>
+          <div class="wheel-layout">
+            <div class="wheel-stage">
+              <div class="wheel-pointer" aria-hidden="true"></div>
+              <svg id="reviewWheel" class="review-wheel" viewBox="0 0 320 320" role="img" aria-label="复习类别随机转盘"></svg>
+              <button class="wheel-center" id="wheelSpinBtn" type="button">开始</button>
+            </div>
+            <div class="wheel-result" id="wheelResult">
+              <p class="wheel-result-hint">点击转盘中间的「开始」，随机抽取今天要复习的题库类别。</p>
+            </div>
+          </div>
+        </section>
+
         <div class="two-column">
           <section class="panel">
             <div class="panel-head">

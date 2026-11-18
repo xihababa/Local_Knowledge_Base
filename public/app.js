@@ -16,7 +16,10 @@ const state = {
   articleTag: "",
   articleQuery: "",
   articleDetailId: "",
-  collapsedArticleGroups: new Set()
+  collapsedArticleGroups: new Set(),
+  wheelRotation: 0,
+  wheelSpinning: false,
+  wheelCategory: ""
 };
 
 const $ = selector => document.querySelector(selector);
@@ -1019,12 +1022,124 @@ function renderFilters() {
   $("#articleTagFilter").value = state.articleTag;
 }
 
+const WHEEL_COLORS = [
+  "#0f9f64", "#14b8a6", "#22c55e", "#84cc16",
+  "#f59e0b", "#f97316", "#ef4444", "#ec4899",
+  "#a855f7", "#6366f1", "#3b82f6", "#06b6d4"
+];
+
+const WHEEL_SIZE = 320;
+const WHEEL_RADIUS = 148;
+const WHEEL_SPIN_MS = 4200;
+
+function qaCategories() {
+  const counts = new Map();
+  state.qas.forEach(qa => {
+    const tag = (qa.tags && qa.tags[0]) || "未打标签";
+    counts.set(tag, (counts.get(tag) || 0) + 1);
+  });
+  return Array.from(counts.entries())
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((left, right) => compareTags(left.tag, right.tag));
+}
+
+function wheelPoint(radius, angle) {
+  const rad = angle * Math.PI / 180;
+  return {
+    x: WHEEL_SIZE / 2 + radius * Math.sin(rad),
+    y: WHEEL_SIZE / 2 - radius * Math.cos(rad)
+  };
+}
+
+function renderReviewWheel() {
+  const svg = $("#reviewWheel");
+  if (!svg) return;
+  const categories = qaCategories();
+  const countPill = $("#wheelCategoryCount");
+  if (countPill) countPill.textContent = `${categories.length} 个类别`;
+  if (!categories.length) {
+    svg.innerHTML = "";
+    return;
+  }
+  const center = WHEEL_SIZE / 2;
+  const segment = 360 / categories.length;
+  const segments = categories.map((category, index) => {
+    const startAngle = index * segment;
+    const endAngle = (index + 1) * segment;
+    const start = wheelPoint(WHEEL_RADIUS, startAngle);
+    const end = wheelPoint(WHEEL_RADIUS, endAngle);
+    const largeArc = segment > 180 ? 1 : 0;
+    const color = WHEEL_COLORS[index % WHEEL_COLORS.length];
+    const midAngle = startAngle + segment / 2;
+    const label = wheelPoint(WHEEL_RADIUS * 0.66, midAngle);
+    const labelRotation = midAngle > 90 && midAngle < 270 ? midAngle + 180 : midAngle;
+    const labelText = category.tag.length > 10 ? `${category.tag.slice(0, 10)}…` : category.tag;
+    return `
+      <path d="M ${center} ${center} L ${start.x.toFixed(2)} ${start.y.toFixed(2)} A ${WHEEL_RADIUS} ${WHEEL_RADIUS} 0 ${largeArc} 1 ${end.x.toFixed(2)} ${end.y.toFixed(2)} Z" fill="${color}" stroke="#ffffff" stroke-width="1.5"></path>
+      <text x="${label.x.toFixed(2)}" y="${label.y.toFixed(2)}" transform="rotate(${labelRotation.toFixed(2)} ${label.x.toFixed(2)} ${label.y.toFixed(2)})" text-anchor="middle" dominant-baseline="middle" class="wheel-label">${escapeHtml(labelText)}</text>
+    `;
+  }).join("");
+  svg.innerHTML = `
+    <circle cx="${center}" cy="${center}" r="${WHEEL_RADIUS}" fill="none" stroke="rgba(23,32,27,0.12)" stroke-width="2"></circle>
+    <g class="wheel-rotor" style="transform: rotate(${state.wheelRotation}deg);">${segments}</g>
+  `;
+}
+
+function spinReviewWheel() {
+  if (state.wheelSpinning) return;
+  const categories = qaCategories();
+  if (!categories.length) return;
+  state.wheelSpinning = true;
+  const picked = Math.floor(Math.random() * categories.length);
+  const segment = 360 / categories.length;
+  const segmentCenter = picked * segment + segment / 2;
+  const offset = (Math.random() - 0.5) * segment * 0.6;
+  const targetMod = (360 - segmentCenter + offset + 360) % 360;
+  const currentMod = ((state.wheelRotation % 360) + 360) % 360;
+  const delta = (targetMod - currentMod + 360) % 360;
+  state.wheelRotation += 360 * 5 + delta;
+
+  const rotor = $("#reviewWheel .wheel-rotor");
+  const button = $("#wheelSpinBtn");
+  const result = $("#wheelResult");
+  button.textContent = "转动中…";
+  button.disabled = true;
+  if (rotor) rotor.style.transform = `rotate(${state.wheelRotation}deg)`;
+  result.innerHTML = `<p class="wheel-result-hint">转盘转动中，看看今天翻牌哪个类别…</p>`;
+
+  setTimeout(() => {
+    state.wheelSpinning = false;
+    button.disabled = false;
+    button.textContent = "再转一次";
+    const category = categories[picked];
+    state.wheelCategory = category.tag;
+    result.innerHTML = `
+      <div class="wheel-result-tag">今天复习</div>
+      <div class="wheel-result-name">${escapeHtml(category.tag)}</div>
+      <div class="wheel-result-meta">共 ${category.count} 题，安排上</div>
+      <button class="primary" type="button" data-wheel-go="${escapeHtml(category.tag)}">去复习该类别</button>
+    `;
+  }, WHEEL_SPIN_MS + 100);
+}
+
+function goReviewCategory(tag) {
+  state.qaTag = tag;
+  state.qaDetailId = "";
+  state.qaAnswerVisible = false;
+  const filter = $("#qaTagFilter");
+  if (filter) filter.value = tag;
+  renderQas();
+  setView("qa");
+}
+
 function renderDashboard() {
   const tags = allTags();
   $("#entryCount").textContent = state.entries.length;
   $("#qaCount").textContent = state.qas.length;
   $("#articleCount").textContent = state.articles.length;
   $("#tagCount").textContent = tags.length;
+
+  renderReviewWheel();
 
   const recent = state.entries.slice(0, 5);
   $("#recentEntries").innerHTML = recent.length
@@ -1760,6 +1875,11 @@ function bindEvents() {
   $("#randomQaBtn").addEventListener("click", () => randomQa("#randomQaBox"));
   $("#dashboardRandomBtn").addEventListener("click", () => {
     renderDashboard();
+  });
+  $("#wheelSpinBtn").addEventListener("click", spinReviewWheel);
+  $("#wheelResult").addEventListener("click", event => {
+    const goButton = event.target.closest("[data-wheel-go]");
+    if (goButton) goReviewCategory(goButton.dataset.wheelGo);
   });
   $("#newQaBtn").addEventListener("click", newQa);
   $("#newArticleBtn").addEventListener("click", newArticle);
